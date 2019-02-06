@@ -4,7 +4,7 @@
 
   Authors:  Your professors (for the framework)
     and Robert Kreft.
-  Winter term, 2018-2019.
+  Winter term, 2018-2019
 """
 
 import mqtt_remote_method_calls as com
