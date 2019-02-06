@@ -74,15 +74,25 @@ class DriveSystem(object):
 
     def go(self, left_wheel_speed, right_wheel_speed):
         """ Makes the left and right wheel motors spin at the given speeds. """
+        self.left_motor.turn_on(left_wheel_speed)
+        self.right_motor.turn_on(right_wheel_speed)
 
     def stop(self):
         """ Stops the left and right wheel motors. """
+        self.left_motor.turn_off()
+        self.right_motor.turn_off()
 
     def go_straight_for_seconds(self, seconds, speed):
         """
         Makes the robot go straight (forward if speed > 0, else backward)
         at the given speed for the given number of seconds.
         """
+        start = time.time()
+        self.go(speed, speed)
+        while True:
+            if time.time() - start >= seconds:
+                self.stop()
+                break
 
     def go_straight_for_inches_using_time(self, inches, speed):
         """
@@ -90,6 +100,10 @@ class DriveSystem(object):
         for the given number of inches, using the approximate
         conversion factor of 10.0 inches per second at 100 (full) speed.
         """
+        inches_per_second_at_100 = 10.0  # 1 sec = 10 inches at 100 speed
+        seconds = abs(inches * inches_per_second_at_100 / speed)
+        self.go_straight_for_seconds(seconds, speed)
+
 
     def go_straight_for_inches_using_encoder(self, inches, speed):
         """
@@ -97,6 +111,13 @@ class DriveSystem(object):
         at the given speed for the given number of inches,
         using the encoder (degrees traveled sensor) built into the motors.
         """
+        inchesperdegree = 1.3 * math.pi / 360
+        self.left_motor.reset_position()
+        self.go(speed, speed)
+        while True:
+            if abs(self.left_motor.get_position() * inchesperdegree) >= inches:
+                self.stop()
+                break
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the color sensor.
