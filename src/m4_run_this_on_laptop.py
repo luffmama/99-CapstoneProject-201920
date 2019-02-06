@@ -3,8 +3,8 @@
   Displays the Graphical User Interface (GUI) and communicates with the robot.
 
   Authors:  Your professors (for the framework)
-    and PUT_YOUR_NAME_HERE.
-  Winter term, 2018-2019.
+    and Robert Kreft.
+  Winter term, 2018-2019
 """
 
 import mqtt_remote_method_calls as com
