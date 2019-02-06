@@ -11,11 +11,17 @@ import time
 
 
 def main():
+    run_test_arm()
     """
     This code, which must run on the EV3 ROBOT:
       1. Makes the EV3 robot to various things.
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
+
+def run_test_arm():
+    robot = rosebot.RoseBot()
+    robot.arm_and_claw.move_arm_to_position(10*360)
+    robot.arm_and_claw.lower_arm()
 
 
 # -----------------------------------------------------------------------------
