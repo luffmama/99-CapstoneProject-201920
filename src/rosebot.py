@@ -192,7 +192,7 @@ class ArmAndClaw(object):
 
     def raise_arm(self):
         """ Raises the Arm until its touch sensor is pressed. """
-        self.motor.turn_on(50)
+        self.motor.turn_on(100)
         while True:
             if self.touch_sensor.is_pressed():
                 self.motor.turn_off()
@@ -209,7 +209,7 @@ class ArmAndClaw(object):
         """
         self.raise_arm()
         self.motor.reset_position()
-        self.motor.turn_on(-50)
+        self.motor.turn_on(-100)
         while True:
             if self.motor.get_position()<=-14.2*360:
                 self.motor.turn_off()
@@ -221,7 +221,7 @@ class ArmAndClaw(object):
         Move its Arm to the given position, where 0 means all the way DOWN.
         The robot must have previously calibrated its Arm.
         """
-        self.motor.turn_on(50)
+        self.motor.turn_on(100)
         while True:
             if self.motor.get_position()>=desired_arm_position: #desired_arm_position given in degrees
                 self.motor.turn_off()
@@ -232,7 +232,7 @@ class ArmAndClaw(object):
         Lowers the Arm until it is all the way down, i.e., position 0.
         The robot must have previously calibrated its Arm.
         """
-        self.motor.turn_on(-50)
+        self.motor.turn_on(-100)
         while True:
             if self.motor.get_position()<=0:
                 self.motor.turn_off()
@@ -250,15 +250,14 @@ class SensorSystem(object):
     def __init__(self):
         self.touch_sensor = TouchSensor(1)
         # These need the port numbers
-        # self.color_sensor = ColorSensor()
-        # self.ir_proximity_sensor = InfraredProximitySensor()
+        self.color_sensor = ColorSensor(3)
+        self.ir_proximity_sensor = InfraredProximitySensor(4)
         # self.ir_beacon_sensor = InfraredBeaconSensor()
 
         # These need some configuration
         # self.beacon_system =
         # self.display_system =
         # self.camera =
-
 
 ###############################################################################
 #    SoundSystem
