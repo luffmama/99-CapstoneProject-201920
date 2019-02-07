@@ -18,6 +18,10 @@ def main():
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
     real_thing()
+    # Song
+def play_song():
+    # mary_had_a_little_lamb
+    pass
 
 def real_thing():
     bot = rosebot.RoseBot()
