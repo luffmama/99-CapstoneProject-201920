@@ -18,7 +18,8 @@ def main():
     """
     # run_test_arm()
     # run_test_drive()
-    real_thing()
+    # real_thing()
+    run_test_proximity_sensor()
 
 def run_test_arm():
     robot = rosebot.RoseBot()
@@ -40,14 +41,24 @@ def run_test_drive():
     time.sleep(5)
     robot.drive_system.go_straight_for_inches_using_encoder(24,100)
 
+def run_test_proximity_sensor():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go_backward_until_distance_is_greater_than(24,100)
+    #time.sleep(3)
+    # robot.drive_system.go_forward_until_distance_is_less_than(12,100)
+    #time.sleep(3)
+    #robot.drive_system.go_until_distance_is_within(6,100)
+
 def real_thing():
     robot = rosebot.RoseBot()
-    delegate_that_receives = shared_gui_delegate_on_robot.DelegateThatReceives(robot)
+    delegate_that_receives = shared_gui_delegate_on_robot.DelagateThatReceives(robot)
     mqtt_receiver = com.MqttClient(delegate_that_receives)
     mqtt_receiver.connect_to_pc()
 
     while True:
         time.sleep(0.01)
+        if delegate_that_receives.quit():
+            break
 
 
 # -----------------------------------------------------------------------------
