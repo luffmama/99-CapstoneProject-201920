@@ -18,8 +18,8 @@ def main():
     """
     # run_test_arm()
     # run_test_drive()
-    # real_thing()
-    run_test_proximity_sensor()
+    real_thing()
+    # run_test_proximity_sensor()
 
 def run_test_arm():
     robot = rosebot.RoseBot()
@@ -43,9 +43,13 @@ def run_test_drive():
 
 def run_test_proximity_sensor():
     robot = rosebot.RoseBot()
-    robot.drive_system.go_backward_until_distance_is_greater_than(24,100)
+    #robot.drive_system.go_backward_until_distance_is_greater_than(24,100)
     #time.sleep(3)
-    # robot.drive_system.go_forward_until_distance_is_less_than(12,100)
+    #robot.drive_system.go_forward_until_distance_is_less_than(12,100)
+    while True:
+        print(robot.sensor_system.ir_proximity_sensor.get_distance())
+        time.sleep(0.5)
+
     #time.sleep(3)
     #robot.drive_system.go_until_distance_is_within(6,100)
 
@@ -57,8 +61,8 @@ def real_thing():
 
     while True:
         time.sleep(0.01)
-        if delegate_that_receives.quit():
-            break
+        #if delegate_that_receives.quit() == True:
+            #break
 
 
 # -----------------------------------------------------------------------------
