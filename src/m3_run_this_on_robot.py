@@ -27,6 +27,8 @@ def real_thing():
 
     while True:
         time.sleep(0.01)
+        if delegate_that_receives.quit():
+            break
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
