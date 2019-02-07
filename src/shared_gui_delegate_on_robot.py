@@ -40,6 +40,6 @@ class DelagateThatReceives(object):
     def move_arm_to_position(self, arm_position_entry):
         self.robot.arm_and_claw.move_arm_to_position(arm_position_entry)
 
-    def quit(self):
-        self.quit = True
+    #def quit(self):
+        #self.quit = True
 
