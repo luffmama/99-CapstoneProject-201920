@@ -188,7 +188,9 @@ def handle_left(left_entry_box, right_entry_box, mqtt_sender):
       :type  right_entry_box:  ttk.Entry
       :type  mqtt_sender:      com.MqttClient
     """
-
+    print("left",left_entry_box,right_entry_box)
+    mqtt_sender.send_message("left",[left_entry_box,
+                                     right_entry_box])
 
 def handle_right(left_entry_box, right_entry_box, mqtt_sender):
     """
@@ -198,13 +200,16 @@ def handle_right(left_entry_box, right_entry_box, mqtt_sender):
       :type  right_entry_box:  ttk.Entry
       :type  mqtt_sender:      com.MqttClient
     """
-
+    print("right",left_entry_box,right_entry_box)
+    mqtt_sender.send_message("right",[left_entry_box,right_entry_box])
 
 def handle_stop(mqtt_sender):
     """
     Tells the robot to stop.
       :type  mqtt_sender:  com.MqttClient
     """
+    print("stop")
+    mqtt_sender.send_message("stop")
 
 
 ###############################################################################
