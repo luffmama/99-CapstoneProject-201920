@@ -144,7 +144,7 @@ class DriveSystem(object):
         """
         self.go(speed, speed)
         while True:
-            if self.sensor_system.color_sensor.get_reflected_light_intensity() >= intensity: #higher number is lighter
+            if self.sensor_system.color_sensor.get_reflected_light_intensity() >= intensity: #black is < 5
                 self.stop()
                 break
 
