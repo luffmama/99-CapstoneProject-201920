@@ -186,20 +186,20 @@ class DriveSystem(object):
                 self.stop()
                 break
 
-    def go_until_distance_is_within(self, delta_inches, speed):
+    def go_until_distance_is_within(self, delta_inches, inches, speed):
         """
         Goes forward or backward, repeated as necessary, until the robot is
         within the given delta-inches from the nearest object that it senses.
         """
         while True:
-            if self.sensor_system.ir_proximity_sensor.get_distance()>delta_inches:
+            if self.sensor_system.ir_proximity_sensor.get_distance()>=inches:
                 self.go(speed, speed)
                 break
-            if self.sensor_system.ir_proximity_sensor.get_distance()<delta_inches:
+            if self.sensor_system.ir_proximity_sensor.get_distance()<=inches:
                 self.go(-speed,-speed)
                 break
             #allows for some error to eventually stop
-            if self.sensor_system.ir_proximity_sensor.get_distance()+0.5>=delta_inches or self.sensor_system.ir_proximity_sensor.get_distance()-0.5>=delta_inches:
+            if self.sensor_system.ir_proximity_sensor.get_distance()+delta_inches>=inches or self.sensor_system.ir_proximity_sensor.get_distance()-delta_inches>=inches:
                 self.stop()
                 break
 
