@@ -192,7 +192,7 @@ class DriveSystem(object):
         # while True:
         #     if self.sensor_system.ir_proximity_sensor.get_distance() <= inches:
         #         self.stop()
-        #         break
+        #         break.
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared beacon sensor.
