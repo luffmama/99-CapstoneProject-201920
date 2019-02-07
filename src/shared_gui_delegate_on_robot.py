@@ -11,6 +11,7 @@ class DelagateThatReceives(object):
     def __init__(self, robot):
         """:type robot: rosebot.RoseBot"""
         self.robot = robot
+        self.quit = False
 
     def forward(self, left_wheel_speed, right_wheel_speed):
         self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
@@ -38,4 +39,7 @@ class DelagateThatReceives(object):
 
     def move_arm_to_position(self, arm_position_entry):
         self.robot.arm_and_claw.move_arm_to_position(arm_position_entry)
+
+    def quit(self):
+        self.quit = True
 
