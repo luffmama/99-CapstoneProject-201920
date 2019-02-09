@@ -18,10 +18,17 @@ def main():
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
     real_thing()
-    # Song
+    #play_song
 def play_song():
-    # mary_had_a_little_lamb
-    pass
+    d = 587.33
+    c = 523.251
+    bf = 466.164
+    f = 698.456
+    mary_had_a_little_lamb = [(d, .6, 0), (c, .6, 0), (bf, .6, 0), (c, .6, 0), (d, .6, 0), (d, .6, 0), (d, .6, 0),
+                              (c, .6, 0), (c, .6, 0), (c, .6, 0), (d, .6, 0), (f, .6, 0), (f, .6, .6),
+                              (d, .6, 0), (c, .6, 0), (bf, .6, 0), (c, .6, 0), (d, .6, 0), (d, .6, 0), (d, .6, 0),
+                              (d, .6, 0), (c, .6, 0), (c, .6, 0), (d, .6, 0), (c, .6, 0), (bf, 1.2, 0)]
+    #play_tone_sequence(mary_had_a_little_lamb)
 
 def real_thing():
     bot = rosebot.RoseBot()
