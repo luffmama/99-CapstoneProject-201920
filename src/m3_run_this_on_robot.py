@@ -34,7 +34,6 @@ def play_song():
 def test_beeper():
     robot = rosebot.RoseBot()
     robot.sound_system.beeper.beep()
-    time.sleep(2)
 
 def real_thing():
     bot = rosebot.RoseBot()
