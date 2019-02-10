@@ -9,7 +9,8 @@ import rosebot
 import mqtt_remote_method_calls as com
 import time
 import shared_gui_delegate_on_robot
-import m3_run_this_on_robot
+#import m3_run_this_on_robot
+
 def main():
     """
     This code, which must run on the EV3 ROBOT:
@@ -18,8 +19,8 @@ def main():
     """
     #run_test_arm()
     # run_test_drive()
-    #real_thing()
-    m3_run_this_on_robot.test_beeper()
+    real_thing()
+    # m3_run_this_on_robot.test_beeper()
     # run_test_proximity_sensor()
 
 def run_test_arm():

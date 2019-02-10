@@ -399,3 +399,32 @@ def handle_exit(mqtt_sender):
     #handle_quit(mqtt_sender)
     #exit()
 
+################################################################################
+# Handlers for Buttons in Movement frame
+############################################################################
+
+def straight_for_seconds(straight_for_seconds_seconds_entry,straight_for_seconds_speed_entry,mqtt_sender):
+    print("go straight for seconds", straight_for_seconds_seconds_entry.get())
+    mqtt_sender.send_message("go straight for seconds", straight_for_seconds_speed_entry.get())
+
+
+def straight_for_inches_using_seconds(straight_for_inches_using_seconds_entry,mqtt_sender):
+    print("go straight for seconds using inches", straight_for_inches_using_seconds_entry.get())
+    mqtt_sender.send_message("go straight for seconds using inches", straight_for_inches_using_seconds_entry.get())
+
+
+def straight_for_inches_using_encoder(straight_for_inches_using_encoder_entry,mqtt_sender):
+    print("go straight for seconds using encoder", straight_for_inches_using_encoder_entry.get())
+    mqtt_sender.send_message("go straight for seconds using encoder", straight_for_inches_using_encoder_entry.get())
+
+
+def beep(beep_entry,mqtt_sender):
+    print("beep",beep_entry.get())
+    mqtt_sender.send_message("beep",beep_entry.get())
+
+
+def tone(tone_duration_entry,tone_frequency_entry,mqtt_sender):
+    print("tone",[tone_duration_entry.get(),tone_frequency_entry.get()])
+    mqtt_sender.send_message("tone",[tone_duration_entry.get(),tone_frequency_entry.get()])
+
+
