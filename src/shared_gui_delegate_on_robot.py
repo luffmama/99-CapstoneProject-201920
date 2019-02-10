@@ -48,6 +48,7 @@ class DelagateThatReceives(object):
     def straight_for_seconds_entry(self, seconds, speed):
         self.robot.drive_system.go_straight_for_seconds(int(seconds), int(speed))
 
+
     #def quit(self):
         #self.quit = True
 
