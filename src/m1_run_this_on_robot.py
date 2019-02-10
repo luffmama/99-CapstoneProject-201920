@@ -9,16 +9,17 @@ import rosebot
 import mqtt_remote_method_calls as com
 import time
 import shared_gui_delegate_on_robot
-
+import m3_run_this_on_robot
 def main():
     """
     This code, which must run on the EV3 ROBOT:
       1. Makes the EV3 robot to various things.
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
-    # run_test_arm()
+    #run_test_arm()
     # run_test_drive()
-    real_thing()
+    #real_thing()
+    m3_run_this_on_robot.test_beeper()
     # run_test_proximity_sensor()
 
 def run_test_arm():
@@ -63,6 +64,7 @@ def real_thing():
         time.sleep(0.01)
         #if delegate_that_receives.quit() == True:
             #break
+
 
 
 # -----------------------------------------------------------------------------

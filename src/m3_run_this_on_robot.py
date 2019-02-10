@@ -27,15 +27,18 @@ def test_play_tone_sequence():
     c = 523.251
     bf = 466.164
     f = 698.456
-    mary_had_a_little_lamb = [(d, .6, 0), (c, .6, 0), (bf, .6, 0), (c, .6, 0), (d, .6, 0), (d, .6, 0), (d, .6, 0),
-                              (c, .6, 0), (c, .6, 0), (c, .6, 0), (d, .6, 0), (f, .6, 0), (f, .6, .6),
-                              (d, .6, 0), (c, .6, 0), (bf, .6, 0), (c, .6, 0), (d, .6, 0), (d, .6, 0), (d, .6, 0),
-                              (d, .6, 0), (c, .6, 0), (c, .6, 0), (d, .6, 0), (c, .6, 0), (bf, 1.2, 0)]
+    mary_had_a_little_lamb = [(d, 600, 10), (c, 600, 10), (bf, 600, 10), (c, 600, 10), (d, 600, 10), (d, 600, 10), (d, 600, 10),
+                              (c, 600, 10), (c, 600, 10), (c, 600, 10), (d, 600, 10), (f, 600, 10), (f, 600, 600),
+                              (d, 600, 10), (c, 600, 10), (bf, 600, 10), (c, 600, 10), (d, 600, 10), (d, 600, 10), (d, 600, 10),
+                              (d, 600, 10), (c, 600, 10), (c, 600, 10), (d, 600, 10), (c, 600, 10), (bf, 1200, 10)]
     robot.sound_system.tone_maker.play_tone_sequence(mary_had_a_little_lamb)
 
 def test_beeper():
+    time.sleep(2)
     robot = rosebot.RoseBot()
-    robot.sound_system.beeper.beep()
+    for k in range(5):
+        robot.sound_system.beeper.beep()
+        time.sleep(.2+.8*k)
 
 def real_thing():
     bot = rosebot.RoseBot()

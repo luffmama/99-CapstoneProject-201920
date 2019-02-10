@@ -17,16 +17,18 @@ class DelagateThatReceives(object):
         self.quit = False
 
     def forward(self, left_wheel_speed, right_wheel_speed):
+        print("got to shared gui")
         self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
+        print("got to delegate")
 
     def backwards(self, left_wheel_speed, right_wheel_speed):
         self.robot.drive_system.go(-int(left_wheel_speed), -int(right_wheel_speed))
 
     def left(self, left_wheel_speed, right_wheel_speed):
-        self.robot.drive_system.go(-int(left_wheel_speed), int(right_wheel_speed))
+        self.robot.drive_system.go(int(left_wheel_speed), -int(right_wheel_speed))
 
     def right(self, left_wheel_speed, right_wheel_speed):
-        self.robot.drive_system.go(int(left_wheel_speed), -int(right_wheel_speed))
+        self.robot.drive_system.go(-int(left_wheel_speed), int(right_wheel_speed))
 
     def stop(self):
         self.robot.drive_system.stop()
@@ -42,6 +44,8 @@ class DelagateThatReceives(object):
 
     def move_arm_to_position(self, arm_position_entry):
         self.robot.arm_and_claw.move_arm_to_position(arm_position_entry)
+
+    
 
     #def quit(self):
         #self.quit = True
