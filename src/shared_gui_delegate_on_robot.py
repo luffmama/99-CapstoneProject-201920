@@ -45,9 +45,8 @@ class DelagateThatReceives(object):
     def move_arm_to_position(self, arm_position_entry):
         self.robot.arm_and_claw.move_arm_to_position(arm_position_entry)
 
-    def straight_for_seconds_entry(self, seconds):
-        self.robot.drive_system.go_straight_for_seconds(seconds)
-        # speed is set to 100
+    def straight_for_seconds_entry(self, seconds, speed):
+        self.robot.drive_system.go_straight_for_seconds(int(seconds), int(speed))
 
     #def quit(self):
         #self.quit = True
