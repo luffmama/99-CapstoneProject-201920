@@ -20,6 +20,7 @@ def main():
     real_thing()
     # play_song
 def play_song():
+    robot = rosebot.RoseBot()
     d = 587.33
     c = 523.251
     bf = 466.164
@@ -28,7 +29,12 @@ def play_song():
                               (c, .6, 0), (c, .6, 0), (c, .6, 0), (d, .6, 0), (f, .6, 0), (f, .6, .6),
                               (d, .6, 0), (c, .6, 0), (bf, .6, 0), (c, .6, 0), (d, .6, 0), (d, .6, 0), (d, .6, 0),
                               (d, .6, 0), (c, .6, 0), (c, .6, 0), (d, .6, 0), (c, .6, 0), (bf, 1.2, 0)]
-    # play_tone_sequence(mary_had_a_little_lamb)
+    robot.sound_system.tone_maker.play_tone_sequence(mary_had_a_little_lamb)
+
+def test_beeper():
+    robot = rosebot.RoseBot()
+    robot.sound_system.beeper.beep()
+    time.sleep(2)
 
 def real_thing():
     bot = rosebot.RoseBot()
