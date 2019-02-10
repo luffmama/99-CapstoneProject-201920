@@ -8,6 +8,9 @@
 """
 
 class DelagateThatReceives(object):
+    # This class creates a delagate for the robot.
+    # It helps the robot know how to deal with commands
+    # that the laptop sends to the robot.
     def __init__(self, robot):
         """:type robot: rosebot.RoseBot"""
         self.robot = robot
