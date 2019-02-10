@@ -21,7 +21,7 @@ class DelagateThatReceives(object):
         self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
         print("got to delegate")
 
-    def backwards(self, left_wheel_speed, right_wheel_speed):
+    def backward(self, left_wheel_speed, right_wheel_speed):
         self.robot.drive_system.go(-int(left_wheel_speed), -int(right_wheel_speed))
 
     def left(self, left_wheel_speed, right_wheel_speed):
@@ -45,8 +45,8 @@ class DelagateThatReceives(object):
     def move_arm_to_position(self, arm_position_entry):
         self.robot.arm_and_claw.move_arm_to_position(arm_position_entry)
 
-    
-
+    def straight_for_seconds(self, ):
+        pass
     #def quit(self):
         #self.quit = True
 
