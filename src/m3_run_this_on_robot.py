@@ -34,8 +34,11 @@ def test_play_tone_sequence():
     robot.sound_system.tone_maker.play_tone_sequence(mary_had_a_little_lamb)
 
 def test_beeper():
+    time.sleep(2)
     robot = rosebot.RoseBot()
-    robot.sound_system.beeper.beep()
+    for k in range(5):
+        robot.sound_system.beeper.beep()
+        time.sleep(.2+.8*k)
 
 def real_thing():
     bot = rosebot.RoseBot()
