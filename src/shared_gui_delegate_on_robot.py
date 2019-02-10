@@ -48,7 +48,16 @@ class DelagateThatReceives(object):
     def straight_for_seconds_entry(self, seconds, speed):
         self.robot.drive_system.go_straight_for_seconds(int(seconds), int(speed))
 
+    def straight_for_inches_using_encoder(self, inches, speed):
+        self.robot.drive_system.go_straight_for_inches_using_encoder(inches, speed)
 
+    def beep_entry(self, number_of_beeps):
+        for k in range(number_of_beeps):
+            self.robot.sound_system.beeper()
+
+    def tone_duration_entry(self, tone_duration_entry, tone_frequency_entry):
+        self.robot.sound_system.tone_maker(tone_frequency_entry, tone_duration_entry)
+        
     #def quit(self):
         #self.quit = True
 
