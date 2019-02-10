@@ -167,7 +167,7 @@ def handle_forward(left_entry_box, right_entry_box, mqtt_sender):
     print("forward",left_entry_box.get(),right_entry_box.get())
     mqtt_sender.send_message("forward",[left_entry_box.get(),
                                         right_entry_box.get()])
-
+    print("message got through")
 def handle_backward(left_entry_box, right_entry_box, mqtt_sender):
     """
     Tells the robot to move using the speeds in the given entry boxes,
