@@ -161,12 +161,14 @@ def get_movement_frame(window, mqtt_sender):
 
     # Construct the widgets on the frame:
     frame_label = ttk.Label(frame, text="Movement")
-    straight_for_seconds_label = ttk.Label(frame, text="Seconds for Robot to move")
+    straight_for_seconds_seconds_label = ttk.Label(frame, text="Seconds for Robot to move")
+    straight_for_seconds_speed_label = ttk.Label(frame, text="Speed for Robot to move")
     straight_for_inches_using_seconds_label = ttk.Label(frame, text="Inches for Robot to move (using seconds)")
     straight_for_inches_using_encoder_label = ttk.Label(frame, text="Inches for Robot to move (using sensors)")
 
     # Creates input boxes
-    straight_for_seconds_entry = ttk.Entry(frame, width=8)
+    straight_for_seconds_seconds_entry = ttk.Entry(frame, width=8)
+    straight_for_seconds_speed_entry = ttk.Entry(frame, width=8)
     straight_for_inches_using_seconds_entry = ttk.Entry(frame, width=8)
     straight_for_inches_using_encoder_entry = ttk.Entry(frame, width=8)
     # left_speed_entry.insert(0, "100")
@@ -179,17 +181,19 @@ def get_movement_frame(window, mqtt_sender):
 
     # Grid the widgets:
     frame_label.grid(row=1, column=0)
-    straight_for_seconds_label.grid(row=1, column=0)
-    straight_for_seconds_entry.grid(row=2, column=0)
+    straight_for_seconds_seconds_label.grid(row=1, column=0)
+    straight_for_seconds_seconds_entry.grid(row=2, column=0)
+    straight_for_seconds_speed_label.grid(row=1, column=1)
+    straight_for_seconds_speed_entry.grid(row=2, column=1)
     straight_for_seconds_button.grid(row=3, column=0)
 
-    straight_for_inches_using_seconds_label.grid(row=1, column=1)
-    straight_for_inches_using_seconds_entry.grid(row=2, column=1)
-    straight_for_inches_using_seconds_button.grid(row=3, column=1)
+    straight_for_inches_using_seconds_label.grid(row=1, column=2)
+    straight_for_inches_using_seconds_entry.grid(row=2, column=2)
+    straight_for_inches_using_seconds_button.grid(row=3, column=2)
 
-    straight_for_inches_using_encoder_label.grid(row=1, column=2)
-    straight_for_inches_using_encoder_entry.grid(row=2, column=2)
-    straight_for_inches_using_encoder_button.grid(row=3, column=2)
+    straight_for_inches_using_encoder_label.grid(row=1, column=3)
+    straight_for_inches_using_encoder_entry.grid(row=2, column=3)
+    straight_for_inches_using_encoder_button.grid(row=3, column=3)
 
     """
     # Set the button callbacks:
