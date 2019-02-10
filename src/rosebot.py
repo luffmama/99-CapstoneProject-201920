@@ -153,12 +153,23 @@ class DriveSystem(object):
         Goes straight at the given speed until the color returned
         by the color_sensor is equal to the given color.
         """
+        #see class ColorSensor, enter integer for desirec color for 'color' variable
+        self.go(speed,speed)
+        while True:
+            if self.sensor_system.color_sensor.get_color()==color:
+                self.stop()
+                break
 
     def go_straight_until_color_is_not(self, color, speed):
         """
         Goes straight at the given speed until the color returned
         by the color_sensor is NOT equal to the given color.
         """
+        self.go(speed, speed)
+        while True:
+            if self.sensor_system.color_sensor.get_color()!=color:
+                self.stop()
+                break
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared proximity sensor.
