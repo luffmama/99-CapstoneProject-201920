@@ -205,7 +205,7 @@ def get_movement_frame(window, mqtt_sender):
 
     # Set the button callbacks:
     straight_for_seconds_button["command"] = lambda: straight_for_seconds(
-        straight_for_seconds_seconds_entry, straight_for_seconds_speed, mqtt_sender)
+        straight_for_seconds_seconds_entry, straight_for_seconds_speed_entry, mqtt_sender)
     straight_for_inches_using_seconds_button["command"] = lambda: straight_for_inches_using_seconds(
         straight_for_inches_using_seconds_speed_entry, straight_for_inches_using_seconds_inches_entry, mqtt_sender)
     straight_for_inches_using_encoder_button["command"] = lambda: straight_for_inches_using_encoder(
