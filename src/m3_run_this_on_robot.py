@@ -37,7 +37,7 @@ def test_beeper():
     time.sleep(1)
     robot = rosebot.RoseBot()
     for k in range(5):
-        robot.sound_system.beeper.beep()
+        robot.sound_system.beeper.beep().wait()
         time.sleep(.5)
 
 def real_thing():
@@ -48,8 +48,8 @@ def real_thing():
 
     while True:
         time.sleep(0.01)
-        # if delegate_that_receives.quit():
-            # break
+        if delegate_that_receives.quit:
+            break
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
