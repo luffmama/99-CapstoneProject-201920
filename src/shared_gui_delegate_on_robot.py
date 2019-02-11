@@ -45,10 +45,10 @@ class DelagateThatReceives(object):
     def move_arm_to_position(self, arm_position_entry):
         self.robot.arm_and_claw.move_arm_to_position(int(arm_position_entry))
 
-    def straight_for_seconds_entry(self, seconds, speed):
+    def go_straight_for_seconds(self, seconds, speed):
         self.robot.drive_system.go_straight_for_seconds(int(seconds), int(speed))
 
-    def straight_for_inches_using_seconds(self, inches, speed):
+    def go_straight_for_inches_using_time(self, inches, speed):
         self.robot.drive_system.go_straight_for_inches_using_time(int(inches), int(speed))
 
     def straight_for_inches_using_encoder(self, inches, speed):
