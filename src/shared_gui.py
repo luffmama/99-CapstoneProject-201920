@@ -436,7 +436,7 @@ def straight_for_inches_using_encoder(straight_for_inches_using_encoder_inches_e
 
 def beep(beep_entry,mqtt_sender):
     print("beep",beep_entry.get())
-    mqtt_sender.send_message("beep",beep_entry.get())
+    mqtt_sender.send_message("beep",[beep_entry.get()])
 
 
 def tone(tone_duration_entry,tone_frequency_entry,mqtt_sender):
