@@ -135,6 +135,12 @@ def get_color_drive_frame(window, mqtt_sender):
     frame.grid()
 
     main_label = ttk.Label(frame, text="Drive Color Commands")
+    note_label=ttk.Label(frame, text="0: No color that is,"
+                                     " cannot classify the color "
+                                     "as one of the following, "
+                                     "1: Black, 2: Blue, "
+                                     "3: Green, 4: Yellow, "
+                                     "5: Red, 6: White, 7: Brown")
     drive_until_not_label=ttk.Label(frame, text="Drive until not:")
     drive_until_label=ttk.Label(frame, text="Drive until:")
     drive_until_int_is_less_than_label=ttk.Label(frame, text="Drive until Intensity is < :")
@@ -156,18 +162,19 @@ def get_color_drive_frame(window, mqtt_sender):
     drive_until_int_is_greater_than_button["command"] = lambda:go_straight_until_intensity_is_greater_than(mqtt_sender,color_entry)
 
     main_label.grid()
-    drive_until_not_label.grid(row=1,column=0)
-    drive_until_label.grid(row=1,column=1)
-    drive_until_int_is_less_than_label.grid(row=1,column=2)
-    drive_until_int_is_greater_than_label.grid(row=1,column=3)
-    color_entry.grid(row=2,column=1)
-    intensity_entry.grid(row=2,column=3)
-    drive_until_not_button.grid(row=3,column=0)
-    drive_until_button.grid(row=3,column=1)
-    drive_until_int_is_less_than_button.grid(row=3,column=2)
-    drive_until_int_is_greater_than_button.grid(row=3,column=3)
-    label1.grid(row=2,column=0)
-    label2.grid(row=2,column=2)
+    drive_until_not_label.grid(row=2,column=0)
+    drive_until_label.grid(row=2,column=1)
+    drive_until_int_is_less_than_label.grid(row=2,column=2)
+    drive_until_int_is_greater_than_label.grid(row=2,column=3)
+    color_entry.grid(row=3,column=1)
+    intensity_entry.grid(row=3,column=3)
+    drive_until_not_button.grid(row=4,column=0)
+    drive_until_button.grid(row=4,column=1)
+    drive_until_int_is_less_than_button.grid(row=4,column=2)
+    drive_until_int_is_greater_than_button.grid(row=4,column=3)
+    label1.grid(row=3,column=0)
+    label2.grid(row=3,column=2)
+    note_label.grid(row=1,column=5)
 
     return frame
 
