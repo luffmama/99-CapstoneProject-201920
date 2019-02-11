@@ -17,7 +17,7 @@ def main():
       1. Makes the EV3 robot to various things.
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
-    #run_test_arm()
+    # run_test_arm()
     # run_test_drive()
     real_thing()
     # m3_run_this_on_robot.test_beeper()
@@ -63,8 +63,8 @@ def real_thing():
 
     while True:
         time.sleep(0.01)
-        #if delegate_that_receives.quit() == True:
-            #break
+        if delegate_that_receives.quit() == True:
+            break
 
 
 
