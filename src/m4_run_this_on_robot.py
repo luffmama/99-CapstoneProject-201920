@@ -27,6 +27,8 @@ def real_thing():
 
     while True:
         time.sleep(.01)
+        if delagate_that_recieves.quit:
+            break
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
