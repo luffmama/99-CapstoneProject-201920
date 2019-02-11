@@ -68,7 +68,10 @@ class DelagateThatReceives(object):
         print("quit")
         self.is_quit = True
 
-    def grab(self):
-        self.robot.drive_system.go_forward_until_distance_is_less_than(3,100)
-        if self.robot.drive_system.left_motor.turn_off():
-            self.raise_arm()
+    # def grab(self):
+    #     self.robot.drive_system.go_forward_until_distance_is_less_than(3,100)
+    #     if self.robot.drive_system.left_motor.turn_off():
+    #         self.raise_arm()
+
+    # def LED_cycle(self):
+    #     pass

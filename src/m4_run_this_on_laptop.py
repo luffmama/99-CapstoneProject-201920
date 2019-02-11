@@ -41,7 +41,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame,arm_frame,control_frame,movement_frame,beeper_frame,grab_frame=get_shared_frames(main_frame,mqtt_sender)
+    teleop_frame,arm_frame,control_frame,movement_frame,beeper_frame,grab_frame,LED_frame=get_shared_frames(main_frame,mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
@@ -51,7 +51,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame,arm_frame,control_frame,movement_frame,beeper_frame,grab_frame)
+    grid_frames(teleop_frame,arm_frame,control_frame,movement_frame,beeper_frame,grab_frame,LED_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -65,16 +65,18 @@ def get_shared_frames(main_frame, mqtt_sender):
     movement_frame=shared_gui.get_movement_frame(main_frame,mqtt_sender)
     beeper_frame=shared_gui.get_noise_frame(main_frame,mqtt_sender)
     grab_frame=get_grab_frame(main_frame,mqtt_sender)
+    LED_frame=get_LED_frame(main_frame,mqtt_sender)
 
-    return teleop_frame, arm_frame, control_frame,movement_frame,beeper_frame,grab_frame
+    return teleop_frame, arm_frame, control_frame,movement_frame,beeper_frame,grab_frame,LED_frame
 
-def grid_frames(teleop_frame, arm_frame, control_frame,movement_frame,beeper_frame,grab_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame,movement_frame,beeper_frame,grab_frame,LED_frame):
     teleop_frame.grid(row=0,column=0)
     arm_frame.grid(row=1,column=0)
     control_frame.grid(row=2,column=0)
     movement_frame.grid(row=0,column=1)
     beeper_frame.grid(row=1,column=1)
     grab_frame.grid(row=0,column=2)
+    LED_frame.grid(row=1,column=2)
 
 #gui for grabbing object with sensors
 def get_grab_frame(window, mqqt_sender):
@@ -99,6 +101,30 @@ def handle_grab(mqtt_sender):
     mqtt_sender.send_message("grab")
 
 #gui for alternating led
+def get_LED_frame(window, mqqt_sender):
+
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    frequency_label=ttk.Label(frame,text="LED Frequency command")
+    frequency_entry = ttk.Entry(frame, width=8)
+    frequency_entry_label=ttk.Label(frame,text="<- initial rate of change of freq")
+    start_button = ttk.Button(frame, text="Start!")
+
+    frequency_label.grid()
+    frequency_entry.grid(row=1,column=0)
+    frequency_entry_label.grid(row=1,column=1)
+    start_button.grid(row=2,column=0)
+
+    start_button["command"] = lambda: handle_LED(mqqt_sender,frequency_entry)
+
+    return frame
+
+#handle command for alternating led gui
+def handle_LED(mqtt_sender,frequency_entry):
+
+    print("LED message",frequency_entry.get())
+    mqtt_sender.send_message("LED_cycle",[frequency_entry.get()])
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
