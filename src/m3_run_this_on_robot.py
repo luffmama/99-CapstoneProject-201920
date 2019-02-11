@@ -38,7 +38,7 @@ def test_beeper():
     robot = rosebot.RoseBot()
     for k in range(5):
         robot.sound_system.beeper.beep()
-        time.sleep(.3+.1*k)
+        time.sleep(.5)
 
 def real_thing():
     bot = rosebot.RoseBot()
