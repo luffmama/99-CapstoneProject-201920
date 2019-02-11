@@ -14,7 +14,7 @@ class DelagateThatReceives(object):
     def __init__(self, robot):
         """:type robot: rosebot.RoseBot"""
         self.robot = robot
-        self.quit = False
+        self.is_quit = False
 
     def forward(self, left_wheel_speed, right_wheel_speed):
         print("got to shared gui")
@@ -58,7 +58,7 @@ class DelagateThatReceives(object):
     def tone_duration_entry(self, tone_duration_entry, tone_frequency_entry):
         self.robot.sound_system.tone_maker(tone_frequency_entry, tone_duration_entry)
 
-    def quit(self):
+    def is_quit(self):
         print("quit")
-        self.quit = True
+        self.is_quit = True
 

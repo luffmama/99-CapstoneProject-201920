@@ -27,7 +27,7 @@ def real_thing():
 
     while True:
         time.sleep(.01)
-        if delagate_that_recieves.quit:
+        if delagate_that_recieves.is_quit:
             break
 
 # -----------------------------------------------------------------------------
