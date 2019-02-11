@@ -330,11 +330,19 @@ class ArmAndClaw(object):
         Move its Arm to the given position, where 0 means all the way DOWN.
         The robot must have previously calibrated its Arm.
         """
-        self.motor.turn_on(100)
-        while True:
-            if self.motor.get_position()>=desired_arm_position: #desired_arm_position given in degrees
-                self.motor.turn_off()
-                break
+        position=self.motor.get_position()
+        if position>desired_arm_position:
+            self.motor.turn_on(-100)
+            while True:
+                if self.motor.get_position() <= desired_arm_position:  # desired_arm_position given in degrees
+                    self.motor.turn_off()
+                    break
+        if position<desired_arm_position:
+            self.motor.turn_on(100)
+            while True:
+                if self.motor.get_position() >= desired_arm_position: #desired_arm_position given in degrees
+                    self.motor.turn_off()
+                    break
 
     def lower_arm(self):
         """
