@@ -46,12 +46,15 @@ class DelagateThatReceives(object):
         self.robot.arm_and_claw.move_arm_to_position(int(arm_position_entry))
 
     def go_straight_for_seconds(self, seconds, speed):
+        print("got to robot")
         self.robot.drive_system.go_straight_for_seconds(int(seconds), int(speed))
 
     def go_straight_for_inches_using_time(self, inches, speed):
+        print("got to robot")
         self.robot.drive_system.go_straight_for_inches_using_time(int(inches), int(speed))
 
     def straight_for_inches_using_encoder(self, inches, speed):
+        print("got to robot")
         self.robot.drive_system.go_straight_for_inches_using_encoder(int(inches), int(speed))
 
     def beep(self, number_of_beeps):

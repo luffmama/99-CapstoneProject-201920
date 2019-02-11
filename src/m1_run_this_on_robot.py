@@ -63,7 +63,7 @@ def real_thing():
 
     while True:
         time.sleep(0.01)
-        if delegate_that_receives.quit() == True:
+        if delegate_that_receives.is_quit == True:
             break
 
 
