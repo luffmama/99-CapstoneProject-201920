@@ -43,20 +43,20 @@ class DelagateThatReceives(object):
         self.robot.arm_and_claw.calibrate_arm()
 
     def move_arm_to_position(self, arm_position_entry):
-        self.robot.arm_and_claw.move_arm_to_position(arm_position_entry)
+        self.robot.arm_and_claw.move_arm_to_position(int(arm_position_entry))
 
     def straight_for_seconds_entry(self, seconds, speed):
         self.robot.drive_system.go_straight_for_seconds(int(seconds), int(speed))
 
     def straight_for_inches_using_encoder(self, inches, speed):
-        self.robot.drive_system.go_straight_for_inches_using_encoder(inches, speed)
+        self.robot.drive_system.go_straight_for_inches_using_encoder(int(inches), int(speed))
 
     def beep_entry(self, number_of_beeps):
-        for k in range(number_of_beeps):
+        for k in range(int(number_of_beeps)):
             self.robot.sound_system.beeper.beep().wait()
 
     def tone_duration_entry(self, tone_duration_entry, tone_frequency_entry):
-        self.robot.sound_system.tone_maker(tone_frequency_entry, tone_duration_entry)
+        self.robot.sound_system.tone_maker(int(tone_frequency_entry), int(tone_duration_entry))
 
     def is_quit(self):
         print("quit")
