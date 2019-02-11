@@ -54,11 +54,11 @@ class DelagateThatReceives(object):
     def straight_for_inches_using_encoder(self, inches, speed):
         self.robot.drive_system.go_straight_for_inches_using_encoder(int(inches), int(speed))
 
-    def beep_entry(self, number_of_beeps):
+    def beep(self, number_of_beeps):
         for k in range(int(number_of_beeps)):
             self.robot.sound_system.beeper.beep().wait()
 
-    def tone_duration_entry(self, tone_duration_entry, tone_frequency_entry):
+    def tone(self, tone_duration_entry, tone_frequency_entry):
         self.robot.sound_system.tone_maker(int(tone_frequency_entry), int(tone_duration_entry))
 
     def is_quit(self):
