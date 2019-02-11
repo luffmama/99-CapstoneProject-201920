@@ -203,18 +203,13 @@ def get_movement_frame(window, mqtt_sender):
     straight_for_inches_using_encoder_speed_entry.grid(row=4, column=3)
     straight_for_inches_using_encoder_button.grid(row=5, column=3)
 
-    """
     # Set the button callbacks:
-    forward_button["command"] = lambda: handle_forward(
-        left_speed_entry, right_speed_entry, mqtt_sender)
-    backward_button["command"] = lambda: handle_backward(
-        left_speed_entry, right_speed_entry, mqtt_sender)
-    left_button["command"] = lambda: handle_left(
-        left_speed_entry, right_speed_entry, mqtt_sender)
-    right_button["command"] = lambda: handle_right(
-        left_speed_entry, right_speed_entry, mqtt_sender)
-    stop_button["command"] = lambda: handle_stop(mqtt_sender)
-    """
+    straight_for_seconds_button["command"] = lambda: straight_for_seconds(
+        straight_for_seconds_seconds_entry, straight_for_seconds_speed, mqtt_sender)
+    straight_for_inches_using_seconds_button["command"] = lambda: straight_for_inches_using_seconds(
+        straight_for_inches_using_seconds_speed_entry, straight_for_inches_using_seconds_inches_entry, mqtt_sender)
+    straight_for_inches_using_encoder_button["command"] = lambda: straight_for_inches_using_encoder(
+        straight_for_inches_using_encoder_inches_entry,straight_for_inches_using_encoder_speed_entry, mqtt_sender)
 
     return frame
 
@@ -413,21 +408,27 @@ def handle_exit(mqtt_sender):
 # Handlers for Buttons in Movement frame
 ############################################################################
 
-def straight_for_seconds(straight_for_seconds_seconds_entry,straight_for_seconds_speed_entry,mqtt_sender):
+def straight_for_seconds(straight_for_seconds_seconds_entry,
+                         straight_for_seconds_speed_entry,
+                         mqtt_sender):
     # print("go_straight_for_seconds", straight_for_seconds_seconds_entry.get())
     mqtt_sender.send_message("go_straight_for_seconds",
                              [straight_for_seconds_speed_entry.get(),
                              straight_for_seconds_seconds_entry.get()])
 
 
-def straight_for_inches_using_seconds(straight_for_inches_using_seconds_speed_entry,straight_for_inches_using_seconds_inches_entry,mqtt_sender):
+def straight_for_inches_using_seconds(straight_for_inches_using_seconds_speed_entry,
+                                      straight_for_inches_using_seconds_inches_entry,
+                                      mqtt_sender):
     # print("go_straight_for_inches_using_time", straight_for_inches_using_seconds_entry.get())
     mqtt_sender.send_message("go_straight_for_inches_using_time",
                              [straight_for_inches_using_seconds_speed_entry.get(),
                              straight_for_inches_using_seconds_inches_entry.get()])
 
 
-def straight_for_inches_using_encoder(straight_for_inches_using_encoder_inches_entry,straight_for_inches_using_encoder_speed_entry, mqtt_sender):
+def straight_for_inches_using_encoder(straight_for_inches_using_encoder_inches_entry,
+                                      straight_for_inches_using_encoder_speed_entry, 
+                                      mqtt_sender):
     # print("straight_for_inches_using_encoder", straight_for_inches_using_encoder_entry.get())
     mqtt_sender.send_message("straight_for_inches_using_encoder",
                              [straight_for_inches_using_encoder_speed_entry.get(),
