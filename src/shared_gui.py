@@ -423,7 +423,7 @@ def straight_for_seconds(straight_for_seconds_seconds_entry,straight_for_seconds
 def straight_for_inches_using_seconds(straight_for_inches_using_seconds_speed_entry,straight_for_inches_using_seconds_inches_entry,mqtt_sender):
     # print("go_straight_for_inches_using_time", straight_for_inches_using_seconds_entry.get())
     mqtt_sender.send_message("go_straight_for_inches_using_time",
-                             [straight_for_inches_using_seconds_speed_entry.get()
+                             [straight_for_inches_using_seconds_speed_entry.get(),
                              straight_for_inches_using_seconds_inches_entry.get()])
 
 
