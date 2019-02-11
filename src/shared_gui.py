@@ -414,18 +414,18 @@ def handle_exit(mqtt_sender):
 ############################################################################
 
 def straight_for_seconds(straight_for_seconds_seconds_entry,straight_for_seconds_speed_entry,mqtt_sender):
-    print("go straight for seconds", straight_for_seconds_seconds_entry.get())
-    mqtt_sender.send_message("go straight for seconds", straight_for_seconds_speed_entry.get())
+    print("go_straight_for_seconds", straight_for_seconds_seconds_entry.get())
+    mqtt_sender.send_message("go_straight_for_seconds", straight_for_seconds_speed_entry.get())
 
 
 def straight_for_inches_using_seconds(straight_for_inches_using_seconds_entry,mqtt_sender):
-    print("go straight for seconds using inches", straight_for_inches_using_seconds_entry.get())
-    mqtt_sender.send_message("go straight for seconds using inches", straight_for_inches_using_seconds_entry.get())
+    print("go_straight_for_inches_using_time", straight_for_inches_using_seconds_entry.get())
+    mqtt_sender.send_message("go_straight_for_inches_using_time", straight_for_inches_using_seconds_entry.get())
 
 
 def straight_for_inches_using_encoder(straight_for_inches_using_encoder_entry,mqtt_sender):
-    print("go straight for seconds using encoder", straight_for_inches_using_encoder_entry.get())
-    mqtt_sender.send_message("go straight for seconds using encoder", straight_for_inches_using_encoder_entry.get())
+    print("straight_for_inches_using_encoder", straight_for_inches_using_encoder_entry.get())
+    mqtt_sender.send_message("straight_for_inches_using_encoder", straight_for_inches_using_encoder_entry.get())
 
 
 def beep(beep_entry,mqtt_sender):
