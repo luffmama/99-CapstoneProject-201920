@@ -74,6 +74,10 @@ def grid_frames(teleop_frame, arm_frame, control_frame,movement_frame,beeper_fra
     movement_frame.grid(row=0,column=1)
     beeper_frame.grid(row=1,column=1)
 
+#gui for grabbing object with sensors
+
+#gui for alternating led
+
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
