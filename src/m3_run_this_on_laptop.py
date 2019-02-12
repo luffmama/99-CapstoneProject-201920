@@ -74,6 +74,28 @@ def grid_frames(teleop_frame, arm_frame, control_frame,movement_frame,beeper_fra
     movement_frame.grid(row=0,column=1)
     beeper_frame.grid(row=1,column=1)
 
+def pick_up_object_while_beeping(main_frame, mqtt_sender):
+    pick_up_with_beeps_frame = ttk.Frame(main_frame, padding=10, borderwidth=5, relief='groove')
+    pick_up_with_beeps_frame.grid()
+
+    # initial beep speed
+    initial_beep_speed_label = ttk.Label(pick_up_with_beeps_frame, text='enter initial beeps per second')
+    initial_beep_speed_label.grid(row=0, column=0)
+    initial_beep_speed_entry = ttk.Entry(pick_up_with_beeps_frame, width=8)
+    initial_beep_speed_entry.grid(row=1, column=0)
+
+    # beep acceleration
+    beep_acceleration_label = ttk.Label(ttk.Label(pick_up_with_beeps_frame, text='enter beep acceleration'))
+    beep_acceleration_label.grid(row=0, column=1)
+    beep_acceleration_entry = ttk.Entry(pick_up_with_beeps_frame, width=8)
+    beep_acceleration_entry.grid(row=1, colomn=1)
+
+    initial_beep_speed_button = ttk.Button(pick_up_with_beeps_frame, text='GO!')
+    initial_beep_speed_button.grid(row=3, colomn=0)
+
+    initial_beep_speed_button["command"] = lambda:print(initial_beep_speed_entry, beep_acceleration_entry)
+
+    return pick_up_with_beeps_frame
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
