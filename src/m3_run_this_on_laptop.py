@@ -41,7 +41,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame,arm_frame,control_frame,movement_frame,beeper_frame=get_shared_frames(main_frame,mqtt_sender)
+    teleop_frame,arm_frame,control_frame,movement_frame,beeper_frame,pick_up_object_while_beeping_frame=get_shared_frames(main_frame,mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
@@ -65,7 +65,7 @@ def get_shared_frames(main_frame, mqtt_sender):
     movement_frame=shared_gui.get_movement_frame(main_frame,mqtt_sender)
     beeper_frame=shared_gui.get_noise_frame(main_frame,mqtt_sender)
 
-    return teleop_frame, arm_frame, control_frame,movement_frame,beeper_frame
+    return teleop_frame, arm_frame, control_frame,movement_frame,beeper_frame, pick_up_object_while_beeping_frame(main_frame, mqtt_sender)
 
 def grid_frames(teleop_frame, arm_frame, control_frame,movement_frame,beeper_frame):
     teleop_frame.grid(row=0,column=0)
@@ -73,6 +73,7 @@ def grid_frames(teleop_frame, arm_frame, control_frame,movement_frame,beeper_fra
     control_frame.grid(row=2,column=0)
     movement_frame.grid(row=0,column=1)
     beeper_frame.grid(row=1,column=1)
+    pick_up_object_while_beeping_frame.grid(row=2, column=2)
 
 def pick_up_object_while_beeping_frame(main_frame, mqtt_sender):
     pick_up_with_beeps_frame = ttk.Frame(main_frame, padding=10, borderwidth=5, relief='groove')
@@ -91,13 +92,12 @@ def pick_up_object_while_beeping_frame(main_frame, mqtt_sender):
     beep_acceleration_entry.grid(row=1, colomn=1)
 
     initial_beep_speed_button = ttk.Button(pick_up_with_beeps_frame, text='GO!')
-    initial_beep_speed_button.grid(row=3, colomn=0)
+    initial_beep_speed_button.grid(row=2, colomn=0)
 
-    initial_beep_speed_button["command"] = lambda:print(initial_beep_speed_entry, beep_acceleration_entry)
+    initial_beep_speed_button["command"] = lambda: print(initial_beep_speed_entry, beep_acceleration_entry)
 
     return pick_up_with_beeps_frame
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
 main()
-
