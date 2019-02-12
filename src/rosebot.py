@@ -226,7 +226,7 @@ class DriveSystem(object):
                 self.go(-speed,-speed)
                 break
             #allows for some error to eventually stop
-            if self.sensor_system.ir_proximity_sensor.get_distance_in_inches()<=inches + delta or self.sensor_system.ir_proximity_sensor.get_distance_in_inches()>=inches-delta:
+            if inches-delta <= self.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= inches+delta:
                 self.stop()
                 break
 
