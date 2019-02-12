@@ -40,7 +40,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    telop_frame, arm_frame, control_frame,movment_frame,noise_frame =  get_shared_frames(main_frame,mqtt_sender)
+    telop_frame, arm_frame, control_frame,movment_frame,noise_frame,cpc_frame =  get_shared_frames(main_frame,mqtt_sender)
 
 
     # -------------------------------------------------------------------------
@@ -51,7 +51,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(telop_frame,arm_frame,control_frame,movment_frame,noise_frame)
+    grid_frames(telop_frame,arm_frame,control_frame,movment_frame,noise_frame,cpc_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -65,16 +65,18 @@ def get_shared_frames(main_frame, mqtt_sender):
     control = shared_gui.get_control_frame(main_frame,mqtt_sender)
     movment = shared_gui.get_movement_frame(main_frame,mqtt_sender)
     noise = shared_gui.get_noise_frame(main_frame,mqtt_sender)
+    cpc_frame = shared_gui.get_cpc_frame(main_frame,mqtt_sender)
 
-    return teleop, arm, control,movment,noise
+    return teleop, arm, control,movment,noise,cpc_frame
 
 
-def grid_frames(teleop_frame, arm_frame, control_frame,movment_frame,noise_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame,movment_frame,noise_frame,cpc_frame):
     teleop_frame.grid(row=0,column=0)
-    arm_frame.grid(row=1,column=0)
+    arm_frame.grid(row=0,column=1)
     control_frame.grid(row=2,column=0)
     movment_frame.grid(row=3,column=0)
     noise_frame.grid(row=4,column=0)
+    cpc_frame.grid(row=5,column=0)
 
 ## gui for color and proximity and camra (work in progress)
 
@@ -182,24 +184,24 @@ def get_cpc_frame(window,mqtt_sender):
     distance_within_distance_entry.grid(row=8, column=2)
     distance_within_speed_entry.grid(row=9, column=2)
     distance_within_button.grid(row=10, column=2)
-    distance_less_than_distance_label.grid(row=1, column=4)
-    distance_less_than_speed_label.grid(row=2, column=4)
-    distance_greater_than_distance_label.grid(row=4, column=4)
-    distance_greater_than_speed_label.grid(row=5, column=4)
-    distance_within_delta_label.grid(row=7, column=4)
-    distance_within_distance_label.grid(row=8, column=4)
-    distance_within_speed_label.grid(row=9, column=4)
-    camera_button.grid(row=0, column=5)
-    spin_c_until_object_speed_entry.grid(row=7, column=5)
-    spin_c_until_object_area_entry.grid(row=8, column=5)
-    spin_c_button.grid(row=9, column=5)
-    spin_cc_until_object_speed_entry.grid(row=10, column=5)
-    spin_cc_until_object_area_entry.grid(row=11, column=5)
-    spin_cc_button.grid(row=12, column=5)
-    spin_c_until_object_speed_label.grid(row=7, column=6)
-    spin_c_until_object_area_label.grid(row=8, column=6)
-    spin_cc_until_object_speed_label.grid(row=10, column=6)
-    spin_cc_until_object_area_label.grid(row=11, column=6)
+    distance_less_than_distance_label.grid(row=1, column=3)
+    distance_less_than_speed_label.grid(row=2, column=3)
+    distance_greater_than_distance_label.grid(row=4, column=3)
+    distance_greater_than_speed_label.grid(row=5, column=3)
+    distance_within_delta_label.grid(row=7, column=3)
+    distance_within_distance_label.grid(row=8, column=3)
+    distance_within_speed_label.grid(row=9, column=3)
+    camera_button.grid(row=0, column=4)
+    spin_c_until_object_speed_entry.grid(row=7, column=4)
+    spin_c_until_object_area_entry.grid(row=8, column=4)
+    spin_c_button.grid(row=9, column=4)
+    spin_cc_until_object_speed_entry.grid(row=10, column=4)
+    spin_cc_until_object_area_entry.grid(row=11, column=4)
+    spin_cc_button.grid(row=12, column=4)
+    spin_c_until_object_speed_label.grid(row=7, column=5)
+    spin_c_until_object_area_label.grid(row=8, column=5)
+    spin_cc_until_object_speed_label.grid(row=10, column=5)
+    spin_cc_until_object_area_label.grid(row=11, column=5)
 
     # setting callbacks
 
