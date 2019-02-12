@@ -162,11 +162,11 @@ def get_movement_frame(window, mqtt_sender):
 
     # Construct the widgets on the frame:
     frame_label = ttk.Label(frame, text="Movement")
-    straight_for_seconds_seconds_label = ttk.Label(frame, text="Seconds for Robot to move")
-    straight_for_seconds_speed_label = ttk.Label(frame, text="Speed for Robot to move")
-    straight_for_inches_using_seconds_inches_label = ttk.Label(frame, text="Inches for Robot to move (using seconds)")
-    straight_for_inches_using_seconds_speed_label = ttk.Label(frame, text="Speed for Robot to move (using seconds)")
-    straight_for_inches_using_encoder_inches_label = ttk.Label(frame, text="Inches for Robot to move (using sensors)")
+    straight_for_seconds_seconds_label = ttk.Label(frame, text="Speed for Robot to move")
+    straight_for_seconds_speed_label = ttk.Label(frame, text="Seconds for Robot to move")
+    straight_for_inches_using_seconds_inches_label = ttk.Label(frame, text="Speed for Robot to move (using seconds)")
+    straight_for_inches_using_seconds_speed_label = ttk.Label(frame, text="Inches for Robot to move (using seconds)")
+    straight_for_inches_using_encoder_inches_label = ttk.Label(frame, text="Speed for Robot to move (using sensors)")
     straight_for_inches_using_encoder_speed_label = ttk.Label(frame, text="Inches for Robot to move (using sensors)")
 
     # Creates input boxes
@@ -231,8 +231,8 @@ def get_noise_frame(window, mqtt_sender):
     # Construct the widgets on the frame:
     frame_label = ttk.Label(frame, text="Sounds")
     beep_label = ttk.Label(frame, text="Number of Beeps")
-    tone_frequency_label = ttk.Label(frame, text="Frequency of Tone")
-    tone_duration_label = ttk.Label(frame, text="Duration of Tone")
+    tone_frequency_label = ttk.Label(frame, text="Duration of Tone (milliseconds)")
+    tone_duration_label = ttk.Label(frame, text="Frequency of Tone (Hz)")
     phrase_label = ttk.Label(frame, text="Phrase for the Robot to speak)")
 
     # Creates input boxes

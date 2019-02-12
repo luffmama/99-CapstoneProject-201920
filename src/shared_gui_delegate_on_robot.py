@@ -63,7 +63,8 @@ class DelagateThatReceives(object):
             self.robot.sound_system.beeper.beep().wait()
 
     def tone(self, tone_frequency_entry, tone_duration_entry):
-        self.robot.sound_system.tone_maker(int(tone_frequency_entry), int(tone_duration_entry))
+        self.robot.sound_system.tone_maker.play_tone(int(tone_frequency_entry), int(tone_duration_entry))
+
 
     def is_quit(self):
         print("quit")
