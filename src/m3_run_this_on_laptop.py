@@ -74,7 +74,7 @@ def grid_frames(teleop_frame, arm_frame, control_frame,movement_frame,beeper_fra
     movement_frame.grid(row=0,column=1)
     beeper_frame.grid(row=1,column=1)
 
-def pick_up_object_while_beeping(main_frame, mqtt_sender):
+def pick_up_object_while_beeping_frame(main_frame, mqtt_sender):
     pick_up_with_beeps_frame = ttk.Frame(main_frame, padding=10, borderwidth=5, relief='groove')
     pick_up_with_beeps_frame.grid()
 
