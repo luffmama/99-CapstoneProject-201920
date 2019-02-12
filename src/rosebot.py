@@ -219,10 +219,10 @@ class DriveSystem(object):
         from the object.
         """
         while True:
-            if self.sensor_system.ir_proximity_sensor.get_distance_in_inches()>=inches:
+            if self.sensor_system.ir_proximity_sensor.get_distance_in_inches() >= inches+delta:
                 self.go(speed, speed)
                 break
-            if self.sensor_system.ir_proximity_sensor.get_distance_in_inches()<=inches:
+            if self.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= inches-delta:
                 self.go(-speed,-speed)
                 break
             #allows for some error to eventually stop
