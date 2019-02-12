@@ -264,9 +264,9 @@ def get_noise_frame(window, mqtt_sender):
 
     # Set the button callbacks:
     beep_button["command"] = lambda: beep(
-        beep_entry,mqtt_sender)
+        beep_entry, mqtt_sender)
     tone_button["command"] = lambda: tone(
-        tone_duration_entry,tone_frequency_entry, mqtt_sender)
+        tone_frequency_entry, tone_duration_entry, mqtt_sender)
     # we don't have a phrase command yet
     # phrase_button["command"] = lambda: handle_left(left_speed_entry, right_speed_entry, mqtt_sender)
 
@@ -580,10 +580,10 @@ def beep(beep_entry,mqtt_sender):
     mqtt_sender.send_message("beep",[beep_entry.get()])
 
 
-def tone(tone_duration_entry,tone_frequency_entry,mqtt_sender):
+def tone(tone_frequency_entry,tone_duration_entry,mqtt_sender):
     print("tone",[tone_duration_entry.get(),tone_frequency_entry.get()])
-    mqtt_sender.send_message("tone",[tone_duration_entry.get(),
-                                     tone_frequency_entry.get()])
+    mqtt_sender.send_message("tone",[tone_frequency_entry.get(),
+                                     tone_duration_entry.get()])
 
 
 def handle_intensity_less_than(intensity_less_than_entry, intensity_less_than_speed_entry, mqtt_sender):
