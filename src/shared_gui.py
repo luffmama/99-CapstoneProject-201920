@@ -146,6 +146,7 @@ def get_control_frame(window, mqtt_sender):
 
     return frame
 
+
 def get_movement_frame(window, mqtt_sender):
     """
     Constructs and returns a frame on the given window, where the frame
@@ -213,6 +214,7 @@ def get_movement_frame(window, mqtt_sender):
 
     return frame
 
+
 def get_noise_frame(window, mqtt_sender):
     """
     Constructs and returns a frame on the given window, where the frame
@@ -271,6 +273,7 @@ def get_noise_frame(window, mqtt_sender):
     # phrase_button["command"] = lambda: handle_left(left_speed_entry, right_speed_entry, mqtt_sender)
 
     return frame
+
 
 def get_cpc_frame(window,mqtt_sender):
     """
@@ -427,6 +430,8 @@ def get_cpc_frame(window,mqtt_sender):
 ###############################################################################
 # Handlers for Buttons in the Teleoperation frame.
 ###############################################################################
+
+
 def handle_forward(left_entry_box, right_entry_box, mqtt_sender):
     """
     Tells the robot to move using the speeds in the given entry boxes,
@@ -439,6 +444,8 @@ def handle_forward(left_entry_box, right_entry_box, mqtt_sender):
     mqtt_sender.send_message("forward",[left_entry_box.get(),
                                         right_entry_box.get()])
     print("message got through")
+
+
 def handle_backward(left_entry_box, right_entry_box, mqtt_sender):
     """
     Tells the robot to move using the speeds in the given entry boxes,
@@ -450,6 +457,7 @@ def handle_backward(left_entry_box, right_entry_box, mqtt_sender):
     print("backward",left_entry_box.get(),right_entry_box.get())
     mqtt_sender.send_message("backward",[left_entry_box.get(),
                                          right_entry_box.get()])
+
 
 def handle_left(left_entry_box, right_entry_box, mqtt_sender):
     """
@@ -463,6 +471,7 @@ def handle_left(left_entry_box, right_entry_box, mqtt_sender):
     mqtt_sender.send_message("left",[left_entry_box.get(),
                                      right_entry_box.get()])
 
+
 def handle_right(left_entry_box, right_entry_box, mqtt_sender):
     """
     Tells the robot to move using the speeds in the given entry boxes,
@@ -474,6 +483,7 @@ def handle_right(left_entry_box, right_entry_box, mqtt_sender):
     print("right",left_entry_box.get(),right_entry_box.get())
     mqtt_sender.send_message("right",[left_entry_box.get(),
                                       right_entry_box.get()])
+
 
 def handle_stop(mqtt_sender):
     """
@@ -495,6 +505,7 @@ def handle_raise_arm(mqtt_sender):
     print("raise_arm")
     mqtt_sender.send_message("raise_arm")
 
+
 def handle_lower_arm(mqtt_sender):
     """
     Tells the robot to lower its Arm until it is all the way down.
@@ -502,6 +513,7 @@ def handle_lower_arm(mqtt_sender):
     """
     print("lower_arm")
     mqtt_sender.send_message("lower_arm")
+
 
 def handle_calibrate_arm(mqtt_sender):
     """
@@ -512,6 +524,7 @@ def handle_calibrate_arm(mqtt_sender):
     """
     print("calibrate_arm")
     mqtt_sender.send_message("calibrate_arm")
+
 
 def handle_move_arm_to_position(arm_position_entry, mqtt_sender):
     """
@@ -534,6 +547,7 @@ def handle_quit(mqtt_sender):
     print('quit')
     mqtt_sender.send_message('is_quit')
 
+
 def handle_exit(mqtt_sender):
     """
     Tell the robot's program to stop its loop (and hence quit).
@@ -543,6 +557,7 @@ def handle_exit(mqtt_sender):
     print('exit')
     handle_quit(mqtt_sender)
     exit()
+
 
 ################################################################################
 # Handlers for Buttons in Movement frame
@@ -592,11 +607,13 @@ def handle_intensity_less_than(intensity_less_than_entry, intensity_less_than_sp
     mqtt_sender.send_message("go straight_until_intensity_is_less_than",[intensity_less_than_entry.get(),
                              intensity_less_than_speed_entry.get()])
 
+
 def handle_intensity_is_greater_than(intensity_greater_than_entry, intensity_greater_than_speed_entry, mqtt_sender):
     print("go_straight_until_intensity_is_greater_than",intensity_greater_than_entry.get(),
           intensity_greater_than_speed_entry.get())
     mqtt_sender.send_message("go_straight_until_intensity_is_greater_than",[intensity_greater_than_entry.get(),
                                                                             intensity_greater_than_speed_entry.get()])
+
 
 def handle_color(straight_until_color_is_color_entry, straight_until_color_is_speed_entry, mqtt_sender):
     print("go_straight_until_color_is",straight_until_color_is_color_entry.get(),
@@ -604,11 +621,13 @@ def handle_color(straight_until_color_is_color_entry, straight_until_color_is_sp
     mqtt_sender.send_message("go_straight_until_color_is",[straight_until_color_is_color_entry.get(),
                                                            straight_until_color_is_speed_entry.get()])
 
+
 def handle_not_color(straight_until_color_is_not_color_entry, straight_until_color_is_not_speed_entry, mqtt_sender):
     print("go_straight_until_color_is_not", straight_until_color_is_not_color_entry.get(),
           straight_until_color_is_not_speed_entry.get())
     mqtt_sender.send_message("go_straight_until_color_is_not", [straight_until_color_is_not_color_entry.get(),
                              straight_until_color_is_not_speed_entry.get()])
+
 
 def handle_distance_less_than(distance_less_than_distance_entry,distance_less_than_speed_entry, mqtt_sender):
     print("go_forward_until_distance_is_less_than",distance_less_than_distance_entry.get(),
@@ -616,11 +635,13 @@ def handle_distance_less_than(distance_less_than_distance_entry,distance_less_th
     mqtt_sender.send_message("go_forward_until_distance_is_less_than",[distance_less_than_distance_entry.get(),
                                                                        distance_less_than_speed_entry.get()])
 
+
 def handle_distance_greater_than(distance_greater_than_distance_entry,distance_greater_than_speed_entry, mqtt_sender):
     print("go_backward_until_distance_is_greater_than",distance_greater_than_distance_entry.get(),
           distance_greater_than_speed_entry.get())
     mqtt_sender.send_message("go_backward_until_distance_is_greater_than",[distance_greater_than_distance_entry.get(),
                                                                            distance_greater_than_speed_entry.get()])
+
 
 def handle_distance_within(distance_within_delta_entry, distance_within_distance_entry,distance_within_speed_entry,mqtt_sender):
     print("go_to_distance_within",distance_within_delta_entry.get(), distance_within_distance_entry.get(),distance_within_speed_entry.get())
@@ -628,12 +649,15 @@ def handle_distance_within(distance_within_delta_entry, distance_within_distance
                                                       distance_within_distance_entry.get(),
                                                       distance_within_speed_entry.get()])
 
+
 def handle_spin_c(spin_c_until_object_speed_entry,spin_c_until_object_area_entry,mqtt_sender):
     print("spin_clockwise_until_object",spin_c_until_object_speed_entry.get(),spin_c_until_object_area_entry.get())
     mqtt_sender.send_message("spin_clockwise_until_object",[spin_c_until_object_speed_entry.get(),
                                                             spin_c_until_object_area_entry.get()])
 
+
 def handle_spin_cc(spin_cc_until_object_speed_entry,sping_cc_until_object_area_entry,mqtt_sender):
     print("spin_counterclockwise_until_object",spin_cc_until_object_speed_entry.get(),sping_cc_until_object_area_entry.get())
     mqtt_sender.send_message("spin_counterclockwise_until_object",[spin_cc_until_object_speed_entry.get(),
                                                                    sping_cc_until_object_area_entry.get()])
+
