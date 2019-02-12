@@ -262,18 +262,13 @@ def get_noise_frame(window, mqtt_sender):
     phrase_entry.grid(row=2, column=3)
     phrase_button.grid(row=3, column=3)
 
-    """
     # Set the button callbacks:
-    forward_button["command"] = lambda: handle_forward(
-        left_speed_entry, right_speed_entry, mqtt_sender)
-    backward_button["command"] = lambda: handle_backward(
-        left_speed_entry, right_speed_entry, mqtt_sender)
-    left_button["command"] = lambda: handle_left(
-        left_speed_entry, right_speed_entry, mqtt_sender)
-    right_button["command"] = lambda: handle_right(
-        left_speed_entry, right_speed_entry, mqtt_sender)
-    stop_button["command"] = lambda: handle_stop(mqtt_sender)
-    """
+    beep_button["command"] = lambda: beep(
+        beep_entry,mqtt_sender)
+    tone_button["command"] = lambda: tone(
+        tone_duration_entry,tone_frequency_entry, mqtt_sender)
+    # we don't have a phrase command yet
+    # phrase_button["command"] = lambda: handle_left(left_speed_entry, right_speed_entry, mqtt_sender)
 
     return frame
 
@@ -442,6 +437,7 @@ def beep(beep_entry,mqtt_sender):
 
 def tone(tone_duration_entry,tone_frequency_entry,mqtt_sender):
     print("tone",[tone_duration_entry.get(),tone_frequency_entry.get()])
-    mqtt_sender.send_message("tone",[tone_duration_entry.get(),tone_frequency_entry.get()])
+    mqtt_sender.send_message("tone",[tone_duration_entry.get(),
+                                     tone_frequency_entry.get()])
 
 
