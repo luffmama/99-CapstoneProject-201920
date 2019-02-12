@@ -69,6 +69,7 @@ class DelagateThatReceives(object):
         print("quit")
         self.is_quit = True
 
+
     # def grab(self):
     #     self.robot.drive_system.go_forward_until_distance_is_less_than(2,100)
     #     if self.robot.drive_system.left_motor.turn_off():
@@ -97,3 +98,30 @@ class DelagateThatReceives(object):
     #
     # def go_straight_until_intensity_is_less_than(self,intensity):
     #     pass
+
+    def go_straight_until_intensity_is_less_than(self,intensity, speed):
+        self.robot.drive_system.go_straight_until_intensity_is_less_than(int(intensity), int(speed))
+
+    def go_straight_until_intensity_is_greater_than(self,intensity, speed):
+        self.robot.drive_system.go_straight_until_intensity_is_greater_than(int(intensity), int(speed))
+
+    def go_straight_until_color_is(self,color, speed):
+        self.robot.drive_system.go_straight_until_color_is(int(color), int(speed))
+
+    def go_straight_until_color_is_not(self,color, speed):
+        self.robot.drive_system.go_straight_until_color_is_not(int(color), int(speed))
+
+    def go_forward_until_distance_is_less_than(self,distance, speed):
+        self.robot.drive_system.go_forward_until_distance_is_less_than(int(distance), int(speed))
+
+    def go_backward_until_distance_is_greater_than(self,distance, speed):
+        self.robot.drive_system.go_backward_until_distance_is_greater_than(int(distance), int(speed))
+
+    def go_to_distance_within(self,delta, distance, speed):
+        self.robot.drive_system.go_until_distance_is_within(int(delta), int(distance), int(speed))
+
+    def spin_clockwise_until_object(self,speed, area):
+        self.robot.drive_system.spin_clockwise_until_sees_object(int(speed), int(area))
+
+    def spin_counterclockwise_until_object(self,speed, area):
+        self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed), int(area))
