@@ -83,10 +83,10 @@ class DelagateThatReceives(object):
     #     while True:
     #         self.robot.led_system.right_led.turn_off()
     #         self.robot.led_system.left_led.turn_off((1,1))
-    #         time.sleep(k/(self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()*frequency))
+    #         time.sleep(k*(self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())/int(frequency))
     #         self.robot.led_system.right_led.turn_on((1, 1))
     #         self.robot.led_system.left_led.turn_off()
-    #         time.sleep(k/(self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()*frequency))
+    #         time.sleep(k*(self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())/int(frequency))
 
     # def handle_drive_until_color_is_not(self,color):
     #     pass
