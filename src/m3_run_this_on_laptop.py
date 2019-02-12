@@ -51,7 +51,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame,arm_frame,control_frame,movement_frame,beeper_frame)
+    grid_frames(teleop_frame,arm_frame,control_frame,movement_frame,beeper_frame, pick_up_object_while_beeping_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -67,7 +67,7 @@ def get_shared_frames(main_frame, mqtt_sender):
 
     return teleop_frame, arm_frame, control_frame,movement_frame,beeper_frame, pick_up_object_while_beeping_frame(main_frame, mqtt_sender)
 
-def grid_frames(teleop_frame, arm_frame, control_frame,movement_frame,beeper_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame,movement_frame,beeper_frame, pick_up_object_while_beeping_frame):
     teleop_frame.grid(row=0,column=0)
     arm_frame.grid(row=1,column=0)
     control_frame.grid(row=2,column=0)
@@ -89,10 +89,10 @@ def pick_up_object_while_beeping_frame(main_frame, mqtt_sender):
     beep_acceleration_label = ttk.Label(ttk.Label(pick_up_with_beeps_frame, text='enter beep acceleration'))
     beep_acceleration_label.grid(row=0, column=1)
     beep_acceleration_entry = ttk.Entry(pick_up_with_beeps_frame, width=8)
-    beep_acceleration_entry.grid(row=1, colomn=1)
+    beep_acceleration_entry.grid(row=1, column=1)
 
     initial_beep_speed_button = ttk.Button(pick_up_with_beeps_frame, text='GO!')
-    initial_beep_speed_button.grid(row=2, colomn=0)
+    initial_beep_speed_button.grid(row=2, column=0)
 
     initial_beep_speed_button["command"] = lambda: print(initial_beep_speed_entry, beep_acceleration_entry)
 
