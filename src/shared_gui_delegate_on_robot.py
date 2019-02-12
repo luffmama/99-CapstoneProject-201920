@@ -70,7 +70,7 @@ class DelagateThatReceives(object):
         self.is_quit = True
 
     # def grab(self):
-    #     self.robot.drive_system.go_forward_until_distance_is_less_than(3,100)
+    #     self.robot.drive_system.go_forward_until_distance_is_less_than(2,100)
     #     if self.robot.drive_system.left_motor.turn_off():
     #         self.raise_arm()
 
@@ -81,10 +81,10 @@ class DelagateThatReceives(object):
     #     while True:
     #         self.robot.led_system.right_led.turn_off()
     #         self.robot.led_system.left_led.turn_off((1,1))
-    #         time.sleep(k*self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()/frequency)
+    #         time.sleep(k/(self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()*frequency))
     #         self.robot.led_system.right_led.turn_on((1, 1))
     #         self.robot.led_system.left_led.turn_off()
-    #         time.sleep(k*self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()/frequency)
+    #         time.sleep(k/(self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()*frequency))
 
     # def handle_drive_until_color_is_not(self,color):
     #     pass

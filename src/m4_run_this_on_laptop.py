@@ -76,8 +76,8 @@ def grid_frames(teleop_frame, arm_frame, control_frame,movement_frame,beeper_fra
     control_frame.grid(row=2,column=0)
     movement_frame.grid(row=0,column=1)
     beeper_frame.grid(row=1,column=1)
-    grab_frame.grid(row=0,column=2)
-    LED_frame.grid(row=1,column=2)
+    grab_frame.grid(row=2,column=1)
+    LED_frame.grid(row=3,column=1)
     color_drive_frame.grid(row=3,column=0)
 
 #gui for grabbing object with sensors
@@ -135,12 +135,9 @@ def get_color_drive_frame(window, mqtt_sender):
     frame.grid()
 
     main_label = ttk.Label(frame, text="Drive Color Commands")
-    note_label=ttk.Label(frame, text="0: No color that is,"
-                                     " cannot classify the color "
-                                     "as one of the following, "
-                                     "1: Black, 2: Blue, "
-                                     "3: Green, 4: Yellow, "
-                                     "5: Red, 6: White, 7: Brown")
+    note_label=ttk.Label(frame, text="0: No color that is, cannot classify the color")
+    note_label1=ttk.Label(frame,text="as one of the following, 1: Black, 2: Blue,")
+    note_label2=ttk.Label(frame,text="3: Green, 4: Yellow, 5: Red, 6: White, 7: Brown")
     drive_until_not_label=ttk.Label(frame, text="Drive until not:")
     drive_until_label=ttk.Label(frame, text="Drive until:")
     drive_until_int_is_less_than_label=ttk.Label(frame, text="Drive until Intensity is < :")
@@ -174,7 +171,9 @@ def get_color_drive_frame(window, mqtt_sender):
     drive_until_int_is_greater_than_button.grid(row=4,column=3)
     label1.grid(row=3,column=0)
     label2.grid(row=3,column=2)
-    note_label.grid(row=1,column=5)
+    note_label.grid(row=0,column=4)
+    note_label1.grid(row=1,column=4)
+    note_label2.grid(row=2,column=4)
 
     return frame
 
