@@ -90,7 +90,7 @@ def pick_up_object_while_beeping_frame(main_frame, mqtt_sender):
     initial_beep_speed_entry.grid(row=0, column=1)
 
     # beep acceleration
-    beep_acceleration_label = ttk.Label(pick_up_with_beeps_frame, text='enter beep acceleration:')
+    beep_acceleration_label = ttk.Label(pick_up_with_beeps_frame, text='enter beep acceleration (0 to 1):')
     beep_acceleration_label.grid(row=1, column=0)
     beep_acceleration_entry = ttk.Entry(pick_up_with_beeps_frame, width=8)
     beep_acceleration_entry.grid(row=1, column=1)
@@ -103,6 +103,7 @@ def pick_up_object_while_beeping_frame(main_frame, mqtt_sender):
         initial_beep_speed_entry, beep_acceleration_entry, mqtt_sender)
 
     return pick_up_with_beeps_frame
+
 
 
 def spin_until_see_object_frame(main_frame, mqtt_sender):
