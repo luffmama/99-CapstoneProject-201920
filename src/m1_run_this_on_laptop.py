@@ -230,10 +230,21 @@ def get_cpc_frame(window,mqtt_sender):
         spin_c_until_object_speed_entry,spin_c_until_object_area_entry,mqtt_sender)
     spin_cc_button["command"] = lambda: handle_spin_cc(
         spin_cc_until_object_speed_entry,spin_cc_until_object_area_entry,mqtt_sender)
+    camera_button["command"] = lambda: handle_camera_data(mqtt_sender)
 
     return frame
 
     # Creating handle functions
+
+def handle_camera_data(mqtt_sender):
+    print("display_camera_data")
+    mqtt_sender.send_message("display_camera_data")
+
+def display_camera_data():
+    x,y,w,h = self.robot.drive_system.display_camera_data()
+    print("The center is",x,y)
+    print("The width is",w)
+    print("THe height is",h)
 
 
 def handle_intensity_less_than(intensity_less_than_entry, intensity_less_than_speed_entry, mqtt_sender):
@@ -304,13 +315,16 @@ def get_foa_frame(window,mqtt_sender):
     high_frequency_label = ttk.Label(frame,text="Maximum Frequency")
     low_frequency_label = ttk.Label(frame, text="Minimum Frequency")
     initial_frequency_duration_label = ttk.Label(frame, text="Initial Frequency Duration")
+    c_or_cc_label = ttk.Label(frame, text = "enter c or cc")
 
     high_frequency_entry = ttk.Entry(frame,width=8)
     low_frequency_entry = ttk.Entry(frame, width=8)
     initial_frequency_duration_entry = ttk.Entry(frame, width=8)
 
+    c_or_cc_entry = ttk.Entry(frame,width=8)
+
     approach_object_while_oscillating_button = ttk.Button(frame,text="Approach Object while oscillating")
-    align_with_object_button = ttk.Button(frame,text="Align with object")
+    align_with_object_button = ttk.Button(frame,text="Turn, find object, and go to it")
 
     frame_label.grid(row=0,column=1)
     high_frequency_entry.grid(row=1,column=0)
@@ -321,10 +335,12 @@ def get_foa_frame(window,mqtt_sender):
     initial_frequency_duration_label.grid(row=3, column=1)
     approach_object_while_oscillating_button.grid(row=1, column=2)
     align_with_object_button.grid(row=2, column=2)
+    c_or_cc_label.grid(row=4, column=1)
+    c_or_cc_entry.grid(row=4,column=0)
 
     approach_object_while_oscillating_button["command"] = lambda: handle_oscillation(
         high_frequency_entry,low_frequency_entry,initial_frequency_duration_entry,mqtt_sender)
-    align_with_object_button["command"] = lambda: handle_alignment(mqtt_sender)
+    align_with_object_button["command"] = lambda: handle_turn_and_go(c_or_cc_entry,mqtt_sender)
 
     return frame
 
@@ -337,20 +353,22 @@ def handle_alignment(mqtt_sender):
     print("align_the_robot")
     mqtt_sender.send_message("align_the_robot")
 
+def handle_turn_and_go(c_or_cc_entry,mqtt_sender):
+    print("turn_and_go",c_or_cc_entry.get())
+    mqtt_sender.send_message("turn_and_go",c_or_cc_entry.get())
 
 def oscillation_approach(self,high_freq,low_freq,initial_freq_duration):
     t = int(initial_freq_duration)
     dt = int(initial_freq_duration)/self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
     x = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-    dx = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()/int(initial_freq_duration)
     while True:
 
-        self.robot.sound_system.tone_maker.play_tone(high_freq,x)
+        self.robot.sound_system.tone_maker.play_tone(high_freq,x).wait(t)
         self.robot.drive_system.go_straight_for_inches_using_time(1,100)
         x = x - 1
         t = t - dt
 
-        self.robot.sound_system.tone_maker.play_tone(low_freq, x)
+        self.robot.sound_system.tone_maker.play_tone(low_freq, x).wait(t)
         self.robot.drive_system.go_straight_for_inches_using_time(1, 100)
         x = x - 1
         t = t - dt
@@ -360,7 +378,7 @@ def oscillation_approach(self,high_freq,low_freq,initial_freq_duration):
             self.robot.arm_and_claw.raise_arm()
             break
 
-
+#def spin
 
 def align_the_robot(self):
 

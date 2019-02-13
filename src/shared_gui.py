@@ -417,6 +417,7 @@ def get_cpc_frame(window,mqtt_sender):
         spin_c_until_object_speed_entry,spin_c_until_object_area_entry,mqtt_sender)
     spin_cc_button["command"] = lambda: handle_spin_cc(
         spin_cc_until_object_speed_entry,spin_cc_until_object_area_entry,mqtt_sender)
+    camera_button["command"] = lambda: handle_camera_data(mqtt_sender)
 
     return frame
 
@@ -661,3 +662,6 @@ def handle_spin_cc(spin_cc_until_object_speed_entry,sping_cc_until_object_area_e
     mqtt_sender.send_message("spin_counterclockwise_until_object",[spin_cc_until_object_speed_entry.get(),
                                                                    sping_cc_until_object_area_entry.get()])
 
+def handle_camera_data(mqtt_sender):
+    print("display_camera_data")
+    mqtt_sender.send_message("display_camera_data")
