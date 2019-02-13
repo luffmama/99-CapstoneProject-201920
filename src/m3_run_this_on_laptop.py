@@ -105,6 +105,7 @@ def pick_up_object_while_beeping_frame(main_frame, mqtt_sender):
     return pick_up_with_beeps_frame
 
 
+
 def spin_until_see_object_frame(main_frame, mqtt_sender):
     spin_till_see_object_frame = ttk.Frame(main_frame, padding=10, borderwidth=5, relief='groove')
     spin_till_see_object_frame.grid()
