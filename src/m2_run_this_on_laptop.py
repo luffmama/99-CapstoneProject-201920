@@ -74,6 +74,7 @@ def grid_frames(teleop_frame, arm_frame, control_frame, movement_frame, noise_fr
     noise_frame.grid(row=1, column=1)
 
 
+
 def tone_as_closer (self, initial_frequency, delta_frequency):
     self.robot.drive_system.go(100)
     k = 0
