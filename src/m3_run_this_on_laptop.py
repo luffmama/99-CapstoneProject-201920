@@ -41,7 +41,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame,arm_frame,control_frame,movement_frame,beeper_frame,pick_up_object_while_beeping_frame, spin_until_see_object_frame=get_shared_frames(main_frame,mqtt_sender)
+    teleop_frame,arm_frame,control_frame,movement_frame,beeper_frame,pick_up_object_while_beeping_frame=get_shared_frames(main_frame,mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
@@ -51,7 +51,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame,arm_frame,control_frame,movement_frame,beeper_frame, pick_up_object_while_beeping_frame, spin_until_see_object_frame)
+    grid_frames(teleop_frame,arm_frame,control_frame,movement_frame,beeper_frame, pick_up_object_while_beeping_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -66,17 +66,16 @@ def get_shared_frames(main_frame, mqtt_sender):
     movement_frame=shared_gui.get_movement_frame(main_frame,mqtt_sender)
     beeper_frame=shared_gui.get_noise_frame(main_frame,mqtt_sender)
 
-    return teleop_frame, arm_frame, control_frame,movement_frame,beeper_frame, pick_up_object_while_beeping_frame(main_frame, mqtt_sender), spin_until_see_object_frame(main_frame, mqtt_sender)
+    return teleop_frame, arm_frame, control_frame,movement_frame,beeper_frame, pick_up_object_while_beeping_frame(main_frame, mqtt_sender)
 
 
-def grid_frames(teleop_frame, arm_frame, control_frame,movement_frame,beeper_frame, pick_up_object_while_beeping_frame, spin_until_see_object_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame,movement_frame,beeper_frame, pick_up_object_while_beeping_frame):
     teleop_frame.grid(row=0,column=0)
     arm_frame.grid(row=1,column=0)
     control_frame.grid(row=2,column=0)
     movement_frame.grid(row=3,column=0)
     beeper_frame.grid(row=4,column=0)
     pick_up_object_while_beeping_frame.grid(row=0, column=1)
-    spin_until_see_object_frame.grid(row=1, column=1)
 
 
 def pick_up_object_while_beeping_frame(main_frame, mqtt_sender):
@@ -90,7 +89,7 @@ def pick_up_object_while_beeping_frame(main_frame, mqtt_sender):
     initial_beep_speed_entry.grid(row=0, column=1)
 
     # beep acceleration
-    beep_acceleration_label = ttk.Label(pick_up_with_beeps_frame, text='enter beep acceleration:')
+    beep_acceleration_label = ttk.Label(pick_up_with_beeps_frame, text='enter beep acceleration (0 to 1):')
     beep_acceleration_label.grid(row=1, column=0)
     beep_acceleration_entry = ttk.Entry(pick_up_with_beeps_frame, width=8)
     beep_acceleration_entry.grid(row=1, column=1)
@@ -102,33 +101,26 @@ def pick_up_object_while_beeping_frame(main_frame, mqtt_sender):
     initial_beep_speed_button["command"] = lambda: handle_pick_up_object_while_beeping(
         initial_beep_speed_entry, beep_acceleration_entry, mqtt_sender)
 
-    return pick_up_with_beeps_frame
 
-
-def spin_until_see_object_frame(main_frame, mqtt_sender):
-    spin_till_see_object_frame = ttk.Frame(main_frame, padding=10, borderwidth=5, relief='groove')
-    spin_till_see_object_frame.grid()
-
-    # turn direction
-    direction_label = ttk.Label(spin_till_see_object_frame, text='clockwise spin(cw) or counterclockwise spin(ccw):')
-    direction_label.grid(row=0, column=0)
-    direction_entry = ttk.Entry(spin_till_see_object_frame, width=8)
-    direction_entry.grid(row=0, column=1)
+    direction_label = ttk.Label(pick_up_with_beeps_frame, text='clockwise spin(cw) or counterclockwise spin(ccw):')
+    direction_label.grid(row=3, column=0)
+    direction_entry = ttk.Entry(pick_up_with_beeps_frame, width=8)
+    direction_entry.grid(row=3, column=1)
 
     # spin speed
-    spin_speed_label = ttk.Label(spin_till_see_object_frame, text='enter spin speed:')
-    spin_speed_label.grid(row=1, column=0)
-    spin_speed_entry = ttk.Entry(spin_till_see_object_frame, width=8)
-    spin_speed_entry.grid(row=1, column=1)
+    spin_speed_label = ttk.Label(pick_up_with_beeps_frame, text='enter spin speed:')
+    spin_speed_label.grid(row=4, column=0)
+    spin_speed_entry = ttk.Entry(pick_up_with_beeps_frame, width=8)
+    spin_speed_entry.grid(row=4, column=1)
 
     # button
-    spin_till_see_object_button = ttk.Button(spin_till_see_object_frame, text='GO!')
-    spin_till_see_object_button.grid(row=2, column=0)
+    spin_till_see_object_button = ttk.Button(pick_up_with_beeps_frame, text='Spin GO!')
+    spin_till_see_object_button.grid(row=5, column=0)
 
     spin_till_see_object_button['command'] = lambda: handle_spin_until_see_object_frame(
-        direction_entry, spin_speed_entry, mqtt_sender)
+        initial_beep_speed_entry, beep_acceleration_entry, direction_entry, spin_speed_entry, mqtt_sender)
 
-    return spin_till_see_object_frame
+    return pick_up_with_beeps_frame
 
 
 def handle_pick_up_object_while_beeping(initial_beep_speed_entry, beep_acceleration_entry, mqtt_sender):
@@ -136,9 +128,9 @@ def handle_pick_up_object_while_beeping(initial_beep_speed_entry, beep_accelerat
     mqtt_sender.send_message('pick_up_object_while_beeping', [initial_beep_speed_entry.get(), beep_acceleration_entry.get()])
 
 
-def handle_spin_until_see_object_frame(direction_entry, spin_speed_entry, mqtt_sender):
-    print('Spin until see object', direction_entry.get(), spin_speed_entry.get())
-    mqtt_sender.send_message('pick_up_object_while_beeping', [direction_entry.get(), spin_speed_entry.get()])
+def handle_spin_until_see_object_frame(initial_beep_speed_entry, beep_acceleration_entry, direction_entry, spin_speed_entry, mqtt_sender):
+    print('Spin until see object',initial_beep_speed_entry.get(), beep_acceleration_entry.get(), direction_entry.get(), spin_speed_entry.get())
+    mqtt_sender.send_message('pick_up_object_while_beeping', [initial_beep_speed_entry.get(), beep_acceleration_entry.get(), direction_entry.get(), spin_speed_entry.get()])
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
