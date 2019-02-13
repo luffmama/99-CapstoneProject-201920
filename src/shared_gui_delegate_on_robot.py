@@ -115,5 +115,3 @@ class DelagateThatReceives(object):
 
     def spin_counterclockwise_until_object(self,speed, area):
         self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed), int(area))
-
-    
