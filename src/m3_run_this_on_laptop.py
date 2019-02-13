@@ -125,7 +125,8 @@ def spin_until_see_object_frame(main_frame, mqtt_sender):
     spin_till_see_object_button = ttk.Button(spin_till_see_object_frame, text='GO!')
     spin_till_see_object_button.grid(row=2, column=0)
 
-    spin_till_see_object_button['command'] = lambda: print(direction_entry, spin_speed_entry)
+    spin_till_see_object_button['command'] = lambda: handle_spin_until_see_object_frame(
+        direction_entry, spin_speed_entry, mqtt_sender)
 
     return spin_till_see_object_frame
 
@@ -136,7 +137,7 @@ def handle_pick_up_object_while_beeping(initial_beep_speed_entry, beep_accelerat
 
 
 def handle_spin_until_see_object_frame(direction_entry, spin_speed_entry, mqtt_sender):
-    print('pick_up_object_while_beeping', direction_entry.get(), spin_speed_entry.get())
+    print('Spin until see object', direction_entry.get(), spin_speed_entry.get())
     mqtt_sender.send_message('pick_up_object_while_beeping', [direction_entry.get(), spin_speed_entry.get()])
 
 # -----------------------------------------------------------------------------
