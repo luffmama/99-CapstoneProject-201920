@@ -153,6 +153,7 @@ class DelagateThatReceives(object):
             time.sleep(1/int(initial_beep_speed_entry) -
                        (int(beep_acceleration_entry)*4)/((int(initial_beep_speed_entry))*
                         self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()))
+        self.robot.arm_and_claw.lower_arm()
 
     def display_camera_data(self):
         x, y, w, h = self.robot.drive_system.display_camera_data()
