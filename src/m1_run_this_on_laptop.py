@@ -45,7 +45,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    telop_frame, arm_frame, control_frame,movment_frame,noise_frame,cpc_frame =  get_shared_frames(main_frame,mqtt_sender)
+    telop_frame, arm_frame, control_frame,movment_frame,noise_frame,cpc_frame,foa_frame =  get_shared_frames(main_frame,mqtt_sender)
 
 
     # -------------------------------------------------------------------------
@@ -56,7 +56,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(telop_frame,arm_frame,control_frame,movment_frame,noise_frame,cpc_frame)
+    grid_frames(telop_frame,arm_frame,control_frame,movment_frame,noise_frame,cpc_frame,foa_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -71,17 +71,19 @@ def get_shared_frames(main_frame, mqtt_sender):
     movment = shared_gui.get_movement_frame(main_frame,mqtt_sender)
     noise = shared_gui.get_noise_frame(main_frame,mqtt_sender)
     cpc_frame = shared_gui.get_cpc_frame(main_frame,mqtt_sender)
+    foa_frame = get_foa_frame(main_frame,mqtt_sender)
 
-    return teleop, arm, control,movment,noise,cpc_frame
+    return teleop, arm, control,movment,noise,cpc_frame, foa_frame
 
 
-def grid_frames(teleop_frame, arm_frame, control_frame,movment_frame,noise_frame,cpc_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame,movment_frame,noise_frame,cpc_frame,foa_frame):
     teleop_frame.grid(row=0,column=0)
     arm_frame.grid(row=0,column=1)
     control_frame.grid(row=1,column=0)
     movment_frame.grid(row=2,column=0)
-    noise_frame.grid(row=3,column=0)
+    noise_frame.grid(row=1,column=1)
     cpc_frame.grid(row=4,column=0)
+    foa_frame.grid(row=3,column=0)
 
 ## gui for color and proximity and camra (work in progress)
 
@@ -316,7 +318,7 @@ def get_foa_frame(window,mqtt_sender):
     initial_frequency_duration_entry.grid(row=3, column=0)
     high_frequency_label.grid(row=1, column=1)
     low_frequency_label.grid(row=2, column=1)
-    initial_frequency_duration_label.grid(row=2, column=1)
+    initial_frequency_duration_label.grid(row=3, column=1)
     approach_object_while_oscillating_button.grid(row=1, column=2)
     align_with_object_button.grid(row=2, column=2)
 
@@ -338,9 +340,7 @@ def handle_alignment(mqtt_sender):
 
 def oscillation_approach(self,high_freq,low_freq,initial_freq_duration):
     x = int(initial_freq_duration)
-    self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
     dx = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()/int(initial_freq_duration)
-    number_of_steps = x/dx
     while True:
 
         self.robot.sound_system.tone_maker.play_tone(high_freq,x)
@@ -351,8 +351,9 @@ def oscillation_approach(self,high_freq,low_freq,initial_freq_duration):
         self.robot.drive_system.go_straight_for_inches_using_time(1, 100)
         x = x - dx
 
-        if x <= 0:
+        if x <= 3:
             self.robot.drive_system.stop()
+            self.robot.arm_and_claw.raise_arm()
             break
 
 
