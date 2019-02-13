@@ -11,8 +11,13 @@ import mqtt_remote_method_calls as com
 import tkinter
 from tkinter import ttk
 import shared_gui
+import rosebot
+import math
 
 
+
+
+rosebot.RoseBot
 def main():
     """
     This code, which must run on a LAPTOP:
@@ -282,32 +287,78 @@ def handle_spin_cc(spin_cc_until_object_speed_entry,sping_cc_until_object_area_e
                                                                    sping_cc_until_object_area_entry.get()])
     # Creating shared gui delgate functions
 
-def go_straight_until_intensity_is_less_than(intensity,speed):
-    self.robot.drive_system.go_straight_until_intensity_is_less_than(int(intensity),int(speed))
 
-def go_straight_until_intensity_is_greater_than(intensity,speed):
-    self.robot.drive_system.go_straight_until_intensity_is_greater_than(int(intensity), int(speed))
+#
+## Gui for frequency oscillation and alignment using the camera
 
-def go_straight_until_color_is(color,speed):
-    self.robot.drive_system.go_straight_until_color_is(int(color),int(speed))
 
-def go_straight_until_color_is_not(color,speed):
-    self.robot.drive_system.go_straight_until_color_is_not(int(color),int(speed))
 
-def go_forward_until_distance_is_less_than(distance,speed):
-    self.robot.drive_system.go_forward_until_distance_is_less_than(int(distance),int(speed))
+def get_foa_frame(window,mqtt_sender):
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
 
-def go_backward_until_distance_is_greater_than(distance,speed):
-    self.robot.drive_system.go_backward_until_distance_is_greater_than(int(distance),int(speed))
+    frame_label = ttk.Label(frame,text="Frequency Oscillation and Alignment using the Camera")
+    high_frequency_label = ttk.Label(frame,text="Maximum Frequency")
+    low_frequency_label = ttk.Label(frame, text="Minimum Frequency")
+    initial_frequency_duration_label = ttk.Label(frame, text="Initial Frequency Duration")
 
-def go_to_distance_within(delta,distance,speed):
-    self.robot.drive_system.go_until_distance_is_within(int(delta),int(distance),int(speed))
+    high_frequency_entry = ttk.Entry(frame,width=8)
+    low_frequency_entry = ttk.Entry(frame, width=8)
+    initial_frequency_duration_entry = ttk.Entry(frame, width=8)
 
-def spin_clockwise_until_object(speed,area):
-    self.robot.drive_system.spin_clockwise_until_sees_object(int(speed),int(area))
+    approach_object_while_oscillating_button = ttk.Button(frame,text="Approach Object while oscillating")
+    align_with_object_button = ttk.Button(frame,text="Align with object")
 
-def spin_counterclockwise_until_object(speed,area):
-    self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed),int(area))
+    frame_label.grid(row=0,column=1)
+    high_frequency_entry.grid(row=1,column=0)
+    low_frequency_entry.grid(row=2,column=0)
+    initial_frequency_duration_entry.grid(row=3, column=0)
+    high_frequency_label.grid(row=1, column=1)
+    low_frequency_label.grid(row=2, column=1)
+    initial_frequency_duration_label.grid(row=2, column=1)
+    approach_object_while_oscillating_button.grid(row=1, column=2)
+    align_with_object_button.grid(row=2, column=2)
+
+    approach_object_while_oscillating_button["command"] = lambda: handle_oscillation(
+        high_frequency_entry,low_frequency_entry,initial_frequency_duration_entry,mqtt_sender)
+    align_with_object_button["command"] = lambda: handle_alignment(mqtt_sender)
+
+    return frame
+
+def handle_oscillation(high_frequency_entry, low_frequency_entry, initial_frequency_duration_entry, mqtt_sender):
+    print("oscillation_approach",high_frequency_entry.get(), low_frequency_entry.get(), initial_frequency_duration_entry.get())
+    mqtt_sender.send_message("oscillation_approach",[high_frequency_entry.get(),
+                                                   low_frequency_entry.get(),
+                                                   initial_frequency_duration_entry.get()])
+def handle_alignment(mqtt_sender):
+    print("align_the_robot")
+    mqtt_sender.send_message("align_the_robot")
+
+
+def oscillation_approach(self,high_freq,low_freq,initial_freq_duration):
+    x = int(initial_freq_duration)
+    self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+    dx = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()/int(initial_freq_duration)
+    number_of_steps = x/dx
+    while True:
+
+        self.robot.sound_system.tone_maker.play_tone(high_freq,x)
+        self.robot.drive_system.go_straight_for_inches_using_time(1,100)
+        x = x - dx
+
+        self.robot.sound_system.tone_maker.play_tone(low_freq, x)
+        self.robot.drive_system.go_straight_for_inches_using_time(1, 100)
+        x = x - dx
+
+        if x <= 0:
+            self.robot.drive_system.stop()
+            break
+
+
+
+def align_the_robot(self):
+    pass
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.

@@ -17,6 +17,7 @@ class DelagateThatReceives(object):
         self.robot = robot
         self.is_quit = False
 
+
     def forward(self, left_wheel_speed, right_wheel_speed):
         print("got to shared gui")
         self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
