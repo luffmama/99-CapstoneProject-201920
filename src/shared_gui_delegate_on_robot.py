@@ -116,33 +116,4 @@ class DelagateThatReceives(object):
     def spin_counterclockwise_until_object(self,speed, area):
         self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed), int(area))
 
-    def oscillation_approach(self, high_freq, low_freq, initial_freq_duration):
-        x = int(initial_freq_duration)
-        dx = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() / int(initial_freq_duration)
-        while True:
-
-            self.robot.sound_system.tone_maker.play_tone(int(high_freq), x)
-            self.robot.drive_system.go_straight_for_inches_using_time(1, 100)
-            x = x - dx
-
-            self.robot.sound_system.tone_maker.play_tone(int(low_freq), x)
-            self.robot.drive_system.go_straight_for_inches_using_time(1, 100)
-            x = x - dx
-
-            if x <= 3:
-                self.robot.drive_system.stop()
-                self.robot.arm_and_claw.raise_arm()
-                break
-
-    def align_the_robot(self):
-
-        blob = self.robot.sensor_system.camera.get_biggest_blob()
-        while True:
-            if blob.center.x < 0:
-                self.robot.drive_system.left(100).wait(0.05)
-                self.robot.drive_system.stop()
-            if blob.center.x > 0:
-                self.robot.drive_system.right(100).wait(0.05)
-                self.robot.drive_system.stop()
-            if blob.center.x == 0:
-                break
+    

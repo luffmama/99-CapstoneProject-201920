@@ -339,7 +339,9 @@ def handle_alignment(mqtt_sender):
 
 
 def oscillation_approach(self,high_freq,low_freq,initial_freq_duration):
-    x = int(initial_freq_duration)
+    t = int(initial_freq_duration)
+    dt = int(initial_freq_duration)/self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+    x = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
     dx = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()/int(initial_freq_duration)
     while True:
 
@@ -362,13 +364,13 @@ def align_the_robot(self):
 
     blob = self.robot.sensor_system.camera.get_biggest_blob()
     while True:
-        if blob.center.x < 0:
+        if blob.center.x < 160:
             self.robot.drive_system.left(100).wait(0.05)
             self.robot.drive_system.stop()
-        if blob.center.x > 0:
+        if blob.center.x > 160:
             self.robot.drive_system.right(100).wait(0.05)
             self.robot.drive_system.stop()
-        if blob.center.x == 0:
+        if blob.center.x == 160:
             break
 
 # -----------------------------------------------------------------------------
