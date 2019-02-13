@@ -73,10 +73,10 @@ def grid_frames(teleop_frame, arm_frame, control_frame,movement_frame,beeper_fra
     teleop_frame.grid(row=0,column=0)
     arm_frame.grid(row=1,column=0)
     control_frame.grid(row=2,column=0)
-    movement_frame.grid(row=0,column=1)
-    beeper_frame.grid(row=1,column=1)
-    pick_up_object_while_beeping_frame.grid(row=0, column=2)
-    spin_until_see_object_frame.grid(row=1, column=2)
+    movement_frame.grid(row=3,column=0)
+    beeper_frame.grid(row=4,column=0)
+    pick_up_object_while_beeping_frame.grid(row=0, column=1)
+    spin_until_see_object_frame.grid(row=1, column=1)
 
 
 def pick_up_object_while_beeping_frame(main_frame, mqtt_sender):
