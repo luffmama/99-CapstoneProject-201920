@@ -154,7 +154,7 @@ class DelagateThatReceives(object):
                        (int(beep_acceleration_entry)*4)/((int(initial_beep_speed_entry))*
                         self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()))
 
-    def display_camera_data():
+    def display_camera_data(self):
         x, y, w, h = self.robot.drive_system.display_camera_data()
         print("The center is", x, y)
         print("The width is", w)
