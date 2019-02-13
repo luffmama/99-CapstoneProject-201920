@@ -83,11 +83,11 @@ def pick_up_object_while_beeping_frame(main_frame, mqtt_sender):
     initial_beep_speed_label = ttk.Label(pick_up_with_beeps_frame, text='enter initial beeps per second')
     initial_beep_speed_label.grid(row=0, column=0)
     initial_beep_speed_entry = ttk.Entry(pick_up_with_beeps_frame, width=8)
-    initial_beep_speed_entry.grid(row=1, column=0)
+    initial_beep_speed_entry.grid(row=0, column=1)
 
     # beep acceleration
-    beep_acceleration_label = ttk.Label(ttk.Label(pick_up_with_beeps_frame, text='enter beep acceleration'))
-    beep_acceleration_label.grid(row=0, column=1)
+    beep_acceleration_label = ttk.Label(pick_up_with_beeps_frame, text='enter beep acceleration')
+    beep_acceleration_label.grid(row=1, column=0)
     beep_acceleration_entry = ttk.Entry(pick_up_with_beeps_frame, width=8)
     beep_acceleration_entry.grid(row=1, column=1)
 
@@ -97,6 +97,20 @@ def pick_up_object_while_beeping_frame(main_frame, mqtt_sender):
     initial_beep_speed_button["command"] = lambda: print(initial_beep_speed_entry, beep_acceleration_entry)
 
     return pick_up_with_beeps_frame
+
+def spin_untill_see_object_frame(main_frame, mqtt_sender):
+    spin_till_see_object_frame = ttk.Frame(main_frame, padding=10, borderwidth=5, relief='groove')
+    spin_till_see_object_frame.grid()
+
+    # turn direction
+    direction_label = ttk.Label(spin_till_see_object_frame, text='clockwise spin(cw) or counterclockwise spin(ccw')
+    direction_label.grid()
+    direction_entry = ttk.Entry(spin_till_see_object_frame, width=8)
+    direction_entry.grid()
+
+    # spin speed
+    spin_speed_label = ttk.Label(spin_till_see_object_frame)
+    
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
