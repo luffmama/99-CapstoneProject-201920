@@ -9,7 +9,7 @@ def LED_cycle(self, frequency):
     k = 1
     while True:
         self.robot.led_system.right_led.turn_off()
-        self.robot.led_system.left_led.turn_off()
+        self.robot.led_system.left_led.turn_on()
         time.sleep(k * (self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()) / int(frequency))
         self.robot.led_system.right_led.turn_on()
         self.robot.led_system.left_led.turn_off()
