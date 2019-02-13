@@ -358,7 +358,17 @@ def oscillation_approach(self,high_freq,low_freq,initial_freq_duration):
 
 
 def align_the_robot(self):
-    pass
+
+    blob = self.robot.sensor_system.camera.get_biggest_blob()
+    while True:
+        if blob.center.x < 0:
+            self.robot.drive_system.left(100).wait(0.05)
+            self.robot.drive_system.stop()
+        if blob.center.x > 0:
+            self.robot.drive_system.right(100).wait(0.05)
+            self.robot.drive_system.stop()
+        if blob.center.x == 0:
+            break
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
