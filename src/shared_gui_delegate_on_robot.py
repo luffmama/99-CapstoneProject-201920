@@ -72,22 +72,28 @@ class DelagateThatReceives(object):
         self.is_quit = True
 
 
-    def grab(self):
-        self.robot.drive_system.go_forward_until_distance_is_less_than(2,100)
-        if self.robot.drive_system.left_motor.turn_off():
-            self.raise_arm()
+    # def grab(self):
+    #     self.robot.drive_system.go_forward_until_distance_is_less_than(2,100)
+    #     if self.robot.drive_system.left_motor.turn_off():
+    #         self.raise_arm()
 
-    def LED_cycle(self, frequency):
+    def LED_cycle(self, frequency): #person 3, led cycle and go and pick up
+        self.robot.drive_system.go(100,100)
         self.robot.led_system.right_led.turn_on()
         self.robot.led_system.left_led.turn_off()
         k = 1
         while True:
             self.robot.led_system.right_led.turn_off()
             self.robot.led_system.left_led.turn_on()
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()<=2:
+                break
             time.sleep(k * (self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()) / int(frequency))
             self.robot.led_system.right_led.turn_on()
             self.robot.led_system.left_led.turn_off()
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()<=2:
+                break
             time.sleep(k * (self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()) / int(frequency))
+        self.robot.arm_and_claw.raise_arm()
 
     def go_straight_until_intensity_is_less_than(self,intensity, speed):
         self.robot.drive_system.go_straight_until_intensity_is_less_than(int(intensity), int(speed))
