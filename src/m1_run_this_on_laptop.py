@@ -347,11 +347,13 @@ def oscillation_approach(self,high_freq,low_freq,initial_freq_duration):
 
         self.robot.sound_system.tone_maker.play_tone(high_freq,x)
         self.robot.drive_system.go_straight_for_inches_using_time(1,100)
-        x = x - dx
+        x = x - 1
+        t = t - dt
 
         self.robot.sound_system.tone_maker.play_tone(low_freq, x)
         self.robot.drive_system.go_straight_for_inches_using_time(1, 100)
-        x = x - dx
+        x = x - 1
+        t = t - dt
 
         if x <= 3:
             self.robot.drive_system.stop()
