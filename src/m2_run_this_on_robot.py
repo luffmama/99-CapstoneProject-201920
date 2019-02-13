@@ -32,11 +32,6 @@ def running_gui():
     while True:
         time.sleep(0.01)
 
-def spin_until_object():
-    robot = rosebot.RoseBot()
-    while robot.sensor_system.camera.get_biggest_blob() is None:
-
-
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
