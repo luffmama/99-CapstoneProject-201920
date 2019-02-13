@@ -73,6 +73,16 @@ def grid_frames(teleop_frame, arm_frame, control_frame, movement_frame, noise_fr
     movement_frame.grid(row=0, column=1)
     noise_frame.grid(row=1, column=1)
 
+
+def beep_as_closer (self, initial_frequency, delta_frequency):
+    self.robot.drive_system.go(100)
+    while True:
+        self.soundsystem.beeper.beep()
+        if self.soundsystem.Sensorsystem.ir_proximity_sensor.get_distance() <= 4:
+            self.robot.drive_system.stop()
+            break
+
+
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
