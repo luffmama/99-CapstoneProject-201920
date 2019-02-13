@@ -74,10 +74,12 @@ def grid_frames(teleop_frame, arm_frame, control_frame, movement_frame, noise_fr
     noise_frame.grid(row=1, column=1)
 
 
-def beep_as_closer (self, initial_frequency, delta_frequency):
+def tone_as_closer (self, initial_frequency, delta_frequency):
     self.robot.drive_system.go(100)
+    k = 0
     while True:
-        self.soundsystem.beeper.beep()
+        self.soundsystem.tone_maker.ToneMaker(initial_frequency + (delta_frequency * k), 50)
+        k += 1
         if self.soundsystem.Sensorsystem.ir_proximity_sensor.get_distance() <= 4:
             self.robot.drive_system.stop()
             break
