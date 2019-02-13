@@ -148,15 +148,16 @@ def get_color_drive_frame(window, mqtt_sender):
     drive_until_int_is_less_than_button=ttk.Button(frame, text="Start! (d_u_i_i_l_t)")
     drive_until_int_is_greater_than_button=ttk.Button(frame, text="Start! (d_u_i_i_g_t)")
 
+    speed_entry=ttk.Entry(frame,width=8)
     color_entry = ttk.Entry(frame, width=8)
     intensity_entry = ttk.Entry(frame, width=8)
     label1=ttk.Label(frame, text="color int ->")
     label2=ttk.Label(frame, text="intensity ->")
 
-    drive_until_not_button["command"] = lambda:handle_drive_until_color_is_not(mqtt_sender,color_entry)
-    drive_until_button["command"] = lambda:handle_drive_until_color_is(mqtt_sender,color_entry)
-    drive_until_int_is_less_than_button["command"] = lambda:go_straight_until_intensity_is_less_than(mqtt_sender,color_entry)
-    drive_until_int_is_greater_than_button["command"] = lambda:go_straight_until_intensity_is_greater_than(mqtt_sender,color_entry)
+    drive_until_not_button["command"] = lambda:handle_drive_until_color_is_not(mqtt_sender,color_entry,speed_entry)
+    drive_until_button["command"] = lambda:handle_drive_until_color_is(mqtt_sender,color_entry,speed_entry)
+    drive_until_int_is_less_than_button["command"] = lambda:go_straight_until_intensity_is_less_than(mqtt_sender,color_entry,speed_entry)
+    drive_until_int_is_greater_than_button["command"] = lambda:go_straight_until_intensity_is_greater_than(mqtt_sender,color_entry,speed_entry)
 
     main_label.grid()
     drive_until_not_label.grid(row=2,column=0)
@@ -174,28 +175,29 @@ def get_color_drive_frame(window, mqtt_sender):
     note_label.grid(row=0,column=4)
     note_label1.grid(row=1,column=4)
     note_label2.grid(row=2,column=4)
+    speed_entry.grid(row=0,column=2)
 
     return frame
 
-def handle_drive_until_color_is_not(mqtt_sender,color_entry):
+def handle_drive_until_color_is_not(mqtt_sender,color_entry,speed_entry):
 
-    print("handle_drive_until_color_is_not",color_entry.get())
-    mqtt_sender.send_message("handle_drive_until_color_is_not",[color_entry.get()])
+    print("go_straight_until_color_is_not",color_entry.get(),speed_entry.get())
+    mqtt_sender.send_message("go_straight_until_color_is_not",[color_entry.get(),speed_entry.get()])
 
-def handle_drive_until_color_is(mqtt_sender,color_entry):
+def handle_drive_until_color_is(mqtt_sender,color_entry,speed_entry):
 
-    print("handle_drive_until_color_is",color_entry.get())
-    mqtt_sender.send_message("handle_drive_until_color_is",[color_entry.get()])
+    print("go_straight_until_color_is",color_entry.get(),speed_entry.get())
+    mqtt_sender.send_message("go_straight_until_color_is",[color_entry.get(),speed_entry.get()])
 
-def go_straight_until_intensity_is_greater_than(mqtt_sender,intensity_entry):
+def go_straight_until_intensity_is_greater_than(mqtt_sender,intensity_entry,speed_entry):
 
-    print("go_straight_until_intensity_is_greater_than",intensity_entry.get())
-    mqtt_sender.send_message("go_straight_until_intensity_is_greater_than",[intensity_entry.get()])
+    print("go_straight_until_intensity_is_greater_than",intensity_entry.get(),speed_entry.get())
+    mqtt_sender.send_message("go_straight_until_intensity_is_greater_than",[intensity_entry.get(),speed_entry.get()])
 
-def go_straight_until_intensity_is_less_than(mqtt_sender,intensity_entry):
+def go_straight_until_intensity_is_less_than(mqtt_sender,intensity_entry,speed_entry):
 
-    print("go_straight_until_intensity_is_less_than",intensity_entry.get())
-    mqtt_sender.send_message("go_straight_until_intensity_is_less_than",[intensity_entry.get()])
+    print("go_straight_until_intensity_is_less_than",intensity_entry.get(),speed_entry.get())
+    mqtt_sender.send_message("go_straight_until_intensity_is_less_than",[intensity_entry.get(),speed_entry.get()])
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
