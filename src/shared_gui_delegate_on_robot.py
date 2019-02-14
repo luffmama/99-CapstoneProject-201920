@@ -221,3 +221,27 @@ class DelagateThatReceives(object):
                 self.robot.arm_and_claw.raise_arm()
                 break
 
+# F 10 Margaret Luffman
+
+    def turn_and_go(self, c_or_cc_entry, high_freq, low_freq, initial_freq_duration):
+        if str(c_or_cc_entry) == "c":
+            self.robot.drive_system.spin_clockwise_until_sees_object(100, 100)
+            self.align_the_robot()
+            self.m1_f9(int(high_freq), int(low_freq), int(initial_freq_duration))
+        if str(c_or_cc_entry) == "cc":
+            self.robot.drive_system.spin_counterclockwise_until_sees_object(100, 100)
+            self.align_the_robot()
+            self.m1_f9(int(high_freq), int(low_freq), int(initial_freq_duration))
+
+    def align_the_robot(self):
+
+        blob = self.robot.sensor_system.camera.get_biggest_blob()
+        while True:
+            if blob.center.x < 160:
+                self.robot.drive_system.left(100).wait(0.05)
+                self.robot.drive_system.stop()
+            if blob.center.x > 160:
+                self.robot.drive_system.right(100).wait(0.05)
+                self.robot.drive_system.stop()
+            if blob.center.x == 160:
+                break
