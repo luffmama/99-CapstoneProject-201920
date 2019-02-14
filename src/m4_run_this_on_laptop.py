@@ -138,7 +138,7 @@ def get_LED_frame(window, mqtt_sender):
 def handle_LED(mqtt_sender,frequency_entry,speed_entry,area_entry,spin_direction_entry):
 
     print("LED message",frequency_entry.get(),speed_entry.get(),area_entry.get(),spin_direction_entry.get())
-    mqtt_sender.send_message("LED_cycle",[frequency_entry.get(),speed_entry.get(),area_entry.get(),spin_direction_entry.get()])
+    mqtt_sender.send_message("LED_cycle_feature10",[frequency_entry.get(),speed_entry.get(),area_entry.get(),spin_direction_entry.get()])
 
 #gui for color drive frame
 def get_color_drive_frame(window, mqtt_sender):

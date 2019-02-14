@@ -78,10 +78,18 @@ class DelagateThatReceives(object):
     #     if self.robot.drive_system.left_motor.turn_off():
     #         self.raise_arm()
 
-    def LED_cycle(self, frequency): #person 3, led cycle and go and pick up
-        #m4
-
-        self.robot.drive_system.go(100,100)
+    def LED_cycle_feature10(self,frequency_entry,speed_entry,area_entry,spin_direction_entry):
+        if str(spin_direction_entry) == "cw":
+            self.robot.drive_system.spin_clockwise_until_sees_object(speed_entry,area_entry)
+            self.align_the_robot()
+            self.LED_cycle(frequency_entry,spin_direction_entry)
+        if str(spin_direction_entry) == "ccw":
+            self.robot.drive_system.spin_counterclockwise_until_sees_object(speed_entry,area_entry)
+            self.align_the_robot()
+            
+    def LED_cycle(self,frequency_entry,speed_entry): #person 3, led cycle and go and pick up
+        #m4 Robert Kreft
+        self.robot.drive_system.go(speed_entry,speed_entry)
         self.robot.led_system.right_led.turn_on()
         self.robot.led_system.left_led.turn_off()
         k = 1
@@ -90,12 +98,12 @@ class DelagateThatReceives(object):
             self.robot.led_system.left_led.turn_on()
             if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()<=1:
                 break
-            time.sleep(k * (self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()) / int(frequency))
+            time.sleep(k * (self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()) / int(frequency_entry))
             self.robot.led_system.right_led.turn_on()
             self.robot.led_system.left_led.turn_off()
             if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()<=1:
                 break
-            time.sleep(k * (self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()) / int(frequency))
+            time.sleep(k * (self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()) / int(frequency_entry))
         self.robot.drive_system.go(-100,-100)
         time.sleep(.1)
         self.robot.drive_system.stop()
