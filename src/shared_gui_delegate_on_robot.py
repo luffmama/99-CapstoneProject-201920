@@ -18,7 +18,6 @@ class DelagateThatReceives(object):
         self.robot = robot
         self.is_quit = False
 
-
     def forward(self, left_wheel_speed, right_wheel_speed):
         print("got to shared gui")
         self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
@@ -67,11 +66,9 @@ class DelagateThatReceives(object):
     def tone(self, tone_frequency_entry, tone_duration_entry):
         self.robot.sound_system.tone_maker.play_tone(int(tone_frequency_entry), int(tone_duration_entry))
 
-
     def is_quit(self):
         print("quit")
         self.is_quit = True
-
 
     # def grab(self):
     #     self.robot.drive_system.go_forward_until_distance_is_less_than(2,100)
