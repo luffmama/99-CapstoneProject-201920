@@ -156,8 +156,8 @@ def get_color_drive_frame(window, mqtt_sender):
 
     drive_until_not_button["command"] = lambda:handle_drive_until_color_is_not(mqtt_sender,color_entry,speed_entry)
     drive_until_button["command"] = lambda:handle_drive_until_color_is(mqtt_sender,color_entry,speed_entry)
-    drive_until_int_is_less_than_button["command"] = lambda:go_straight_until_intensity_is_less_than(mqtt_sender,color_entry,speed_entry)
-    drive_until_int_is_greater_than_button["command"] = lambda:go_straight_until_intensity_is_greater_than(mqtt_sender,color_entry,speed_entry)
+    drive_until_int_is_less_than_button["command"] = lambda:go_straight_until_intensity_is_less_than(mqtt_sender,intensity_entry,speed_entry)
+    drive_until_int_is_greater_than_button["command"] = lambda:go_straight_until_intensity_is_greater_than(mqtt_sender,intensity_entry,speed_entry)
 
     main_label.grid()
     drive_until_not_label.grid(row=2,column=0)
