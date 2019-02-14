@@ -240,7 +240,7 @@ def handle_camera_data(mqtt_sender):
     print("display_camera_data")
     mqtt_sender.send_message("display_camera_data")
 
-def display_camera_data():
+def display_camera_data(self):
     x,y,w,h = self.robot.drive_system.display_camera_data()
     print("The center is",x,y)
     print("The width is",w)
