@@ -165,8 +165,19 @@ class DelagateThatReceives(object):
         print("The width is", w)
         print("THe height is", h)
 
+# This makes the robot play tones at increasing frequency as it gets closer to an object (written by Emily)
+    def tone_as_closer(self, initial_frequency, delta_frequency):
+        self.robot.drive_system.go(100)
+        k = 0
+        while True:
+            self.robot.sound_system.tone_maker.ToneMaker(initial_frequency + (delta_frequency * k), 50)
+            k += 1
+            if self.robot.sound_system.Sensorsystem.ir_proximity_sensor.get_distance() <= 4:
+                self.robot.drive_system.stop()
+                break
+        self.robot.arm_and_claw.raise_arm()
 
-# This method gets the robot to face objects (written by Emily)
+    # This method gets the robot to face objects (written by Emily)
     def m2_face_object(self, speed):
         while True:
             if self.robot.sensor_system.camera.get_biggest_blob().center.x < 160:
