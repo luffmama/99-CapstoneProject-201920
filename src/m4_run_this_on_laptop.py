@@ -200,6 +200,6 @@ def go_straight_until_intensity_is_less_than(mqtt_sender,intensity_entry,speed_e
     mqtt_sender.send_message("go_straight_until_intensity_is_less_than",[intensity_entry.get(),speed_entry.get()])
 
 # -----------------------------------------------------------------------------
-# Calls  main  to start the ball rolling.
+# Calls  main  to start the ball rolling..
 # -----------------------------------------------------------------------------
 main()
