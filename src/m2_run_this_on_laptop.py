@@ -108,18 +108,12 @@ def face_and_pick_up_object_frame(window, mqtt_sender):
     button1.grid(row=1, column=2)
     button2.grid(row=2, column=2)
 
-    """
     # Set the button callbacks:
-    forward_button["command"] = lambda: handle_forward(
-        left_speed_entry, right_speed_entry, mqtt_sender)
-    backward_button["command"] = lambda: handle_backward(
-        left_speed_entry, right_speed_entry, mqtt_sender)
-    left_button["command"] = lambda: handle_left(
-        left_speed_entry, right_speed_entry, mqtt_sender)
-    right_button["command"] = lambda: handle_right(
-        left_speed_entry, right_speed_entry, mqtt_sender)
-    stop_button["command"] = lambda: handle_stop(mqtt_sender)
-    """
+    button1["command"] = lambda: handle_button1(
+        speed_entry, direction_entry, mqtt_sender)
+    button2["command"] = lambda: handle_button2(
+        speed_entry, mqtt_sender)
+
     return frame
 
 
@@ -161,8 +155,8 @@ def play_tone_increasing(window, mqtt):
 
 
 # passes the button1 function to shared_gui_delegate
-def handle_button1(speed_entry, mqtt_sender):
-    mqtt_sender.send_message("m2_face_object",[speed_entry.get()])
+def handle_button1(speed_entry, direction_entry, mqtt_sender):
+    mqtt_sender.send_message("m2_face_object",[speed_entry.get(), direction_entry.get()])
 
 def handle_button2(speed_entry, mqtt_sender):
     mqtt_sender.send_message("m2_pick_up_object", [speed_entry.get()])
