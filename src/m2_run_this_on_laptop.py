@@ -94,8 +94,7 @@ def face_and_pick_up_object_frame(window, mqtt_sender):
     speed_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
 
     button1 = ttk.Button(frame, text="Point towards an object")
-    button2 = ttk.Button(frame, text="Face an object")
-    button3 = ttk.Button(frame, text="Pick up object")
+    button2 = ttk.Button(frame, text="Face an object and pick up object")
 
     # Grid the widgets:
     frame_label.grid(row=0, column=0)
@@ -108,7 +107,6 @@ def face_and_pick_up_object_frame(window, mqtt_sender):
 
     button1.grid(row=1, column=2)
     button2.grid(row=2, column=2)
-    button3.grid(row=3, column=2)
 
     """
     # Set the button callbacks:
@@ -161,6 +159,13 @@ def play_tone_increasing(window, mqtt):
     """
     return frame
 
+
+# passes the button1 function to shared_gui_delegate
+def handle_button1(speed_entry, mqtt_sender):
+    mqtt_sender.send_message("m2_face_object",[speed_entry.get()])
+
+def handle_button2(speed_entry, mqtt_sender):
+    mqtt_sender.send_message("m2_pick_up_object", [speed_entry.get()])
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
