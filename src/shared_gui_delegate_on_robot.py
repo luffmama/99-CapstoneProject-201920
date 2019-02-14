@@ -161,3 +161,19 @@ class DelagateThatReceives(object):
         print("The center is", x, y)
         print("The width is", w)
         print("THe height is", h)
+
+
+    def m2_face_object(self, speed):
+        while True:
+            if self.robot.sensor_system.camera.get_biggest_blob().center.x < 160:
+                self.robot.drive_system.left_motor.turn_on(-speed)
+                self.robot.drive_system.right_motor.turn_on(speed)
+            if self.robot.sensor_system.camera.get_biggest_blob().center.x > 160:
+                self.robot.drive_system.left_motor.turn_on(speed)
+                self.robot.drive_system.right_motor.turn_on(-speed)
+            if self.robot.sensor_system.camera.get_biggest_blob().cetner.x = 160:
+                self.robot.drive_system.left_motor.turn_off()
+                self.robot.drive_system.right_motor.turn_off()
+                break
+
+                
