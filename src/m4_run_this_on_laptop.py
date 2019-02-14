@@ -110,23 +110,35 @@ def get_LED_frame(window, mqtt_sender):
 
     frequency_label=ttk.Label(frame,text="LED Frequency command")
     frequency_entry = ttk.Entry(frame, width=8)
-    frequency_entry_label=ttk.Label(frame,text="<- initial rate of change of freq")
+    frequency_entry_label=ttk.Label(frame,text="<- initial freq entry")
+    speed_entry=ttk.Entry(frame, width=8)
+    speed_entry_label=ttk.Label(frame,text="<- speed entry")
+    area_entry=ttk.Entry(frame, width=8)
+    area_entry_label=ttk.Label(frame,text="<- area entry")
+    spin_direction_entry=ttk.Entry(frame, width=8)
+    spin_direction_entry_label=ttk.Label(frame,text="<- direction entry, cw or ccw")
     start_button = ttk.Button(frame, text="Start!")
 
     frequency_label.grid()
     frequency_entry.grid(row=1,column=0)
     frequency_entry_label.grid(row=1,column=1)
-    start_button.grid(row=2,column=0)
+    start_button.grid(row=5,column=0)
+    speed_entry.grid(row=2,column=0)
+    speed_entry_label.grid(row=2,column=1)
+    area_entry.grid(row=3,column=0)
+    area_entry_label.grid(row=3,column=1)
+    spin_direction_entry.grid(row=4,column=0)
+    spin_direction_entry_label.grid(row=4,column=1)
 
-    start_button["command"] = lambda: handle_LED(mqtt_sender,frequency_entry)
+    start_button["command"] = lambda: handle_LED(mqtt_sender,frequency_entry,speed_entry,area_entry,spin_direction_entry)
 
     return frame
 
 #handle command for alternating led gui
-def handle_LED(mqtt_sender,frequency_entry):
+def handle_LED(mqtt_sender,frequency_entry,speed_entry,area_entry,spin_direction_entry):
 
-    print("LED message",frequency_entry.get())
-    mqtt_sender.send_message("LED_cycle",[frequency_entry.get()])
+    print("LED message",frequency_entry.get(),speed_entry.get(),area_entry.get(),spin_direction_entry.get())
+    mqtt_sender.send_message("LED_cycle",[frequency_entry.get(),speed_entry.get(),area_entry.get(),spin_direction_entry.get()])
 
 #gui for color drive frame
 def get_color_drive_frame(window, mqtt_sender):
