@@ -137,7 +137,7 @@ class DelagateThatReceives(object):
 
             self.robot.sound_system.tone_maker.play_tone(low_freq, t).wait()
             self.robot.drive_system.go_straight_for_inches_using_time(1, 100)
-            x = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() 
+            x = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             t = t - dt
 
             if x <= 1:
@@ -153,7 +153,7 @@ class DelagateThatReceives(object):
                 self.robot.drive_system.stop()
                 break
             self.robot.sound_system.beeper.beep().wait()
-            time.sleep(1/int(initial_beep_speed_entry) - (int(beep_acceleration_entry)*3)/((int(initial_beep_speed_entry)) * self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()))
+            time.sleep(.3 + 1/int(initial_beep_speed_entry) - (int(beep_acceleration_entry)/100)/((int(initial_beep_speed_entry)) * self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()))
         self.robot.arm_and_claw.raise_arm()
 
     def display_camera_data(self):
