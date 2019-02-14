@@ -89,10 +89,14 @@ def face_and_pick_up_object_frame(window, mqtt_sender):
     direction_label_2 = ttk.Label(frame, text="And 1 for Counterclockwise")
     direction_label = ttk.Label(frame, text="Direction:")
     speed_label = ttk.Label(frame, text="Speed:")
+    area_label = ttk.Label(frame, text="Area:")
 
+    # Construct Entry Boxes
     direction_entry = ttk.Entry(frame, width=8)
-    speed_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
+    speed_entry = ttk.Entry(frame, width=8)
+    area_entry = ttk.Entry(frame, width=8)
 
+    # Constuct Buttons
     button1 = ttk.Button(frame, text="Point towards an object")
     button2 = ttk.Button(frame, text="Face an object and pick up object")
 
@@ -101,12 +105,14 @@ def face_and_pick_up_object_frame(window, mqtt_sender):
     direction_label_1.grid(row=1, column=0)
     direction_label_2.grid(row=1, column=1)
     direction_label.grid(row=2, column=0)
-    speed_label.grid(row=2, column=1)
-    direction_entry.grid(row=3, column=0)
+    speed_label.grid(row=3, column=0)
+    area_label.grid(row=4, column=0)
+    direction_entry.grid(row=2, column=1)
     speed_entry.grid(row=3, column=1)
+    area_entry.grid(row=4, column=1)
 
-    button1.grid(row=1, column=2)
-    button2.grid(row=2, column=2)
+    button1.grid(row=5, column=0)
+    button2.grid(row=5, column=1)
 
     # Set the button callbacks:
     button1["command"] = lambda: handle_button1(
@@ -117,7 +123,7 @@ def face_and_pick_up_object_frame(window, mqtt_sender):
     return frame
 
 
-def play_tone_increasing(window, mqtt):
+def play_tone_increasing(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
 
@@ -139,18 +145,11 @@ def play_tone_increasing(window, mqtt):
     delta_frequency_entry.grid(row=2, column=1)
     button.grid(row=3, column=0)
 
-    """
+
     # Set the button callbacks:
-    forward_button["command"] = lambda: handle_forward(
-        left_speed_entry, right_speed_entry, mqtt_sender)
-    backward_button["command"] = lambda: handle_backward(
-        left_speed_entry, right_speed_entry, mqtt_sender)
-    left_button["command"] = lambda: handle_left(
-        left_speed_entry, right_speed_entry, mqtt_sender)
-    right_button["command"] = lambda: handle_right(
-        left_speed_entry, right_speed_entry, mqtt_sender)
-    stop_button["command"] = lambda: handle_stop(mqtt_sender)
-    """
+    button["command"] = lambda: handle_button(
+        initial_frequency_entry, delta_frequency_entry, mqtt_sender)
+
     return frame
 
 
@@ -158,8 +157,15 @@ def play_tone_increasing(window, mqtt):
 def handle_button1(speed_entry, direction_entry, mqtt_sender):
     mqtt_sender.send_message("m2_face_object",[speed_entry.get(), direction_entry.get()])
 
+
+# passes the button2 function to shared_gui_delegate
 def handle_button2(speed_entry, mqtt_sender):
     mqtt_sender.send_message("m2_pick_up_object", [speed_entry.get()])
+
+
+# passes the button function to shared_gui_delegate
+def handle_button(initial_frequency_entry, delta_frequency_entry, mqtt_sender):
+    mqtt_sender.send_message("tone_as_closer", [initial_frequency_entry.get(), delta_frequency_entry.get()])
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
