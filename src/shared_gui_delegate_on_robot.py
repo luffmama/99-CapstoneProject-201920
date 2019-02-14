@@ -93,6 +93,8 @@ class DelagateThatReceives(object):
             if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()<=1:
                 break
             time.sleep(k * (self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()) / int(frequency))
+        self.robot.drive_system.go(-100,-100)
+        time.sleep(.1)
         self.robot.drive_system.stop()
         self.robot.arm_and_claw.raise_arm()
 
