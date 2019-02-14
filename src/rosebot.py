@@ -219,9 +219,9 @@ class DriveSystem(object):
         from the object.
         """
         if inches - delta >= float(self.sensor_system.ir_proximity_sensor.get_distance_in_inches()):
-            self.go(-speed, -speed)
-        elif inches + delta <= float(self.sensor_system.ir_proximity_sensor.get_distance_in_inches()):
             self.go(speed, speed)
+        elif inches + delta <= float(self.sensor_system.ir_proximity_sensor.get_distance_in_inches()):
+            self.go(-speed, -speed)
         else:
             print('distance in already within range')
         while True:
