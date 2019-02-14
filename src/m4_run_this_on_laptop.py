@@ -31,7 +31,6 @@ def main():
     root=tkinter.Tk()
     root.title("CSSE120 Capstone Project, W 18-19")
 
-
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
     # -------------------------------------------------------------------------
