@@ -219,13 +219,13 @@ class DriveSystem(object):
         from the object.
         """
         if inches - delta >= self.sensor_system.ir_proximity_sensor.get_distance_in_inches() or \
-                inches + delta <= self.sensor_system.ir_proximity_sensor.get_distance_in_inches:
+                inches + delta <= float(self.sensor_system.ir_proximity_sensor.get_distance_in_inches()):
             self.go(speed, speed)
         else:
             print('distance in already within range')
         while True:
             # allows for some error to eventually stop
-            if inches-delta <= self.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= inches+delta:
+            if inches-delta <= float(self.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= inches+delta):
                 self.stop()
                 break
 
@@ -681,7 +681,7 @@ class InfraredProximitySensor(object):
         """
         cm_per_inch = 2.54
         distance= 48/cm_per_inch*self.get_distance()/100
-        print(distance)
+        # print(distance)
         return distance
 
 class InfraredBeaconSensor(object):
