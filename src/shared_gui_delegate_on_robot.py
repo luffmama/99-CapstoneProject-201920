@@ -80,6 +80,7 @@ class DelagateThatReceives(object):
 
     def LED_cycle(self, frequency): #person 3, led cycle and go and pick up
         #m4
+
         self.robot.drive_system.go(100,100)
         self.robot.led_system.right_led.turn_on()
         self.robot.led_system.left_led.turn_off()
