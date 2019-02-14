@@ -340,7 +340,8 @@ def get_foa_frame(window,mqtt_sender):
 
     approach_object_while_oscillating_button["command"] = lambda: handle_oscillation(
         high_frequency_entry,low_frequency_entry,initial_frequency_duration_entry,mqtt_sender)
-    align_with_object_button["command"] = lambda: handle_turn_and_go(c_or_cc_entry,mqtt_sender)
+    align_with_object_button["command"] = lambda: handle_turn_and_go(
+        c_or_cc_entry,high_frequency_entry,low_frequency_entry,initial_frequency_duration_entry,mqtt_sender)
 
     return frame
 
@@ -353,9 +354,12 @@ def handle_alignment(mqtt_sender):
     print("align_the_robot")
     mqtt_sender.send_message("align_the_robot")
 
-def handle_turn_and_go(c_or_cc_entry,mqtt_sender):
-    print("turn_and_go",c_or_cc_entry.get())
-    mqtt_sender.send_message("turn_and_go",c_or_cc_entry.get())
+def handle_turn_and_go(c_or_cc_entry,high_frequency_entry, low_frequency_entry, initial_frequency_duration_entry,mqtt_sender):
+    print("turn_and_go",c_or_cc_entry.get(),high_frequency_entry.get(), low_frequency_entry.get(), initial_frequency_duration_entry.get())
+    mqtt_sender.send_message("turn_and_go",[c_or_cc_entry.get(),
+                                            high_frequency_entry.get(),
+                                            low_frequency_entry.get(),
+                                            initial_frequency_duration_entry.get()])
 
 def oscillation_approach(self,high_freq,low_freq,initial_freq_duration):
     t = int(initial_freq_duration)
@@ -378,7 +382,14 @@ def oscillation_approach(self,high_freq,low_freq,initial_freq_duration):
             self.robot.arm_and_claw.raise_arm()
             break
 
-#def spin
+def turn_and_go(self,c_or_cc_entry,high_freq,low_freq,initial_freq_duration):
+    if str(c_or_cc_entry) == "c":
+        self.robot.drive_system.spin_clockwise_until_sees_object(100,100)
+        align_the_robot(self)
+        oscillation_approach(self,high_freq,low_freq,initial_freq_duration)
+    if str(c_or_cc_entry) == "cc":
+        self.robot.drive_system.spin_counterclockwise_until_sees_object(100,100)
+        align_the_robot(self)
 
 def align_the_robot(self):
 
