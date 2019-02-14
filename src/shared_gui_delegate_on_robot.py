@@ -148,6 +148,7 @@ class DelagateThatReceives(object):
                 self.robot.arm_and_claw.raise_arm()
                 break
 
+    # next 2 are features 9 and 10 for Conner Ozatalar
     def pick_up_object_while_beeping(self, initial_beep_speed_entry, beep_acceleration_entry):
         self.robot.drive_system.go(75, 75)
         while True:
@@ -158,6 +159,13 @@ class DelagateThatReceives(object):
             self.robot.sound_system.beeper.beep().wait()
             time.sleep(.3 + 1/int(initial_beep_speed_entry) - (int(beep_acceleration_entry)/100)/((int(initial_beep_speed_entry)) * self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()))
         self.robot.arm_and_claw.raise_arm()
+
+    def m3_feature_10(self, initial_beep_speed_entry, beep_acceleration_entry,  direction_entry, spin_speed_entry):
+        if direction_entry is 'cw':
+            self.robot.drive_system.spin_clockwise_until_sees_object(spin_speed_entry, 100)
+        if direction_entry is 'ccw':
+            self.robot.drive_system.spin_counterclockwise_until_sees_object(spin_speed_entry, 100)
+        DelagateThatReceives.pick_up_object_while_beeping(self, initial_beep_speed_entry, beep_acceleration_entry)
 
     def display_camera_data(self):
         x, y, w, h = self.robot.drive_system.display_camera_data()
@@ -208,12 +216,12 @@ class DelagateThatReceives(object):
 
             self.robot.sound_system.tone_maker.play_tone(high_freq, x).wait(t)
             self.robot.drive_system.go_straight_for_inches_using_time(1, 100)
-            x = x - 1
+            x = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             t = t - dt
 
             self.robot.sound_system.tone_maker.play_tone(low_freq, x).wait(t)
             self.robot.drive_system.go_straight_for_inches_using_time(1, 100)
-            x = x - 1
+            x = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             t = t - dt
 
             if x <= 3:
@@ -221,3 +229,27 @@ class DelagateThatReceives(object):
                 self.robot.arm_and_claw.raise_arm()
                 break
 
+# F 10 Margaret Luffman
+
+    def turn_and_go(self, c_or_cc_entry, high_freq, low_freq, initial_freq_duration):
+        if str(c_or_cc_entry) == "c":
+            self.robot.drive_system.spin_clockwise_until_sees_object(100, 100)
+            self.align_the_robot()
+            self.m1_f9(int(high_freq), int(low_freq), int(initial_freq_duration))
+        if str(c_or_cc_entry) == "cc":
+            self.robot.drive_system.spin_counterclockwise_until_sees_object(100, 100)
+            self.align_the_robot()
+            self.m1_f9(int(high_freq), int(low_freq), int(initial_freq_duration))
+
+    def align_the_robot(self):
+
+        blob = self.robot.sensor_system.camera.get_biggest_blob()
+        while True:
+            if blob.center.x < 150:
+                self.robot.drive_system.left(100).wait(0.05)
+                self.robot.drive_system.stop()
+            if blob.center.x > 170:
+                self.robot.drive_system.right(100).wait(0.05)
+                self.robot.drive_system.stop()
+            if blob.center.x >= 150 and blob.center.x <= 170:
+                break
