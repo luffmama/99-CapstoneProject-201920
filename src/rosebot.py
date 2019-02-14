@@ -273,8 +273,8 @@ class DriveSystem(object):
         Requires that the user train the camera on the color of the object.
         """
         while True:
-            self.left_motor.turn_on(-speed)
-            self.right_motor.turn_on(speed)
+            self.left_motor.turn_on(speed)
+            self.right_motor.turn_on(-speed)
             print(self.sensor_system.camera.get_biggest_blob().get_area())
             if self.sensor_system.camera.get_biggest_blob().get_area() > area:
                 self.right_motor.turn_off()
@@ -289,8 +289,8 @@ class DriveSystem(object):
         Requires that the user train the camera on the color of the object.
         """
         while True:
-            self.left_motor.turn_on(speed)
-            self.right_motor.turn_on(-speed)
+            self.left_motor.turn_on(-speed)
+            self.right_motor.turn_on(speed)
             if self.sensor_system.camera.get_biggest_blob().get_area() > area:
                 self.left_motor.turn_off()
                 self.right_motor.turn_off()
