@@ -227,7 +227,7 @@ class DelagateThatReceives(object):
             x = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             t = t - dt
 
-            if x <= 3:
+            if x <= 2:
                 self.robot.drive_system.stop()
                 self.robot.arm_and_claw.raise_arm()
                 break
@@ -236,11 +236,11 @@ class DelagateThatReceives(object):
 
     def turn_and_go(self, c_or_cc_entry, high_freq, low_freq, initial_freq_duration):
         if str(c_or_cc_entry) == "c":
-            self.robot.drive_system.spin_clockwise_until_sees_object(100, 100)
+            self.robot.drive_system.spin_clockwise_until_sees_object(50, 50)
             self.align_the_robot()
             self.m1_f9(int(high_freq), int(low_freq), int(initial_freq_duration))
         if str(c_or_cc_entry) == "cc":
-            self.robot.drive_system.spin_counterclockwise_until_sees_object(100, 100)
+            self.robot.drive_system.spin_counterclockwise_until_sees_object(50, 50)
             self.align_the_robot()
             self.m1_f9(int(high_freq), int(low_freq), int(initial_freq_duration))
 
@@ -249,10 +249,10 @@ class DelagateThatReceives(object):
         blob = self.robot.sensor_system.camera.get_biggest_blob()
         while True:
             if blob.center.x < 150:
-                self.robot.drive_system.left(100).wait(0.05)
+                self.left(50,-50).wait(0.05)
                 self.robot.drive_system.stop()
             if blob.center.x > 170:
-                self.robot.drive_system.right(100).wait(0.05)
+                self.right(-50,50).wait(0.05)
                 self.robot.drive_system.stop()
             if blob.center.x >= 150 and blob.center.x <= 170:
                 break
