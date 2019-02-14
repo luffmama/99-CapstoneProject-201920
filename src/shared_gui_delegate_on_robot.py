@@ -172,7 +172,7 @@ class DelagateThatReceives(object):
                 self.robot.drive_system.go(-50, 50)
             if blob.center.x <= 150:
                 self.robot.drive_system.go(50, -50)
-            if 150 <= blob.center.x <=170:
+            if 150 <= blob.center.x <= 170:
                 break
         DelagateThatReceives.pick_up_object_while_beeping(self, initial_beep_speed_entry, beep_acceleration_entry)
 
