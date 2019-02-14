@@ -85,12 +85,12 @@ class DelagateThatReceives(object):
         while True:
             self.robot.led_system.right_led.turn_off()
             self.robot.led_system.left_led.turn_on()
-            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()<=2:
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()<=1:
                 break
             time.sleep(k * (self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()) / int(frequency))
             self.robot.led_system.right_led.turn_on()
             self.robot.led_system.left_led.turn_off()
-            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()<=2:
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()<=1:
                 break
             time.sleep(k * (self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()) / int(frequency))
         self.robot.arm_and_claw.raise_arm()
