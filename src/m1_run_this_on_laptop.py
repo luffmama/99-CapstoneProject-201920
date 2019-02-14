@@ -390,6 +390,7 @@ def turn_and_go(self,c_or_cc_entry,high_freq,low_freq,initial_freq_duration):
     if str(c_or_cc_entry) == "cc":
         self.robot.drive_system.spin_counterclockwise_until_sees_object(100,100)
         align_the_robot(self)
+        oscillation_approach(self,high_freq,low_freq,initial_freq_duration)
 
 def align_the_robot(self):
 
