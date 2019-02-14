@@ -346,7 +346,7 @@ def get_foa_frame(window,mqtt_sender):
     return frame
 
 def handle_oscillation(high_frequency_entry, low_frequency_entry, initial_frequency_duration_entry, mqtt_sender):
-    print("oscillation_approach",high_frequency_entry.get(), low_frequency_entry.get(), initial_frequency_duration_entry.get())
+    print("m1_f9",high_frequency_entry.get(), low_frequency_entry.get(), initial_frequency_duration_entry.get())
     mqtt_sender.send_message("oscillation_approach",[high_frequency_entry.get(),
                                                    low_frequency_entry.get(),
                                                    initial_frequency_duration_entry.get()])
@@ -386,11 +386,11 @@ def turn_and_go(self,c_or_cc_entry,high_freq,low_freq,initial_freq_duration):
     if str(c_or_cc_entry) == "c":
         self.robot.drive_system.spin_clockwise_until_sees_object(100,100)
         align_the_robot(self)
-        oscillation_approach(self,high_freq,low_freq,initial_freq_duration)
+        oscillation_approach(self,int(high_freq),int(low_freq),int(initial_freq_duration))
     if str(c_or_cc_entry) == "cc":
         self.robot.drive_system.spin_counterclockwise_until_sees_object(100,100)
         align_the_robot(self)
-        oscillation_approach(self,high_freq,low_freq,initial_freq_duration)
+        oscillation_approach(self,int(high_freq),int(low_freq),int(initial_freq_duration))
 
 def align_the_robot(self):
 
