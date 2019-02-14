@@ -81,11 +81,11 @@ class DelagateThatReceives(object):
         if str(spin_direction_entry) == "cw":
             self.robot.drive_system.spin_clockwise_until_sees_object(int(speed_entry),int(area_entry))
             self.align_the_robot()
-            self.LED_cycle(frequency_entry,spin_direction_entry)
+            self.LED_cycle(frequency_entry,speed_entry)
         if str(spin_direction_entry) == "ccw":
             self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed_entry),int(area_entry))
             self.align_the_robot()
-            self.LED_cycle(frequency_entry, spin_direction_entry)
+            self.LED_cycle(frequency_entry, speed_entry)
 
     #approaches and grabs the object while blinking leds at a faster pace as it approaches
     def LED_cycle(self,frequency_entry,speed_entry): #person 3, led cycle and go and pick up
