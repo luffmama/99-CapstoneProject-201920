@@ -130,7 +130,7 @@ def handle_pick_up_object_while_beeping(initial_beep_speed_entry, beep_accelerat
 
 def handle_spin_until_see_object_frame(initial_beep_speed_entry, beep_acceleration_entry, direction_entry, spin_speed_entry, mqtt_sender):
     print('Spin until see object',initial_beep_speed_entry.get(), beep_acceleration_entry.get(), direction_entry.get(), spin_speed_entry.get())
-    mqtt_sender.send_message('pick_up_object_while_beeping', [initial_beep_speed_entry.get(), beep_acceleration_entry.get(), direction_entry.get(), spin_speed_entry.get()])
+    mqtt_sender.send_message('m3_feature_10', [initial_beep_speed_entry.get(), beep_acceleration_entry.get(), direction_entry.get(), spin_speed_entry.get()])
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
