@@ -7,7 +7,7 @@
   Winter term, 2018-2019.
 """
 import time
-import m1_run_this_on_laptop
+#import m1_run_this_on_laptop
 
 class DelagateThatReceives(object):
     # This class creates a delagate for the robot.

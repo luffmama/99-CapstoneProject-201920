@@ -682,7 +682,7 @@ class InfraredProximitySensor(object):
         """
         cm_per_inch = 2.54
         distance= 48/cm_per_inch*self.get_distance()/100
-        # print(distance)
+        print(distance)
         return distance
 
 class InfraredBeaconSensor(object):
