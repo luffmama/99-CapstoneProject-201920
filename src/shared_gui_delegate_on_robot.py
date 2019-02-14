@@ -268,11 +268,13 @@ class DelagateThatReceives(object):
 
         blob = self.robot.sensor_system.camera.get_biggest_blob()
         while True:
+            print(int(blob.center.x))
             if blob.center.x < 150:
-                self.left(50,-50).wait(0.05)
+                self.right(50,50)
                 self.robot.drive_system.stop()
             if blob.center.x > 170:
-                self.right(-50,50).wait(0.05)
+                self.left(50,50)
                 self.robot.drive_system.stop()
             if blob.center.x >= 150 and blob.center.x <= 170:
+                self.robot.drive_system.stop()
                 break
