@@ -161,7 +161,11 @@ class DelagateThatReceives(object):
         self.robot.arm_and_claw.raise_arm()
 
     def m3_feature_10(self, initial_beep_speed_entry, beep_acceleration_entry,  direction_entry, spin_speed_entry):
-        pass
+        if direction_entry is 'cw':
+            self.robot.drive_system.spin_clockwise_until_sees_object(spin_speed_entry, 100)
+        if direction_entry is 'ccw':
+            self.robot.drive_system.spin_counterclockwise_until_sees_object(spin_speed_entry, 100)
+        DelagateThatReceives.pick_up_object_while_beeping(self, initial_beep_speed_entry, beep_acceleration_entry)
 
     def display_camera_data(self):
         x, y, w, h = self.robot.drive_system.display_camera_data()
