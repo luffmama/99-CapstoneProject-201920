@@ -85,6 +85,7 @@ def tone_as_closer (self, initial_frequency, delta_frequency):
             self.robot.drive_system.stop()
             break
 
+# def face_and_pick_up_object_frame():
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
