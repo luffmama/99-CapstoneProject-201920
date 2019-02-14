@@ -184,7 +184,7 @@ class DelagateThatReceives(object):
 
 # This makes the robot play tones at increasing frequency as it gets closer to an object (written by Emily)
     def tone_as_closer(self, initial_frequency, delta_frequency):
-        self.robot.drive_system.go(100)
+        self.robot.drive_system.go(100, 100)
         k = 0
         while True:
             self.robot.sound_system.tone_maker.ToneMaker(initial_frequency + (delta_frequency * k), 50)
