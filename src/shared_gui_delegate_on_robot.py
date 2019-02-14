@@ -163,9 +163,17 @@ class DelagateThatReceives(object):
 
     def m3_feature_10(self, initial_beep_speed_entry, beep_acceleration_entry,  direction_entry, spin_speed_entry):
         if direction_entry is 'cw':
-            self.robot.drive_system.spin_clockwise_until_sees_object(spin_speed_entry, 100)
+            self.robot.drive_system.spin_clockwise_until_sees_object(spin_speed_entry, 50)
         if direction_entry is 'ccw':
-            self.robot.drive_system.spin_counterclockwise_until_sees_object(spin_speed_entry, 100)
+            self.robot.drive_system.spin_counterclockwise_until_sees_object(spin_speed_entry, 50)
+        blob = self.robot.sensor_system.camera.get_biggest_blob()
+        while True:
+            if blob.center.x >= 170:
+                self.robot.drive_system.go(-50, 50)
+            if blob.center.x <= 150:
+                self.robot.drive_system.go(50, -50)
+            if 150 <= blob.center.x <=170:
+                break
         DelagateThatReceives.pick_up_object_while_beeping(self, initial_beep_speed_entry, beep_acceleration_entry)
 
     def display_camera_data(self):
