@@ -148,6 +148,7 @@ class DelagateThatReceives(object):
                 self.robot.arm_and_claw.raise_arm()
                 break
 
+    # next 2 are features 9 and 10 for Conner Ozatalar
     def pick_up_object_while_beeping(self, initial_beep_speed_entry, beep_acceleration_entry):
         self.robot.drive_system.go(75, 75)
         while True:
@@ -158,6 +159,9 @@ class DelagateThatReceives(object):
             self.robot.sound_system.beeper.beep().wait()
             time.sleep(.3 + 1/int(initial_beep_speed_entry) - (int(beep_acceleration_entry)/100)/((int(initial_beep_speed_entry)) * self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()))
         self.robot.arm_and_claw.raise_arm()
+
+    def m3_feature_10(self, initial_beep_speed_entry, beep_acceleration_entry,  direction_entry, spin_speed_entry):
+        pass
 
     def display_camera_data(self):
         x, y, w, h = self.robot.drive_system.display_camera_data()
