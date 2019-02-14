@@ -82,17 +82,17 @@ class DelagateThatReceives(object):
     def LED_cycle_feature10(self,frequency_entry,speed_entry,area_entry,spin_direction_entry):
         #m4 Robert Kreft
         if str(spin_direction_entry) == "cw":
-            self.robot.drive_system.spin_clockwise_until_sees_object(speed_entry,area_entry)
+            self.robot.drive_system.spin_clockwise_until_sees_object(int(speed_entry),int(area_entry))
             self.align_the_robot()
             self.LED_cycle(frequency_entry,spin_direction_entry)
         if str(spin_direction_entry) == "ccw":
-            self.robot.drive_system.spin_counterclockwise_until_sees_object(speed_entry,area_entry)
+            self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed_entry),int(area_entry))
             self.align_the_robot()
 
     #approaches and grabs the object while blinking leds at a faster pace as it approaches
     def LED_cycle(self,frequency_entry,speed_entry): #person 3, led cycle and go and pick up
         #m4 Robert Kreft
-        self.robot.drive_system.go(speed_entry,speed_entry)
+        self.robot.drive_system.go(int(speed_entry),int(speed_entry))
         self.robot.led_system.right_led.turn_on()
         self.robot.led_system.left_led.turn_off()
         k = 1
