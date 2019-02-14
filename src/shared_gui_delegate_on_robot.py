@@ -187,7 +187,7 @@ class DelagateThatReceives(object):
         self.robot.drive_system.go(100, 100)
         k = 0
         while True:
-            self.robot.sound_system.tone_maker.ToneMaker.play_tone(initial_frequency + (delta_frequency * k), 50)
+            self.robot.sound_system.tone_maker.play_tone(initial_frequency + (delta_frequency * k), 50)
             k += 1
             if self.robot.sound_system.Sensorsystem.ir_proximity_sensor.get_distance() <= 4:
                 self.robot.drive_system.stop()
