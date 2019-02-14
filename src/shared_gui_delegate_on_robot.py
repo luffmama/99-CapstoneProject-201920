@@ -220,3 +220,4 @@ class DelagateThatReceives(object):
                 self.robot.drive_system.stop()
                 self.robot.arm_and_claw.raise_arm()
                 break
+

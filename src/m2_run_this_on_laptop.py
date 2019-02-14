@@ -52,6 +52,8 @@ def main():
     # grid_frames(teleop_frame, arm_frame, control_frame, movement_frame, noise_frame)
 
     face_and_pick_up_object_frame(main_frame, mqtt_sender).grid(row=0, column=0)
+    play_tone_increasing(main_frame, mqtt_sender).grid(row=1, column=0)
+
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -76,18 +78,6 @@ def grid_frames(teleop_frame, arm_frame, control_frame, movement_frame, noise_fr
     noise_frame.grid(row=1, column=1)
 
 
-
-def tone_as_closer (self, initial_frequency, delta_frequency):
-    self.robot.drive_system.go(100)
-    k = 0
-    while True:
-        self.soundsystem.tone_maker.ToneMaker(initial_frequency + (delta_frequency * k), 50)
-        k += 1
-        if self.soundsystem.Sensorsystem.ir_proximity_sensor.get_distance() <= 4:
-            self.robot.drive_system.stop()
-            break
-    self.robot.arm_and_claw.raise_arm()
-
 # This method creates a frame for feature 10
 def face_and_pick_up_object_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
@@ -95,7 +85,6 @@ def face_and_pick_up_object_frame(window, mqtt_sender):
 
     # Construct the widgets on the frame:
     frame_label = ttk.Label(frame, text="Pick up Objects")
-    label = ttk.Label(frame, text="Get the robot to point towards an object!")
     direction_label_1 = ttk.Label(frame, text="Enter 0 for Clockwise")
     direction_label_2 = ttk.Label(frame, text="And 1 for Counterclockwise")
     direction_label = ttk.Label(frame, text="Direction:")
@@ -135,6 +124,42 @@ def face_and_pick_up_object_frame(window, mqtt_sender):
     """
     return frame
 
+
+def play_tone_increasing(window, mqtt):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Get the Robot to move and play an inceasing Tone")
+    initial_frequency = ttk.Label(frame, text="Initial Frequency:")
+    delta_frequency = ttk.Label(frame, text="Change in Frequency:")
+
+    initial_frequency_entry = ttk.Entry(frame, width=8)
+    delta_frequency_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
+
+    button = ttk.Button(frame, text="Go!")
+
+    # Grid the widgets:
+    frame_label.grid(row=0, column=0)
+    initial_frequency.grid(row=1, column=0)
+    delta_frequency.grid(row=1, column=1)
+    initial_frequency_entry.grid(row=2, column=0)
+    delta_frequency_entry.grid(row=2, column=1)
+    button.grid(row=3, column=0)
+
+    """
+    # Set the button callbacks:
+    forward_button["command"] = lambda: handle_forward(
+        left_speed_entry, right_speed_entry, mqtt_sender)
+    backward_button["command"] = lambda: handle_backward(
+        left_speed_entry, right_speed_entry, mqtt_sender)
+    left_button["command"] = lambda: handle_left(
+        left_speed_entry, right_speed_entry, mqtt_sender)
+    right_button["command"] = lambda: handle_right(
+        left_speed_entry, right_speed_entry, mqtt_sender)
+    stop_button["command"] = lambda: handle_stop(mqtt_sender)
+    """
+    return frame
 
 
 # -----------------------------------------------------------------------------
