@@ -276,6 +276,8 @@ class DriveSystem(object):
             self.left_motor.turn_on(-speed)
             self.right_motor.turn_on(speed)
             if self.sensor_system.camera.get_biggest_blob().height > 0:
+                self.right_motor.turn_off()
+                self.left_motor.turn_off()
                 break
 
 
@@ -289,6 +291,8 @@ class DriveSystem(object):
             self.left_motor.turn_on(speed)
             self.right_motor.turn_on(-speed)
             if self.sensor_system.camera.get_biggest_blob().height > 0:
+                self.left_motor.turn_off()
+                self.right_motor.turn_off()
                 break
 
 ###############################################################################
