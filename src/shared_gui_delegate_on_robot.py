@@ -146,13 +146,13 @@ class DelagateThatReceives(object):
                 break
 
     def pick_up_object_while_beeping(self, initial_beep_speed_entry, beep_acceleration_entry):
-        self.robot.drive_system.go(100, 100)
+        self.robot.drive_system.go(75, 75)
         while True:
-            if self.robot.sensor_system.ir_proximity_sensor.get_distance() <= 4:
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance() <= 5:
                 break
             self.robot.sound_system.beeper.beep().wait()
             time.sleep(1/int(initial_beep_speed_entry) -
-                       (int(beep_acceleration_entry)*4)/((int(initial_beep_speed_entry))*
+                       (int(beep_acceleration_entry)*5)/((int(initial_beep_speed_entry))*
                         self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()))
         self.robot.arm_and_claw.raise_arm()
 
