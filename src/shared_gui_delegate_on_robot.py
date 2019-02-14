@@ -174,9 +174,9 @@ class DelagateThatReceives(object):
         self.robot.arm_and_claw.raise_arm()
 
     def m3_feature_10(self, initial_beep_speed_entry, beep_acceleration_entry,  direction_entry, spin_speed_entry):
-        if direction_entry is 'cw':
+        if str(direction_entry) is 'cw':
             self.robot.drive_system.spin_clockwise_until_sees_object(spin_speed_entry, 50)
-        if direction_entry is 'ccw':
+        if str(direction_entry) is 'ccw':
             self.robot.drive_system.spin_counterclockwise_until_sees_object(spin_speed_entry, 50)
         blob = self.robot.sensor_system.camera.get_biggest_blob()
         while True:
