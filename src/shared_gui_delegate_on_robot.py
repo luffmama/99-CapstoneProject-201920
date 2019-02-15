@@ -245,15 +245,14 @@ class DelagateThatReceives(object):
         t = int(initial_freq_duration)
         dt = int(initial_freq_duration) / self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
         x = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+        self.robot.drive_system.go(75,75)
         while True:
 
-            self.robot.sound_system.tone_maker.play_tone(high_freq, t).wait(t)
-            self.robot.drive_system.go_straight_for_inches_using_time(1, 100)
+            self.robot.sound_system.tone_maker.play_tone(high_freq, t)
             x = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             t = t - dt
 
-            self.robot.sound_system.tone_maker.play_tone(low_freq, t).wait(t)
-            self.robot.drive_system.go_straight_for_inches_using_time(1, 100)
+            self.robot.sound_system.tone_maker.play_tone(low_freq, t)
             x = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             t = t - dt
 

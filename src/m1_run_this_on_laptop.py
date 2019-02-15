@@ -13,7 +13,8 @@ from tkinter import ttk
 import shared_gui
 import rosebot
 import math
-
+import time
+import shared_gui_delegate_on_robot as s
 
 
 
@@ -77,13 +78,13 @@ def get_shared_frames(main_frame, mqtt_sender):
 
 
 def grid_frames(teleop_frame, arm_frame, control_frame,movment_frame,noise_frame,cpc_frame,foa_frame):
-    teleop_frame.grid(row=0,column=0)
-    arm_frame.grid(row=0,column=1)
-    control_frame.grid(row=3,column=1)
-    movment_frame.grid(row=1,column=0)
-    noise_frame.grid(row=1,column=1)
-    cpc_frame.grid(row=2,column=0)
-    foa_frame.grid(row=3,column=0)
+    # teleop_frame.grid(row=0,column=0)
+    # arm_frame.grid(row=0,column=1)
+    # control_frame.grid(row=3,column=1)
+    # movment_frame.grid(row=1,column=0)
+    # noise_frame.grid(row=1,column=1)
+    # cpc_frame.grid(row=2,column=0)
+    foa_frame.grid(row=0,column=0)
 
 ## gui for color and proximity and camra (work in progress)
 
@@ -404,6 +405,95 @@ def align_the_robot(self):
             self.robot.drive_system.stop()
         if blob.center.x == 160:
             break
+
+
+def track_the_criminal(self):
+    original = self.robot.sensor_system.color_sensor.get_reflected_light_intensity()
+    t = time.time()
+    while True:
+        elapsed_time = time.time() - t
+        current = self.robot.sensor_system.color_sensor.get_reflected_light_intensity()
+        if abs(original - current) <= 5:
+            self.robot.drive_system.forward(75,75)
+        elif abs(original - current) > 5:
+            self.robot.drive_system.right(75,75)
+        if elapsed_time >= 10:
+            self.robot.drive_system.stop()
+            break
+
+
+def ID_the_criminal(self,size,distance):
+    blob = self.robot.sensor_system.camera.get_biggest_blob()
+    if blob.get_area() >= size or self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= distance:
+        self.speak("criminal detected")
+        return True
+    else:
+        self.speak("No criminals in sight")
+
+
+def is_dangerous(self,dangsize,dangdist):
+    blob = self.robot.sensor_system.camera.get_biggest_blob()
+    if blob.get_area() >= dangsize or self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= dangdist:
+        self.speak("The criminal is dangerous")
+        print("The criminal is dangerous, and is of size",blob.get_area(),
+              "while being",self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches(),"inches away")
+        self.speak("This is robocop calling for backup")
+    else:
+        self.speak("The criminal is not dangerous")
+        self.chase_the_criminal()
+
+
+def chase_the_criminal(self):
+    self.align_the_robot()
+    self.s.pick_up_object_while_beeping(3,1)
+
+
+def speak(self,word):
+    self.robot.sound_system.speach_maker.speak(word)
+
+
+def is_coward(self,box_entry):
+    if int(box_entry) == 1:
+        return True
+    else:
+        return False
+
+
+def meeting_criminal(self,size,distance,box_entry,dangsize,dangdist):
+    if self.ID_the_criminal(size,distance) is True and self.is_coward(box_entry) is True:
+        self.run_away()
+    else:
+        self.is_dangerous(dangsize,dangdist)
+
+
+def run_away(self):
+    self.speak("run away")
+    self.backwards(100,100)
+
+def get_robocop_frame(window,mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+    frame_label = ttk.Label(frame, text="Robocop")
+    coward_label = ttk.Label(frame,text="check=coward")
+    track_label = ttk.Label(frame, text = "click to track the criminal")
+    meet_label = ttk.Label(frame, text = "find out if there is a criminal around")
+    dangsize_label = ttk.Label(frame, text = "enter how big a criminal must be to be dangerous")
+    dangdist_label = ttk.Label(frame, text = "enter how close a criminal must be to be dangerous")
+    size_label = ttk.Label(frame,text = "enter how big a criminal is")
+    dist_label = ttk.Label(frame, text="enter how far away a criminal is")
+
+    size_entry = ttk.Entry(frame,width=8)
+    dist_entry = ttk.Entry(frame,width=8)
+    dangsize_entry = ttk.Entry(frame,width=8)
+    dangdist_entry = ttk.Entry(frame,width=8)
+
+    track_button = ttk.Button(frame,text="Track")
+    meet_button = ttk.Button(frame,text="Is there a criminal around?")
+
+    coward_box = ttk.Checkbutton(frame)
+
+
+
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
