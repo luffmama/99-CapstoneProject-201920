@@ -233,9 +233,11 @@ class DelagateThatReceives(object):
     def m2_pick_up_object(self, speed):
         print('**')
         self.robot.drive_system.go(int(speed), int(speed))
-        while self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 2:
-            self.robot.drive_system.stop()
-            self.robot.arm_and_claw.raise_arm()
+        while True:
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 2:
+                self.robot.drive_system.stop()
+                self.robot.arm_and_claw.raise_arm()
+                break
 
 # F9 Margaret Luffman
 
