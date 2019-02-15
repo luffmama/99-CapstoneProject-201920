@@ -212,24 +212,28 @@ class DelagateThatReceives(object):
     def m2_face_object(self, speed, direction):
         print('*')
         while True:
+            print(direction)
             if direction == 0:
-                if self.robot.sensor_system.camera.get_biggest_blob().center.x < 160:
-                    self.robot.drive_system.left_motor.turn_on(-int(speed))
-                    self.robot.drive_system.right_motor.turn_on(int(speed))
-            if direction == 1:
-                if self.robot.sensor_system.camera.get_biggest_blob().center.x > 160:
-                    self.robot.drive_system.left_motor.turn_on(int(speed))
-                    self.robot.drive_system.right_motor.turn_on(-int(speed))
-            if self.robot.sensor_system.camera.get_biggest_blob().center.x == 160:
-                self.robot.drive_system.left_motor.turn_off()
-                self.robot.drive_system.right_motor.turn_off()
-                break
+                self.robot.drive_system.left_motor.turn_on(-int(speed))
+                self.robot.drive_system.right_motor.turn_on(int(speed))
+                if self.robot.sensor_system.camera.get_biggest_blob().center.x < 150:
+                    self.robot.drive_system.left_motor.turn_off()
+                    self.robot.drive_system.right_motor.turn_off()
+                    break
+            else:
+                self.robot.drive_system.left_motor.turn_on(int(speed))
+                self.robot.drive_system.right_motor.turn_on(-int(speed))
+                if self.robot.sensor_system.camera.get_biggest_blob().center.x > 170:
+                    self.robot.drive_system.left_motor.turn_off()
+                    self.robot.drive_system.right_motor.turn_off()
+                    break
+
 
 # This method gets the robot to pick up an object (written by Emily)
     def m2_pick_up_object(self, speed):
         print('**')
         self.robot.drive_system.go(int(speed), int(speed))
-        if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 2:
+        while self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 2:
             self.robot.drive_system.stop()
             self.robot.arm_and_claw.raise_arm()
 
