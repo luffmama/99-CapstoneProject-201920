@@ -178,16 +178,17 @@ class DelagateThatReceives(object):
         if str(direction_entry) is 'ccw':
             print('turning ccw')
             self.robot.drive_system.spin_counterclockwise_until_sees_object(int(spin_speed_entry), 50)
-        blob = self.robot.sensor_system.camera.get_biggest_blob()
         while True:
+            blob = self.robot.sensor_system.camera.get_biggest_blob()
+            print(blob)
             if blob.center.x >= 170:
                 self.robot.drive_system.go(-50, 50)
-            if blob.center.x <= 150:
+            elif blob.center.x <= 150:
                 self.robot.drive_system.go(50, -50)
-            if 150 <= blob.center.x <= 170:
+            else:
                 self.robot.drive_system.stop()
                 break
-        DelagateThatReceives.pick_up_object_while_beeping(self, initial_beep_speed_entry, beep_acceleration_entry)
+        self.pick_up_object_while_beeping(initial_beep_speed_entry, beep_acceleration_entry)
 
     def display_camera_data(self):
         x, y, w, h = self.robot.drive_system.display_camera_data()
