@@ -41,3 +41,23 @@ class m4_extra(object):
             if self.robot.sensor_system.touch_sensor.is_pressed():
                 self.robot.drive_system.stop()
                 break #break first loop
+
+    #counts number of times an object is seen by the camera
+    def count_number_of_time_object_is_seen(self,count):
+        #if something is seen
+            #count=count+1
+        return count
+
+    #bang bang method of line following circle in the clockwise direction
+    def bang_bang_circ_line_follow_cw(self,speed):
+        count=0
+        self.robot.drive_system.go(speed,speed)
+        while True:
+            if self.robot.sensor_system.color_sensor.get_reflected_light_intensity()>10: #if robot gets off the line
+                self.robot.drive_system.go(-speed,speed)
+                while True:
+                    if self.robot.sensor_system.color_sensor.get_reflected_light_intensity() < 10:
+                        self.robot.drive_system.go(speed,speed)
+                        break
+
+
