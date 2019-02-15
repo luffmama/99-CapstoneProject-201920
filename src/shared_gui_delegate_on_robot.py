@@ -270,8 +270,8 @@ class DelagateThatReceives(object):
 
     def align_the_robot(self):
 
-        blob = self.robot.sensor_system.camera.get_biggest_blob()
         while True:
+            blob = self.robot.sensor_system.camera.get_biggest_blob()
             print(int(blob.center.x))
             if blob.center.x < 150:
                 self.right(50,50)
