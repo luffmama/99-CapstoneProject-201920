@@ -277,10 +277,10 @@ class DelagateThatReceives(object):
                 self.right(50,50)
                 time.sleep(0.1)
                 self.robot.drive_system.stop()
-            if blob.center.x > 170:
+            elif blob.center.x > 170:
                 self.left(50,50)
                 time.sleep(0.1)
                 self.robot.drive_system.stop()
-            if blob.center.x >= 150 and blob.center.x <= 170:
+            else:
                 self.robot.drive_system.stop()
                 break
