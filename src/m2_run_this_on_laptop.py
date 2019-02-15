@@ -94,7 +94,7 @@ def face_and_pick_up_object_frame(window, mqtt_sender):
     # Construct Entry Boxes
     direction_entry = ttk.Entry(frame, width=8)
     speed_entry = ttk.Entry(frame, width=8)
-    area_entry = ttk.Entry(frame, width=8)
+    # area_entry = ttk.Entry(frame, width=8)
 
     # Constuct Buttons
     button1 = ttk.Button(frame, text="Point towards an object")
@@ -106,10 +106,10 @@ def face_and_pick_up_object_frame(window, mqtt_sender):
     direction_label_2.grid(row=1, column=1)
     direction_label.grid(row=2, column=0)
     speed_label.grid(row=3, column=0)
-    area_label.grid(row=4, column=0)
+    # area_label.grid(row=4, column=0)
     direction_entry.grid(row=2, column=1)
     speed_entry.grid(row=3, column=1)
-    area_entry.grid(row=4, column=1)
+    # area_entry.grid(row=4, column=1)
 
     button1.grid(row=5, column=0)
     button2.grid(row=5, column=1)

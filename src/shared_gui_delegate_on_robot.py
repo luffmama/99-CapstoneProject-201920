@@ -209,6 +209,7 @@ class DelagateThatReceives(object):
 
     # This method gets the robot to face objects (written by Emily)
     def m2_face_object(self, speed, direction):
+        print('*')
         while True:
             if direction == 0:
                 if self.robot.sensor_system.camera.get_biggest_blob().center.x < 160:
@@ -225,6 +226,7 @@ class DelagateThatReceives(object):
 
 # This method gets the robot to pick up an object (written by Emily)
     def m2_pick_up_object(self, speed):
+        print('*')
         self.robot.drive_system.go(speed, speed)
         if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 2:
             self.robot.drive_system.stop()
