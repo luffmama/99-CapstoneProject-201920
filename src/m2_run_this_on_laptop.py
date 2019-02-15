@@ -155,11 +155,13 @@ def play_tone_increasing(window, mqtt_sender):
 
 # passes the button1 function to shared_gui_delegate
 def handle_button1(speed_entry, direction_entry, mqtt_sender):
+    print("got to handle_button1")
     mqtt_sender.send_message("m2_face_object",[speed_entry.get(), direction_entry.get()])
 
 
 # passes the button2 function to shared_gui_delegate
 def handle_button2(speed_entry, mqtt_sender):
+    print("got to handle_button2")
     mqtt_sender.send_message("m2_pick_up_object", [speed_entry.get()])
 
 

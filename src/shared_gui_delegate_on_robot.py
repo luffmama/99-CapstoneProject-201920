@@ -227,7 +227,7 @@ class DelagateThatReceives(object):
 
 # This method gets the robot to pick up an object (written by Emily)
     def m2_pick_up_object(self, speed):
-        print('*')
+        print('**')
         self.robot.drive_system.go(int(speed), int(speed))
         if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 2:
             self.robot.drive_system.stop()
