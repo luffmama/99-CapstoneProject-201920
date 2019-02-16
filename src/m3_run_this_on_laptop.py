@@ -41,8 +41,11 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame,arm_frame,control_frame,movement_frame,beeper_frame,pick_up_object_while_beeping_frame=get_shared_frames(main_frame,mqtt_sender)
+    # for sprints 1 and 2
+    # teleop_frame,arm_frame,control_frame,movement_frame,beeper_frame,pick_up_object_while_beeping_frame=get_shared_frames(main_frame,mqtt_sender)
 
+    # for sprint 3
+    finding_nemo_frame = sprint_3_frame(main_frame, mqtt_sender)
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
     # -------------------------------------------------------------------------
@@ -51,8 +54,11 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame,arm_frame,control_frame,movement_frame,beeper_frame, pick_up_object_while_beeping_frame)
+    # for sprints 1 and 2
+    # grid_frames(teleop_frame,arm_frame,control_frame,movement_frame,beeper_frame, pick_up_object_while_beeping_frame)
 
+    # for sprint 3
+    grid_frames_sprint_3(finding_nemo_frame)
     # -------------------------------------------------------------------------
     # The event loop:
     # -------------------------------------------------------------------------
@@ -131,6 +137,20 @@ def handle_pick_up_object_while_beeping(initial_beep_speed_entry, beep_accelerat
 def handle_spin_until_see_object_frame(initial_beep_speed_entry, beep_acceleration_entry, direction_entry, spin_speed_entry, mqtt_sender):
     print('Spin until see object',initial_beep_speed_entry.get(), beep_acceleration_entry.get(), direction_entry.get(), spin_speed_entry.get())
     mqtt_sender.send_message('m3_feature_10', [initial_beep_speed_entry.get(), beep_acceleration_entry.get(), direction_entry.get(), spin_speed_entry.get()])
+
+
+def grid_frames_sprint_3(sprint_3_frame):
+    sprint_3_frame.grid()
+
+def sprint_3_frame(main_frame, mqtt_sender):
+    finding_nemo_frame = ttk.Frame(main_frame, padding=10, borderwidth=5, relief='groove')
+    finding_nemo_frame.grid()
+
+    # going into deep sea
+    switch_label = ttk.Label(finding_nemo_frame, text='Left for Marlin, right for Nemo modes going into deep sea')
+    switch_label.grid(row=0, column=0)
+
+    return finding_nemo_frame
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
