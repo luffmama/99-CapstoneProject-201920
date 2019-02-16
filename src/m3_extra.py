@@ -9,6 +9,7 @@ import time
 
 # feature 1: going into deep sea
 def m3_marlin_deep_sea(robot):
+    print('Marlin deep sea activated')
     robot.drive_system.go(50, 50)
     while True:
         if robot.sensor_system.color_sensor.get_reflected_light_intensity() <= 10:
@@ -21,7 +22,8 @@ def m3_marlin_deep_sea(robot):
 
 
 def m3_nemo_deep_sea(robot):
-    robot.drive_system.go(50,50)
+    print('Nemo deep sea activated')
+    robot.drive_system.go(50, 50)
     while True:
         if robot.sensor_system.color_sensor.get_reflected_light_intensity() <= 10:
             robot.drive_system.stop()
