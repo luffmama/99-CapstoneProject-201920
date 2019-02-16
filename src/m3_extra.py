@@ -15,7 +15,7 @@ def m3_marlin_deep_sea(robot):
         if robot.sensor_system.color_sensor.get_reflected_light_intensity() <= 10:
             robot.drive_system.stop()
             break
-    robot.sound_system.speech_maker('stay in the shallow water')
+    robot.sound_system.speech_maker.speak('stay in the shallow water')
     robot.drive_system.go(-20, -20)
     time.sleep(1)
     robot.drive_system.stop()
@@ -28,7 +28,7 @@ def m3_nemo_deep_sea(robot):
         if robot.sensor_system.color_sensor.get_reflected_light_intensity() <= 10:
             robot.drive_system.stop()
             break
-    robot.sound_system.speech_maker('Time for an adventure')
+    robot.sound_system.speech_maker.speak('Time for an adventure')
     robot.drive_system.go_straight_for_inches_using_encoder(15, 100)
     robot.drive_system.go(-50, 50)
     start_time = time.localtime()
