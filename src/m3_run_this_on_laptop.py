@@ -150,7 +150,12 @@ def sprint_3_frame(main_frame, mqtt_sender):
     Title = ttk.Label(finding_nemo_frame, text='Finding Nemo!!!')
     Title.grid(row=0, column=0)
 
-    # going into deep sea
+    going_into_deep_sea(finding_nemo_frame, mqtt_sender)
+
+    return finding_nemo_frame
+
+
+def going_into_deep_sea(finding_nemo_frame, mqtt_sender):
     deep_sea_label = ttk.Label(finding_nemo_frame, text='Entering Deep sea')
     deep_sea_label.grid(row=1, column=0)
     check_box_marlin = ttk.Checkbutton(finding_nemo_frame, text="Marlin")
@@ -160,14 +165,19 @@ def sprint_3_frame(main_frame, mqtt_sender):
 
     handle_deep_sea_button = ttk.Button(finding_nemo_frame, text="deep sea")
     handle_deep_sea_button.grid(row=1, column=3)
-    handle_deep_sea_button['command'] = lambda: handle_deep_sea(check_box_marlin.instate(['selected']), check_box_nemo.instate(['selected']), mqtt_sender)
-
-    return finding_nemo_frame
+    handle_deep_sea_button['command'] = lambda: \
+        handle_deep_sea(check_box_marlin.instate(['selected']), check_box_nemo.instate(['selected']), mqtt_sender)
 
 
 def handle_deep_sea(check_box_marlin, check_box_nemo, mqtt_sender):
-    print('deep sea activated', check_box_marlin, check_box_nemo)
-
+    if check_box_nemo == check_box_marlin:
+        print('select either Marlin OR Nemo')
+    elif check_box_marlin is True:
+        print('Marlin deep sea activated')
+        mqtt_sender.send_message('marlin_deap_sea')
+    elif check_box_nemo is True:
+        print('Nemo deep sea activated')
+        mqtt_sender.send_message('nemo_deap_sea')
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
