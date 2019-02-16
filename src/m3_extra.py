@@ -12,14 +12,13 @@ def m3_marlin_deep_sea(robot):
     print('Marlin deep sea activated')
     robot.drive_system.go(50, 50)
     while True:
-        print(robot.sensor_system.color_sensor.get_reflected_light_intensity)
         if robot.sensor_system.color_sensor.get_reflected_light_intensity() <= 10:
             robot.drive_system.stop()
             break
-        robot.sound_system.speech_maker('stay in the shallow water')
-        robot.drive_system.go(-10, -10)
-        time.sleep(.5)
-        robot.drive_system.stop()
+    robot.sound_system.speech_maker('stay in the shallow water')
+    robot.drive_system.go(-10, -10)
+    time.sleep(.5)
+    robot.drive_system.stop()
 
 
 def m3_nemo_deep_sea(robot):

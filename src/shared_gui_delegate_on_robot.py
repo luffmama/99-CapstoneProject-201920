@@ -22,10 +22,10 @@ class DelagateThatReceives(object):
     #robert kreft m4_extra
 
     def cw_line_follow(self,speed):
-        m4_extra.bang_bang_circ_line_follow_cw(self,int(speed))
+        m4_extra.bang_bang_circ_line_follow_cw(self.robot,int(speed))
 
     def ccw_line_follow(self,speed):
-        m4_extra.bang_bang_circ_line_follow_ccw(self,int(speed))
+        m4_extra.bang_bang_circ_line_follow_ccw(self.robot,int(speed))
 
     #robot m4_extra ^^^
 
