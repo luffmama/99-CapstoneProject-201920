@@ -60,10 +60,21 @@ def get_sprint_3_frame(window, mqtt_sender):
     frame.grid()
 
     ccw_label = ttk.Label(frame,text="Line following counter-clockwise.     ")
-    cw_label = ttk.Label(frame,text="Line following clockwise.     ")
+    ccw_button=ttk.Button(frame,text="Start. (ccw)     ")
+    cw_label = ttk.Label(frame, text="Line following clockwise.     ")
+    cw_button=ttk.Button(frame,text="Start. (cw)    ")
+    speed_test_entry_label=ttk.Label(frame,text="Speed.     ")
+    speed_test_entry=ttk.Entry(frame, width=8)
+
+    cw_button["command"] = lambda: handle_cw_line_follow(mqtt_sender,speed_test_entry)
+    ccw_button["command"] = lambda: handle_ccw_line_follow(mqtt_sender,speed_test_entry)
 
     cw_label.grid()
-    ccw_label.grid(row=0,column=1)
+    cw_button.grid(row=1,column=0)
+    ccw_label.grid(row=0,column=2)
+    ccw_button.grid(row=1, column=2)
+    speed_test_entry_label.grid(row=0,column=1)
+    speed_test_entry.grid(row=1,column=1)
 
     return frame
 

@@ -8,6 +8,7 @@
 """
 import time
 import m3_extra
+import m4_extra
 
 class DelagateThatReceives(object):
     # This class creates a delagate for the robot.
@@ -17,6 +18,13 @@ class DelagateThatReceives(object):
         """:type robot: rosebot.RoseBot"""
         self.robot = robot
         self.is_quit = False
+
+    #robert kreft m4_extra
+    def cw_line_follow(self,speed):
+        m4_extra.bang_bang_circ_line_follow_cw(self,int(speed))
+
+    def ccw_line_follow(self,speed):
+        m4_extra.bang_bang_circ_line_follow_ccw(self,int(speed))
 
     def forward(self, left_wheel_speed, right_wheel_speed):
         print("got to shared gui")
