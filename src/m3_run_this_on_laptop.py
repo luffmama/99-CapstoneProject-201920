@@ -147,7 +147,7 @@ def sprint_3_frame(main_frame, mqtt_sender):
     finding_nemo_frame.grid()
 
     # going into deep sea
-    switch_label = ttk.Label(finding_nemo_frame, text='Left for Marlin, right for Nemo modes going into deep sea')
+    switch_label = ttk.Label(finding_nemo_frame, text='Finding Nemo!!!')
     switch_label.grid(row=0, column=0)
 
     return finding_nemo_frame
