@@ -7,7 +7,6 @@
   Winter term, 2018-2019.
 """
 import time
-import m1_extra
 import m3_extra
 
 class DelagateThatReceives(object):
@@ -290,8 +289,63 @@ class DelagateThatReceives(object):
 
 # Margaret Luffman functions for spint 3
 
-    def m1_meeting_criminal(self,size,dist,box,dsize,ddist):
-        m1_extra.meeting_criminal(self,size,dist,box,dsize,ddist)
+    def m1_meeting_criminal(self, size, distance, dangsize, box_entry, dangdist):
+        if self.m1_ID_the_criminal(size, distance) is True and self.m1_is_coward(box_entry) is True:
+            self.m1_run_away()
+        else:
+            self.m1_is_dangerous(dangsize, dangdist)
 
-    def m1_track_the_criminal(self):
-        m1_extra.track_the_criminal(self)
+    def m1_track_the_criminal(self, time_of_tracking):
+        print("got to sgd")
+        original = self.robot.sensor_system.color_sensor.get_reflected_light_intensity()
+        t = time.time()
+        while True:
+            elapsed_time = time.time() - t
+            current = self.robot.sensor_system.color_sensor.get_reflected_light_intensity()
+            if abs(original - current) <= 5:
+                self.robot.drive_system.go(75, 75)
+            elif abs(original - current) > 5:
+                self.right(75, 75)
+            if elapsed_time >= int(time_of_tracking):
+                self.robot.drive_system.stop()
+                break
+
+    def m1_ID_the_criminal(self, size, distance):
+        blob = self.robot.sensor_system.camera.get_biggest_blob()
+        if blob.get_area() >= int(size) or self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= int(
+                distance):
+            self.speak("criminal detected")
+            return True
+        else:
+            self.speak("No criminals in sight")
+
+    def m1_is_dangerous(self, dangsize, dangdist):
+        blob = self.robot.sensor_system.camera.get_biggest_blob()
+        if blob.get_area() >= int(
+                dangsize) or self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= int(dangdist):
+            self.speak("The criminal is dangerous")
+            print("The criminal is dangerous, and is of size", blob.get_area(),
+                  "while being", self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches(), "inches away")
+            self.speak("This is robocop calling for backup")
+        else:
+            self.speak("The criminal is not dangerous")
+            self.m1_chase_the_criminal()
+
+    def m1_chase_the_criminal(self):
+        self.align_the_robot()
+        self.pick_up_object_while_beeping(3, 1)
+
+    def speak(self, word):
+        self.robot.sound_system.speech_maker.speak(str(word))
+
+    def m1_is_coward(self, box_entry):
+        if str(box_entry) == "coward":
+            return True
+        else:
+            return False
+
+    def m1_run_away(self):
+        self.speak("run away")
+        self.backward(100, 100)
+
+    # End Margaret Luffman sprint 3 functions

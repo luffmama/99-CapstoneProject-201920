@@ -10,6 +10,7 @@
 import mqtt_remote_method_calls as com
 import tkinter
 from tkinter import ttk
+from tkinter import *
 import shared_gui
 import rosebot
 import math
@@ -474,27 +475,37 @@ def run_away(self):
     self.backwards(100,100)
 
 def get_robocop_frame(window,mqtt_sender):
+    # Creating the frame
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
+    # Creating Labels for buttons, entryboxes and the checkbox
     frame_label = ttk.Label(frame, text="Robocop")
-    coward_label = ttk.Label(frame,text="check=coward")
-    track_label = ttk.Label(frame, text = "click to track the criminal")
-    meet_label = ttk.Label(frame, text = "find out if there is a criminal around")
-    dangsize_label = ttk.Label(frame, text = "enter how big a criminal must be to be dangerous")
-    dangdist_label = ttk.Label(frame, text = "enter how close a criminal must be to be dangerous")
-    size_label = ttk.Label(frame,text = "enter how big a criminal is")
-    dist_label = ttk.Label(frame, text="enter how far away a criminal is")
-
+    coward_label = ttk.Label(frame,text="Change the Bravery of Robocop")
+    track_label = ttk.Label(frame, text = "Click to Track the Criminal for the number of seconds entered")
+    meet_label = ttk.Label(frame, text = "Find out if there is a Criminal around")
+    dangsize_label = ttk.Label(frame, text = "Enter how big a criminal must be to be dangerous")
+    dangdist_label = ttk.Label(frame, text = "Enter how close a criminal must be to be dangerous")
+    size_label = ttk.Label(frame,text = "Enter how big a criminal is")
+    dist_label = ttk.Label(frame, text="Enter how far away a criminal is")
+    # Creating Entry boxes
     size_entry = ttk.Entry(frame,width=8)
     dist_entry = ttk.Entry(frame,width=8)
     dangsize_entry = ttk.Entry(frame,width=8)
     dangdist_entry = ttk.Entry(frame,width=8)
-
+    track_entry = ttk.Entry(frame,width=8)
+    # Creating buttons
     track_button = ttk.Button(frame,text="Track")
     meet_button = ttk.Button(frame,text="Is there a criminal around?")
-
-    coward_box = ttk.Checkbutton(frame)
-
+    lower_arm_button = ttk.Button(frame, text="Lower arm")
+    # Creating the checkbox
+    choices = {"coward","brave"}
+    coward_var = StringVar(frame)
+    coward_var.set("brave")
+    coward_box = OptionMenu(frame,coward_var,*choices)
+    def change_dropdown(*args):
+        print(coward_var.get())
+    coward_var.trace("w",change_dropdown)
+    # Griding
     frame_label.grid(row=0,column=1)
     size_label.grid(row=1,column=0)
     size_entry.grid(row=1,column=2)
@@ -505,32 +516,46 @@ def get_robocop_frame(window,mqtt_sender):
     dangdist_label.grid(row=4,column=0)
     dangdist_entry.grid(row=4,column=2)
     track_label.grid(row=5,column=0)
+    track_entry.grid(row=5,column=1)
     track_button.grid(row=5,column=2)
     meet_label.grid(row=6,column=0)
     meet_button.grid(row=6,column=2)
     coward_label.grid(row=7,column=0)
     coward_box.grid(row=7,column=2)
-
+    lower_arm_button.grid(row=8,column=0)
+    # Commands
     meet_button["command"] = lambda: handle_meet(
-        size_entry,dist_entry,dangsize_entry,dangdist_entry,mqtt_sender)
-    track_button["command"] = lambda: handle_track(mqtt_sender)
+        size_entry,dist_entry,dangsize_entry,coward_var,dangdist_entry,mqtt_sender)
+    track_button["command"] = lambda: handle_track(track_entry,mqtt_sender)
+    lower_arm_button["command"] = lambda: handle_lower_arm(mqtt_sender)
 
     return frame
 
 
-def handle_meet(size_entry,dist_entry,dangsize_entry,dangdist_entry,mqtt_sender):
-    print("m1_meeting_criminal",[size_entry.get(),
-                              dist_entry.get(),
-                              dangsize_entry.get(),
-                              dangdist_entry.get()])
-    mqtt_sender.send_message("meeting_criminal",[size_entry.get(),
-                                                 dist_entry.get(),
-                                                 dangsize_entry.get(),
-                                                 dangdist_entry.get()])
+def handle_meet(size_entry, dist_entry,coward_var, dangsize_entry, dangdist_entry, mqtt_sender):
+    print("m1_meeting_criminal", [size_entry.get(),
+                                  dist_entry.get(),
+                                  coward_var.get(),
+                                  dangsize_entry.get(),
+                                  dangdist_entry.get()])
+    mqtt_sender.send_message("m1_meeting_criminal", [size_entry.get(),
+                                                  dist_entry.get(),
+                                                     coward_var.get(),
+                                                  dangsize_entry.get(),
+                                                  dangdist_entry.get()])
 
-def handle_track(mqtt_sender):
-    print("m1_track_the_criminal")
-    mqtt_sender.send_message("m1_track_the_criminal")
+
+def handle_track(track_entry,mqtt_sender):
+    print("m1_track_the_criminal",track_entry.get())
+    mqtt_sender.send_message("m1_track_the_criminal",[track_entry.get()])
+
+def handle_lower_arm(mqtt_sender):
+    """
+    Tells the robot to lower its Arm until it is all the way down.
+      :type  mqtt_sender:  com.MqttClient
+    """
+    print("lower_arm")
+    mqtt_sender.send_message("lower_arm")
 
 
 # -----------------------------------------------------------------------------
