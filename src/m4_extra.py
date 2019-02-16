@@ -42,7 +42,7 @@ def count_number_of_time_object_is_seen(robot,count):
     return count
 
 #bang bang method of line following circle in the clockwise direction
-def bang_bang_circ_line_follow_cw(robot,speed):
+def bang_bang_circ_line_follow_cw(robot,speed,pivot_speed):
     count=0
     robot.drive_system.go(speed,speed)
     while True:
@@ -50,7 +50,7 @@ def bang_bang_circ_line_follow_cw(robot,speed):
             robot.drive_system.stop()
             break
         if robot.sensor_system.color_sensor.get_reflected_light_intensity()>10: #if robot gets off the line
-            robot.drive_system.go(speed,-speed)
+            robot.drive_system.go(pivot_speed,-pivot_speed)
             while True:
                 if robot.sensor_system.touch_sensor.is_pressed():
                     robot.drive_system.stop()
@@ -60,7 +60,7 @@ def bang_bang_circ_line_follow_cw(robot,speed):
                     break
 
 # bang bang method of line following circle in the counter clockwise direction
-def bang_bang_circ_line_follow_ccw(robot,speed):
+def bang_bang_circ_line_follow_ccw(robot,speed,pivot_speed):
     count=0
     robot.drive_system.go(speed,speed)
     while True:
@@ -68,7 +68,7 @@ def bang_bang_circ_line_follow_ccw(robot,speed):
             robot.drive_system.stop()
             break
         if robot.sensor_system.color_sensor.get_reflected_light_intensity()>10: #if robot gets off the line
-            robot.drive_system.go(-speed,speed)
+            robot.drive_system.go(-pivot_speed,pivot_speed)
             while True:
                 if robot.sensor_system.touch_sensor.is_pressed():
                     robot.drive_system.stop()
@@ -76,6 +76,10 @@ def bang_bang_circ_line_follow_ccw(robot,speed):
                 if robot.sensor_system.color_sensor.get_reflected_light_intensity() < 10:
                     robot.drive_system.go(speed,speed)
                     break
+
+#reads off values for intensity
+def print_intensity(robot):
+    print(robot.sensor_system.color_sensor.get_reflected_light_intensity())
 
 # def bang_bang_straight_line_follow_sor(self,speed):
 #     self.robot.drive_system.go(speed,speed)

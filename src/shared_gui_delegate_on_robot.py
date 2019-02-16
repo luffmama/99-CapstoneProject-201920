@@ -21,11 +21,14 @@ class DelagateThatReceives(object):
 
     #robert kreft m4_extra
 
-    def cw_line_follow(self,speed):
-        m4_extra.bang_bang_circ_line_follow_cw(self.robot,int(speed))
+    def cw_line_follow(self,speed,pivot_speed):
+        m4_extra.bang_bang_circ_line_follow_cw(self.robot,int(speed),int(pivot_speed))
 
-    def ccw_line_follow(self,speed):
-        m4_extra.bang_bang_circ_line_follow_ccw(self.robot,int(speed))
+    def ccw_line_follow(self,speed,pivot_speed):
+        m4_extra.bang_bang_circ_line_follow_ccw(self.robot,int(speed),int(pivot_speed))
+
+    def read_intensity(self):
+        m4_extra.print_intensity(self.robot)
 
     #robot m4_extra ^^^
 
