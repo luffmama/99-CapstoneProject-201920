@@ -142,15 +142,32 @@ def handle_spin_until_see_object_frame(initial_beep_speed_entry, beep_accelerati
 def grid_frames_sprint_3(sprint_3_frame):
     sprint_3_frame.grid()
 
+
 def sprint_3_frame(main_frame, mqtt_sender):
     finding_nemo_frame = ttk.Frame(main_frame, padding=10, borderwidth=5, relief='groove')
     finding_nemo_frame.grid()
 
+    Title = ttk.Label(finding_nemo_frame, text='Finding Nemo!!!')
+    Title.grid(row=0, column=0)
+
     # going into deep sea
-    switch_label = ttk.Label(finding_nemo_frame, text='Finding Nemo!!!')
-    switch_label.grid(row=0, column=0)
+    deep_sea_label = ttk.Label(finding_nemo_frame, text='Entering Deep sea')
+    deep_sea_label.grid(row=1, column=0)
+    check_box_marlin = ttk.Checkbutton(finding_nemo_frame, text="Marlin")
+    check_box_marlin.grid(row=1, column=1)
+    check_box_nemo = ttk.Checkbutton(finding_nemo_frame, text="Nemo")
+    check_box_nemo.grid(row=1, column=2)
+
+    handle_deep_sea_button = ttk.Button(finding_nemo_frame, text="deep sea")
+    handle_deep_sea_button.grid(row=1, column=3)
+    handle_deep_sea_button['command'] = lambda: print('deep sea activated', check_box_marlin.instate(['selected']), check_box_nemo.instate(['selected']))
 
     return finding_nemo_frame
+
+
+def handle_deep_sea_button(mqtt_sender):
+    print('deep sea activated')
+
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
