@@ -352,7 +352,9 @@ class DelagateThatReceives(object):
 
     # Conner Ozatalar(m3) sprint 3
     def m3_marlin_deep_sea(self):
+        print('shared delegate m3_marlin')
         m3_extra.m3_marlin_deep_sea(self)
 
     def m3_nemo_deep_sea(self):
+        print('shared delegate m3_nemo')
         m3_extra.m3_nemo_deep_sea(self)
