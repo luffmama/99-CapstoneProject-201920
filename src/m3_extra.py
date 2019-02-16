@@ -16,8 +16,8 @@ def m3_marlin_deep_sea(robot):
             robot.drive_system.stop()
             break
     robot.sound_system.speech_maker('stay in the shallow water')
-    robot.drive_system.go(-10, -10)
-    time.sleep(.5)
+    robot.drive_system.go(-20, -20)
+    time.sleep(1)
     robot.drive_system.stop()
 
 
