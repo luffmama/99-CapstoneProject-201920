@@ -36,10 +36,13 @@ def m3_nemo_deep_sea(robot):
         print(robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
         if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 12:
             stop_from_sees_something(robot)
-        elif time.time() - start_time >= 2.3:
+            break
+        elif time.time() - start_time >= 9:
             stop_from_time(robot)
+            break
 
 def stop_from_sees_something(robot):
+    print('stop_from_sees_something')
     robot.drive_system.stop()
     robot.drive_system.go(70, 70)
     while True:
@@ -49,5 +52,6 @@ def stop_from_sees_something(robot):
             break
 
 def stop_from_time(robot):
+    print('stop from time')
     robot.drive_system.stop()
     robot.drive_system.go_straight_for_inches_using_encoder(25, 70)
