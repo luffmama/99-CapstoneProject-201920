@@ -8,6 +8,7 @@
 """
 import time
 import m1_extra
+import m3_extra
 
 class DelagateThatReceives(object):
     # This class creates a delagate for the robot.
