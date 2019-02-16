@@ -30,6 +30,7 @@ def m3_nemo_deep_sea():
     robot.sound_system.speech_maker('Time for an adventure')
     robot.drive_system.go_straight_for_inches_using_encoder(15, 100)
     robot.drive_system.go(-50, 50)
+    start_time = time.localtime()
     while True:
-        if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 12:
+        if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 12 or time.localtime() - start_time >= 1:
             robot.drive_system.stop()
