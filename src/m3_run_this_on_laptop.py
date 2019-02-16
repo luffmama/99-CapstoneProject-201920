@@ -160,13 +160,13 @@ def sprint_3_frame(main_frame, mqtt_sender):
 
     handle_deep_sea_button = ttk.Button(finding_nemo_frame, text="deep sea")
     handle_deep_sea_button.grid(row=1, column=3)
-    handle_deep_sea_button['command'] = lambda: print('deep sea activated', check_box_marlin.instate(['selected']), check_box_nemo.instate(['selected']))
+    handle_deep_sea_button['command'] = lambda: handle_deep_sea(check_box_marlin.instate(['selected']), check_box_nemo.instate(['selected']), mqtt_sender)
 
     return finding_nemo_frame
 
 
-def handle_deep_sea_button(mqtt_sender):
-    print('deep sea activated')
+def handle_deep_sea(check_box_marlin, check_box_nemo, mqtt_sender):
+    print('deep sea activated', check_box_marlin, check_box_nemo)
 
 
 # -----------------------------------------------------------------------------
