@@ -352,7 +352,7 @@ class DelagateThatReceives(object):
 
     # Conner Ozatalar(m3) sprint 3
     def m3_marlin_deep_sea(self):
-        m3_extra.m3_marlin_deep_sea()
+        m3_extra.m3_marlin_deep_sea(self)
 
     def m3_nemo_deep_sea(self):
-        m3_extra.m3_nemo_deep_sea()
+        m3_extra.m3_nemo_deep_sea(self)

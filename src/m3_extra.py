@@ -8,8 +8,7 @@ import rosebot as rb
 import time
 
 # feature 1: going into deep sea
-def m3_marlin_deep_sea():
-    robot = rb.RoseBot()
+def m3_marlin_deep_sea(robot):
     robot.drive_system.go(50, 50)
     while True:
         if robot.sensor_system.color_sensor.get_reflected_light_intensity() <= 10:
@@ -21,8 +20,7 @@ def m3_marlin_deep_sea():
         robot.drive_system.stop()
 
 
-def m3_nemo_deep_sea():
-    robot = rb.RoseBot()
+def m3_nemo_deep_sea(robot):
     robot.drive_system.go(50,50)
     while True:
         if robot.sensor_system.color_sensor.get_reflected_light_intensity() <= 10:
