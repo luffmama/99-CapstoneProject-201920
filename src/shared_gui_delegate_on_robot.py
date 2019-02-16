@@ -20,7 +20,7 @@ class DelagateThatReceives(object):
         self.is_quit = False
 
     #robert kreft m4_extra
-    
+
     def cw_line_follow(self,speed):
         m4_extra.bang_bang_circ_line_follow_cw(self,int(speed))
 
