@@ -174,10 +174,10 @@ def handle_deep_sea(check_box_marlin, check_box_nemo, mqtt_sender):
         print('select either Marlin OR Nemo')
     elif check_box_marlin is True:
         print('Marlin deep sea activated')
-        mqtt_sender.send_message('marlin_deap_sea')
+        mqtt_sender.send_message('marlin_deep_sea')
     elif check_box_nemo is True:
         print('Nemo deep sea activated')
-        mqtt_sender.send_message('nemo_deap_sea')
+        mqtt_sender.send_message('nemo_deep_sea')
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
