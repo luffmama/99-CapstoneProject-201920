@@ -40,7 +40,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(sprint_3_frame)
+    #grid_frames(sprint_3_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -52,11 +52,25 @@ def get_shared_frames(main_frame, mqtt_sender):
 
     return sprint_3_frame
 
-def grid_frames(sprint_3_frame):
-    sprint_3_frame.grid()
+# def grid_frames(sprint_3_frame):
+#     sprint_3_frame.grid()
 
 def get_sprint_3_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
 
+    ccw_label = ttk.Label(frame,text="Line following counter-clockwise.     ")
+    cw_label = ttk.Label(frame,text="Line following clockwise.     ")
+
+    cw_label.grid()
+    ccw_label.grid(row=0,column=1)
+
     return frame
+
+def handle_cw_line_follow(mqtt_sender,speed_entry):
+    mqtt_sender.send_message("cw_line_follow",[speed_entry.get()])
+
+def handle_ccw_line_follow(mqtt_sender,speed_entry):
+    mqtt_sender.send_message("ccw_line_follow", [speed_entry.get()])
+
+main()
