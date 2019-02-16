@@ -106,6 +106,7 @@ def handle_lower_arm(mqtt_sender):
 
 
 def m1_meeting_criminal(self, size, distance, dangsize, box_entry, dangdist):
+    # Meets criminal and either decides whether or not it is dangerous or runs away if it is a coward
     if self.m1_ID_the_criminal(size, distance) is True and self.m1_is_coward(box_entry) is True:
         self.m1_run_away()
     else:
@@ -113,7 +114,7 @@ def m1_meeting_criminal(self, size, distance, dangsize, box_entry, dangdist):
 
 
 def m1_track_the_criminal(self, time_of_tracking):
-    print("got to sgd")
+    # Uses bang-bang line following to track a criminal's trail
     original = self.robot.sensor_system.color_sensor.get_reflected_light_intensity()
     t = time.time()
     while True:
@@ -129,6 +130,7 @@ def m1_track_the_criminal(self, time_of_tracking):
 
 
 def m1_ID_the_criminal(self, size, distance):
+    # figures out if something is a criminal or not
     blob = self.robot.sensor_system.camera.get_biggest_blob()
     if blob.get_area() >= int(size) or self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= int(
             distance):
@@ -139,6 +141,7 @@ def m1_ID_the_criminal(self, size, distance):
 
 
 def m1_is_dangerous(self, dangsize, dangdist):
+    # figures out if a criminal is dangerous
     blob = self.robot.sensor_system.camera.get_biggest_blob()
     if blob.get_area() >= int(
             dangsize) or self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= int(dangdist):
@@ -152,6 +155,7 @@ def m1_is_dangerous(self, dangsize, dangdist):
 
 
 def m1_chase_the_criminal(self):
+    # chases the criminal
     self.align_the_robot()
     self.pick_up_object_while_beeping(3, 1)
 
@@ -161,6 +165,7 @@ def speak(self, word):
 
 
 def m1_is_coward(self, box_entry):
+    # figures out if the robot is a coward
     if str(box_entry) == "coward":
         return True
     else:
@@ -168,5 +173,6 @@ def m1_is_coward(self, box_entry):
 
 
 def m1_run_away(self):
+    # runs away
     self.speak("run away")
     self.backward(100, 100)

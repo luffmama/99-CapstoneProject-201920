@@ -18,6 +18,13 @@ import time
 import shared_gui_delegate_on_robot as s
 import m1_extra
 
+# Table of contents of this file
+# get cpc frame 97-241
+# handle functions for cpc 246-308
+# foa frame 317-354
+# foa handle functions 357-372
+# robocop gui and handle functions 361-460
+
 
 
 rosebot.RoseBot
@@ -366,113 +373,6 @@ def handle_turn_and_go(c_or_cc_entry,high_frequency_entry, low_frequency_entry, 
                                             low_frequency_entry.get(),
                                             initial_frequency_duration_entry.get()])
 
-def oscillation_approach(self,high_freq,low_freq,initial_freq_duration):
-    t = int(initial_freq_duration)
-    dt = int(initial_freq_duration)/self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-    x = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-    while True:
-
-        self.robot.sound_system.tone_maker.play_tone(high_freq,x).wait(t)
-        self.robot.drive_system.go_straight_for_inches_using_time(1,100)
-        x = x - 1
-        t = t - dt
-
-        self.robot.sound_system.tone_maker.play_tone(low_freq, x).wait(t)
-        self.robot.drive_system.go_straight_for_inches_using_time(1, 100)
-        x = x - 1
-        t = t - dt
-
-        if x <= 3:
-            self.robot.drive_system.stop()
-            self.robot.arm_and_claw.raise_arm()
-            break
-
-def turn_and_go(self,c_or_cc_entry,high_freq,low_freq,initial_freq_duration):
-    if str(c_or_cc_entry) == "c":
-        self.robot.drive_system.spin_clockwise_until_sees_object(100,100)
-        align_the_robot(self)
-        oscillation_approach(self,int(high_freq),int(low_freq),int(initial_freq_duration))
-    if str(c_or_cc_entry) == "cc":
-        self.robot.drive_system.spin_counterclockwise_until_sees_object(100,100)
-        align_the_robot(self)
-        oscillation_approach(self,int(high_freq),int(low_freq),int(initial_freq_duration))
-
-def align_the_robot(self):
-
-    blob = self.robot.sensor_system.camera.get_biggest_blob()
-    while True:
-        if blob.center.x < 160:
-            self.robot.drive_system.left(100).wait(0.05)
-            self.robot.drive_system.stop()
-        if blob.center.x > 160:
-            self.robot.drive_system.right(100).wait(0.05)
-            self.robot.drive_system.stop()
-        if blob.center.x == 160:
-            break
-
-
-def track_the_criminal(self):
-    original = self.robot.sensor_system.color_sensor.get_reflected_light_intensity()
-    t = time.time()
-    while True:
-        elapsed_time = time.time() - t
-        current = self.robot.sensor_system.color_sensor.get_reflected_light_intensity()
-        if abs(original - current) <= 5:
-            self.robot.drive_system.forward(75,75)
-        elif abs(original - current) > 5:
-            self.robot.drive_system.right(75,75)
-        if elapsed_time >= 10:
-            self.robot.drive_system.stop()
-            break
-
-
-def ID_the_criminal(self,size,distance):
-    blob = self.robot.sensor_system.camera.get_biggest_blob()
-    if blob.get_area() >= size or self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= distance:
-        self.speak("criminal detected")
-        return True
-    else:
-        self.speak("No criminals in sight")
-
-
-def is_dangerous(self,dangsize,dangdist):
-    blob = self.robot.sensor_system.camera.get_biggest_blob()
-    if blob.get_area() >= dangsize or self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= dangdist:
-        self.speak("The criminal is dangerous")
-        print("The criminal is dangerous, and is of size",blob.get_area(),
-              "while being",self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches(),"inches away")
-        self.speak("This is robocop calling for backup")
-    else:
-        self.speak("The criminal is not dangerous")
-        self.chase_the_criminal()
-
-
-def chase_the_criminal(self):
-    self.align_the_robot()
-    self.s.pick_up_object_while_beeping(3,1)
-
-
-def speak(self,word):
-    self.robot.sound_system.speach_maker.speak(word)
-
-
-def is_coward(self,box_entry):
-    if int(box_entry) == 1:
-        return True
-    else:
-        return False
-
-
-def meeting_criminal(self,size,distance,box_entry,dangsize,dangdist):
-    if self.ID_the_criminal(size,distance) is True and self.is_coward(box_entry) is True:
-        self.run_away()
-    else:
-        self.is_dangerous(dangsize,dangdist)
-
-
-def run_away(self):
-    self.speak("run away")
-    self.backwards(100,100)
 
 def get_robocop_frame(window,mqtt_sender):
     # Creating the frame
