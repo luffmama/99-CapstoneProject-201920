@@ -7,7 +7,7 @@
   Winter term, 2018-2019.
 """
 import time
-#import m1_run_this_on_laptop
+import m1_extra
 
 class DelagateThatReceives(object):
     # This class creates a delagate for the robot.
@@ -285,3 +285,12 @@ class DelagateThatReceives(object):
             else:
                 self.robot.drive_system.stop()
                 break
+
+
+# Margaret Luffman functions for spint 3
+
+    def m1_meeting_criminal(self,size,dist,box,dsize,ddist):
+        m1_extra.meeting_criminal(self,size,dist,box,dsize,ddist)
+
+    def m1_track_the_criminal(self):
+        m1_extra.track_the_criminal(self)

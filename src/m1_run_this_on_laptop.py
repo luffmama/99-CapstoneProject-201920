@@ -15,6 +15,7 @@ import rosebot
 import math
 import time
 import shared_gui_delegate_on_robot as s
+import m1_extra
 
 
 
@@ -46,7 +47,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    telop_frame, arm_frame, control_frame,movment_frame,noise_frame,cpc_frame,foa_frame =  get_shared_frames(main_frame,mqtt_sender)
+    robo_frame =  get_shared_frames(main_frame,mqtt_sender)
 
 
     # -------------------------------------------------------------------------
@@ -57,7 +58,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(telop_frame,arm_frame,control_frame,movment_frame,noise_frame,cpc_frame,foa_frame)
+    grid_frames(robo_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -66,25 +67,27 @@ def main():
 
 
 def get_shared_frames(main_frame, mqtt_sender):
-    teleop = shared_gui.get_teleoperation_frame(main_frame,mqtt_sender)
-    arm = shared_gui.get_arm_frame(main_frame,mqtt_sender)
-    control = shared_gui.get_control_frame(main_frame,mqtt_sender)
-    movment = shared_gui.get_movement_frame(main_frame,mqtt_sender)
-    noise = shared_gui.get_noise_frame(main_frame,mqtt_sender)
-    cpc_frame = shared_gui.get_cpc_frame(main_frame,mqtt_sender)
-    foa_frame = get_foa_frame(main_frame,mqtt_sender)
+    #teleop = shared_gui.get_teleoperation_frame(main_frame,mqtt_sender)
+    #arm = shared_gui.get_arm_frame(main_frame,mqtt_sender)
+    #control = shared_gui.get_control_frame(main_frame,mqtt_sender)
+   # movment = shared_gui.get_movement_frame(main_frame,mqtt_sender)
+    #noise = shared_gui.get_noise_frame(main_frame,mqtt_sender)
+    #cpc_frame = shared_gui.get_cpc_frame(main_frame,mqtt_sender)
+    #foa_frame = get_foa_frame(main_frame,mqtt_sender)
+    robo_frame = get_robocop_frame(main_frame,mqtt_sender)
 
-    return teleop, arm, control,movment,noise,cpc_frame, foa_frame
+    return robo_frame
 
 
-def grid_frames(teleop_frame, arm_frame, control_frame,movment_frame,noise_frame,cpc_frame,foa_frame):
+def grid_frames(robo_frame):
     # teleop_frame.grid(row=0,column=0)
     # arm_frame.grid(row=0,column=1)
     # control_frame.grid(row=3,column=1)
     # movment_frame.grid(row=1,column=0)
     # noise_frame.grid(row=1,column=1)
     # cpc_frame.grid(row=2,column=0)
-    foa_frame.grid(row=0,column=0)
+    # foa_frame.grid(row=0,column=0)
+    robo_frame.grid(row=0,column=0)
 
 ## gui for color and proximity and camra (work in progress)
 
@@ -492,7 +495,42 @@ def get_robocop_frame(window,mqtt_sender):
 
     coward_box = ttk.Checkbutton(frame)
 
+    frame_label.grid(row=0,column=1)
+    size_label.grid(row=1,column=0)
+    size_entry.grid(row=1,column=2)
+    dist_label.grid(row=2,column=0)
+    dist_entry.grid(row=2,column=2)
+    dangsize_label.grid(row=3,column=0)
+    dangsize_entry.grid(row=3,column=2)
+    dangdist_label.grid(row=4,column=0)
+    dangdist_entry.grid(row=4,column=2)
+    track_label.grid(row=5,column=0)
+    track_button.grid(row=5,column=2)
+    meet_label.grid(row=6,column=0)
+    meet_button.grid(row=6,column=2)
+    coward_label.grid(row=7,column=0)
+    coward_box.grid(row=7,column=2)
 
+    meet_button["command"] = lambda: handle_meet(
+        size_entry,dist_entry,dangsize_entry,dangdist_entry,mqtt_sender)
+    track_button["command"] = lambda: handle_track(mqtt_sender)
+
+    return frame
+
+
+def handle_meet(size_entry,dist_entry,dangsize_entry,dangdist_entry,mqtt_sender):
+    print("m1_meeting_criminal",[size_entry.get(),
+                              dist_entry.get(),
+                              dangsize_entry.get(),
+                              dangdist_entry.get()])
+    mqtt_sender.send_message("meeting_criminal",[size_entry.get(),
+                                                 dist_entry.get(),
+                                                 dangsize_entry.get(),
+                                                 dangdist_entry.get()])
+
+def handle_track(mqtt_sender):
+    print("m1_track_the_criminal")
+    mqtt_sender.send_message("m1_track_the_criminal")
 
 
 # -----------------------------------------------------------------------------
