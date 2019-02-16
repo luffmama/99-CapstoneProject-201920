@@ -173,8 +173,10 @@ def handle_deep_sea(check_box_marlin, check_box_nemo, mqtt_sender):
     if check_box_nemo == check_box_marlin:
         print('select either Marlin OR Nemo')
     elif check_box_marlin is True:
+        print('marlin is true')
         mqtt_sender.send_message('m3_marlin_deep_sea')
     elif check_box_nemo is True:
+        print('nemo is true')
         mqtt_sender.send_message('m3_nemo_deep_sea')
 
 # -----------------------------------------------------------------------------
