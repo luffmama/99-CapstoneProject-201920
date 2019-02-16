@@ -86,12 +86,21 @@ class m4_extra(object):
                         self.robot.drive_system.go(speed,speed)
                         break
 
-    def bang_bang_straight_line_follow_sor(self,speed):
-        self.robot.drive_system.go(speed,speed)
-        while True:
-            if self.robot.sensor_system.color_sensor.get_reflected_light_intensity() > 10:  # if robot gets off the line
-                self.robot.drive_system.go(speed,-speed)
-                while True:
-                    if self.robot.sensor_system.color_sensor.get_reflected_light_intensity() < 10:
-                        self.robot.drive_system.go(speed,speed)
-                        break
+    # def bang_bang_straight_line_follow_sor(self,speed):
+    #     self.robot.drive_system.go(speed,speed)
+    #     while True:
+    #         if self.robot.sensor_system.touch_sensor.is_pressed():
+    #             self.robot.drive_system.stop()
+    #             break
+    #         self.bang_bang(speed)
+    #
+    # def bang_bang(self,speed):
+    #     if self.robot.sensor_system.color_sensor.get_reflected_light_intensity() > 10:  # if robot gets off the line
+    #         self.robot.drive_system.go(speed, -speed)
+    #         while True:
+    #             if self.robot.sensor_system.touch_sensor.is_pressed():
+    #                 self.robot.drive_system.stop()
+    #                 break
+    #             if self.robot.sensor_system.color_sensor.get_reflected_light_intensity() < 10:
+    #                 self.robot.drive_system.go(speed, speed)
+    #                 break
