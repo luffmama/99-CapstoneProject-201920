@@ -78,6 +78,7 @@ def stop_from_time(robot):
 
 def dory_mode_toggle(robot, check_box_dory_mode):
     if check_box_dory_mode is True:
+        print(robot.sensor_system.camera.get_biggest_blob().get_area())
         if robot.sensor_system.camera.get_biggest_blob().get_area() > 50:
             return True
     return False
@@ -94,6 +95,4 @@ def dory_mode_activated(robot, dory_mode_excitement_entry):
     song = [(c, t, 5), (e, t, 5), (c, t, 5), (e, t, 5), (c, t, 5), (d, t/2, 5), (d, t/2, 5), (b, t, 5), (c, t, 5)]
     while True:
         robot.sound_system.tone_maker.play_tone_sequence(song).wait()
-        if robot.touch:
-            break
         time.sleep(.5)
