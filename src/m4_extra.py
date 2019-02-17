@@ -89,6 +89,7 @@ def bang_bang_circ_line_follow_ccw(robot,speed,pivot_speed):
 def print_intensity(robot):
     while True:
         print(robot.sensor_system.color_sensor.get_reflected_light_intensity())
+        time.sleep(.25)
         if robot.sensor_system.touch_sensor.is_pressed():
             robot.drive_system.stop()
             break
