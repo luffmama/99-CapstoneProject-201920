@@ -13,16 +13,11 @@ def m3_marlin_deep_sea(robot, check_box_dory_mode, dory_mode_excitement_entry):
     print('Marlin deep sea activated')
     robot.drive_system.go(50, 50)
     while True:
-        print(robot.now_quit)
         if robot.sensor_system.color_sensor.get_reflected_light_intensity() <= 5:
             robot.drive_system.stop()
             break
         elif dory_mode_toggle(robot, check_box_dory_mode):
             dory_mode_activated(robot, dory_mode_excitement_entry)
-            return
-        elif robot.now_quit:
-            robot.drive_system.stop()
-            print('stopped loop')
             return
     # robot.sound_system.speech_maker.speak('stay in the shallow water')
     robot.drive_system.go(-30, -30)
@@ -84,7 +79,7 @@ def stop_from_time(robot):
 def dory_mode_toggle(robot, check_box_dory_mode):
     # print('dory mode toggle', check_box_dory_mode)
     if check_box_dory_mode is True:
-        # print(robot.sensor_system.camera.get_biggest_blob().get_area())
+        print(robot.sensor_system.camera.get_biggest_blob().get_area())
         if robot.sensor_system.camera.get_biggest_blob().get_area() > 50:
             return True
     return False
@@ -104,5 +99,8 @@ def dory_mode_activated(robot, dory_mode_excitement_entry):
         robot.sound_system.tone_maker.play_tone_sequence(song).wait()
         time.sleep(.5)
         if time.time() - start_time >= 8:
+            robot.drive_system.stop()
+            break
+        elif robot.sensor_system.touch_sensor.is_pressed():
             robot.drive_system.stop()
             break
