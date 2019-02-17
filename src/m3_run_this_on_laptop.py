@@ -178,7 +178,7 @@ def going_into_deep_sea(finding_nemo_frame, mqtt_sender):
         handle_deep_sea(check_box_marlin.instate(['selected']), check_box_nemo.instate(['selected']),
                         dory_mode_checkbutton.instate(['selected']), dory_mode_excitement_entry, mqtt_sender)
 
-    dory_mode_stop_button["command"] = lambda: handle_quit_dory_mode(dory_mode_checkbutton, mqtt_sender)
+    dory_mode_stop_button["command"] = lambda: handle_quit(mqtt_sender)
 
 
 def handle_deep_sea(check_box_marlin, check_box_nemo, check_box_dory_mode, dory_mode_excitement_entry, mqtt_sender):
@@ -192,10 +192,9 @@ def handle_deep_sea(check_box_marlin, check_box_nemo, check_box_dory_mode, dory_
         mqtt_sender.send_message('m3_nemo_deep_sea', [check_box_dory_mode, dory_mode_excitement_entry.get()])
 
 
-def handle_quit_dory_mode(dory_mode_checkbutton, mqtt_sender):
-    if dory_mode_checkbutton.instate(['selected']):
-        print('dory mode quit')
-        mqtt_sender.send_message('is_quit')
+def handle_quit(mqtt_sender):
+    print('quit')
+    mqtt_sender.send_message('is_quit')
 
 
 def dory_mode(finding_nemo_frame):
