@@ -8,7 +8,7 @@ import rosebot as rb
 import time
 
 # feature 1: going into deep sea
-def m3_marlin_deep_sea(robot):
+def m3_marlin_deep_sea(robot, check_box_dory_mode):
     print('Marlin deep sea activated')
     robot.drive_system.go(50, 50)
     while True:
@@ -21,7 +21,7 @@ def m3_marlin_deep_sea(robot):
     robot.drive_system.stop()
 
 
-def m3_nemo_deep_sea(robot):
+def m3_nemo_deep_sea(robot, check_box_dory_mode):
     print('Nemo deep sea activated')
     robot.drive_system.go(50, 50)
     while True:
@@ -33,7 +33,6 @@ def m3_nemo_deep_sea(robot):
     robot.drive_system.go(-50, 50)
     start_time = time.time()
     while True:
-        print(robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
         if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 12:
             stop_from_sees_something(robot)
             break
