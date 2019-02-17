@@ -15,7 +15,7 @@ def m3_marlin_deep_sea(robot, check_box_dory_mode, dory_mode_excitement_entry): 
             robot.drive_system.stop()
             break
         elif dory_mode_toggle(robot, check_box_dory_mode):
-            dory_mode_activated(dory_mode_excitement_entry)
+            dory_mode_activated(robot, dory_mode_excitement_entry)
             return
     robot.sound_system.speech_maker.speak('stay in the shallow water')
     robot.drive_system.go(-20, -20)
@@ -31,7 +31,7 @@ def m3_nemo_deep_sea(robot, check_box_dory_mode, dory_mode_excitement_entry):
             robot.drive_system.stop()
             break
         elif dory_mode_toggle(robot, check_box_dory_mode):
-            dory_mode_activated(dory_mode_excitement_entry)
+            dory_mode_activated(robot, dory_mode_excitement_entry)
             return
     robot.sound_system.speech_maker.speak('Time for an adventure')
     robot.drive_system.go_straight_for_inches_using_encoder(25, 100)
@@ -45,7 +45,7 @@ def m3_nemo_deep_sea(robot, check_box_dory_mode, dory_mode_excitement_entry):
             stop_from_time(robot)
             break
         elif dory_mode_toggle(robot, check_box_dory_mode):
-            dory_mode_activated(dory_mode_excitement_entry)
+            dory_mode_activated(robot, dory_mode_excitement_entry)
             return
 
 
@@ -73,10 +73,16 @@ def dory_mode_toggle(robot, check_box_dory_mode):
     return False
 
 
-def dory_mode_activated(dory_mode_excitement_entry):
+def dory_mode_activated(robot, dory_mode_excitement_entry):
+    print('Dory mode has been activated')
     c = 262.626
     d = 293.665
     b = 246.943
     e = 329.628
-    t = 60/dory_mode_excitement_entry
-    pass
+    t = 60000/(dory_mode_excitement_entry + 100)
+    song = [(c, t, 5), (e, t, 5), (c, t, 5), (e, t, 5), (c, t, 5), (d, t/2, 5), (d, t/2, 5), (b, t, 5), (c, t, 5)]
+    while True:
+        robot.sound_system.tone_maker.play_tone_sequence(song).wait()
+        if robot.ArmandClaw.touch_sensor.is_pressed():
+            break
+        time.sleep(.5)
