@@ -37,17 +37,38 @@ import shared_gui_delegate_on_robot
 #
 #PID Control Proportional, Integral, Differential Control
 def PID_cw_control(robot,slider_constant):
-    base_speed, kpr, kpl, kir, kil, kdr, kdl, previous_error = 100, .1, .1, 0, 0, .1, .1, 0
+    base_speed, kpr, kpl, kir, kil, kdr, kdl, previous_error, summed_error = 100, .1, .1, 0, 0, .1, .1, 0, 0
     robot.drive_system.go(base_speed*slider_constant,base_speed*slider_constant)
     pass
 
 def PID_ccw_control(robot,slider_constant):
-    base_speed, kpr, kpl, kir, kil, kdr, kdl, previous_error = 100, .1, .1, 0, 0, .1, .1, 0
+    print("Got to Command")
+    base_speed, kpr, kpl, kir, kil, kdr, kdl, previous_error, summed_error = 100, .1, .1, 0, 0, .1, .1, 0, 0
     robot.drive_system.go(base_speed*slider_constant,base_speed*slider_constant)
+    while True:
+        error, change_in_error, summed_error, previous_error = error_accumulator(robot,previous_error,summed_error)
+        if robot.sensor_system.touch_sensor.is_pressed():
+            robot.drive_system.stop()
+            break
+        if robot.sensor_system.color_sensor.get_reflected_light_intensity() > 4: #if robot gets off the line
+            robot.drive_system.go(-base_speed*slider_constant+kpl*error+kil*summed_error+kdl*change_in_error,base_speed*slider_constant+kpr*error+kir*summed_error+kdr*change_in_error)
+            while True:
+                error, change_in_error, summed_error, previous_error = error_accumulator(robot,previous_error, summed_error)
+                if robot.sensor_system.touch_sensor.is_pressed():
+                    robot.drive_system.stop()
+                    break
+                if robot.sensor_system.color_sensor.get_reflected_light_intensity() < 4:
+                    robot.drive_system.go(base_speed*slider_constant,base_speed*slider_constant)
+                    break
     pass
 
-def error_accumulator(error,previous_error,summed_error):
-    pass
+def error_accumulator(robot,previous_error,summed_error):
+    perfect=4
+    error=perfect-robot.sensor_system.color_sensor.get_reflected_light_intensity()
+    change_in_error=error-previous_error
+    summed_error=summed_error+error
+    previous_error=error
+    return error, change_in_error, summed_error, previous_error
 
 #bang bang method of line following circle in the clockwise direction
 def bang_bang_circ_line_follow_cw(robot,speed,pivot_speed):
@@ -90,10 +111,6 @@ def print_intensity(robot):
     while True:
         print(robot.sensor_system.color_sensor.get_reflected_light_intensity())
         time.sleep(.25)
-        if robot.sensor_system.touch_sensor.is_pressed():
-            robot.drive_system.stop()
-            break
-    print("Ended.")
 
 # def bang_bang_straight_line_follow_sor(self,speed):
 #     self.robot.drive_system.go(speed,speed)
