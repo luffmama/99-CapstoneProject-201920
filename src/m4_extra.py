@@ -48,6 +48,7 @@ def PID_ccw_control(robot,slider_constant):
         error, change_in_error, summed_error, previous_error = error_accumulator(robot,previous_error,summed_error)
         robot.drive_system.go(base_speed * slider_constant - (kpl * error + kil * summed_error + kdl * change_in_error),
                               base_speed * slider_constant + kpr * error + kir * summed_error + kdr * change_in_error)
+        time.sleep(.01)
         if robot.sensor_system.touch_sensor.is_pressed():
             robot.drive_system.stop()
             break
