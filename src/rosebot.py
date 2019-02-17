@@ -38,6 +38,9 @@ class RoseBot(object):
         self.beacon_system = BeaconSystem()
         self.display_system = DisplaySystem()
 
+        # for Conner Ozatalar sprint 3
+        self.now_quit = False
+
 
 ###############################################################################
 #    DriveSystem

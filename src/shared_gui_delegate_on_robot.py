@@ -384,3 +384,4 @@ class DelagateThatReceives(object):
     def m3_now_quit(self):
         print("quit")
         self.is_quit = True
+        self.robot.now_quit = True
