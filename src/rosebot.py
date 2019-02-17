@@ -38,9 +38,6 @@ class RoseBot(object):
         self.beacon_system = BeaconSystem()
         self.display_system = DisplaySystem()
 
-        # For Conner Ozatalat sprint 3
-        self.dory_mode_toggle = False
-
 
 ###############################################################################
 #    DriveSystem

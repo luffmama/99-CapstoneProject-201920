@@ -15,6 +15,9 @@ def m3_marlin_deep_sea(robot, check_box_dory_mode):
         if robot.sensor_system.color_sensor.get_reflected_light_intensity() <= 10:
             robot.drive_system.stop()
             break
+        if robot.dory_mode_toggle is True:
+            dory_mode_activated()
+            break
     robot.sound_system.speech_maker.speak('stay in the shallow water')
     robot.drive_system.go(-20, -20)
     time.sleep(1)
@@ -54,3 +57,11 @@ def stop_from_time(robot):
     print('stop from time')
     robot.drive_system.stop()
     robot.drive_system.go_straight_for_inches_using_encoder(25, 70)
+
+def dory_mode_toggle(robot, check_box_dory_mode):
+    if check_box_dory_mode is True:
+        if robot.sensor_system.camera.get_biggest_blob().get_area() > 50:
+            robot.
+
+def dory_mode_activated():
+    pass
