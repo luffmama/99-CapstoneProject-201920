@@ -77,9 +77,9 @@ def stop_from_time(robot):
 
 
 def dory_mode_toggle(robot, check_box_dory_mode):
-    print('dory mode toggle', check_box_dory_mode)
+    # print('dory mode toggle', check_box_dory_mode)
     if check_box_dory_mode is True:
-        print(robot.sensor_system.camera.get_biggest_blob().get_area())
+        # print(robot.sensor_system.camera.get_biggest_blob().get_area())
         if robot.sensor_system.camera.get_biggest_blob().get_area() > 50:
             return True
     return False
