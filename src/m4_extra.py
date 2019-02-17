@@ -39,28 +39,18 @@ import shared_gui_delegate_on_robot
 def PID_cw_control(robot,slider_constant):
     base_speed, kpr, kpl, kir, kil, kdr, kdl, previous_error, summed_error = 100, .1, .1, 0, 0, .1, .1, 0, 0
     robot.drive_system.go(base_speed*slider_constant,base_speed*slider_constant)
-    pass
+
 
 def PID_ccw_control(robot,slider_constant):
     print("Got to Command")
     base_speed, kpr, kpl, kir, kil, kdr, kdl, previous_error, summed_error = 100, .1, .1, 0, 0, .1, .1, 0, 0
-    robot.drive_system.go(base_speed*slider_constant,base_speed*slider_constant)
     while True:
         error, change_in_error, summed_error, previous_error = error_accumulator(robot,previous_error,summed_error)
+        robot.drive_system.go(base_speed * slider_constant - (kpl * error + kil * summed_error + kdl * change_in_error),
+                              base_speed * slider_constant + kpr * error + kir * summed_error + kdr * change_in_error)
         if robot.sensor_system.touch_sensor.is_pressed():
             robot.drive_system.stop()
             break
-        if robot.sensor_system.color_sensor.get_reflected_light_intensity() > 4: #if robot gets off the line
-            robot.drive_system.go(-base_speed*slider_constant+kpl*error+kil*summed_error+kdl*change_in_error,base_speed*slider_constant+kpr*error+kir*summed_error+kdr*change_in_error)
-            while True:
-                error, change_in_error, summed_error, previous_error = error_accumulator(robot,previous_error, summed_error)
-                if robot.sensor_system.touch_sensor.is_pressed():
-                    robot.drive_system.stop()
-                    break
-                if robot.sensor_system.color_sensor.get_reflected_light_intensity() < 4:
-                    robot.drive_system.go(base_speed*slider_constant,base_speed*slider_constant)
-                    break
-    pass
 
 def error_accumulator(robot,previous_error,summed_error):
     perfect=4
