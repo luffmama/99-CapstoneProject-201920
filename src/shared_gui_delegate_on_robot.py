@@ -84,7 +84,7 @@ class DelagateThatReceives(object):
     def tone(self, tone_frequency_entry, tone_duration_entry):
         self.robot.sound_system.tone_maker.play_tone(int(tone_frequency_entry), int(tone_duration_entry))
 
-    def is_quit(self):
+    def now_quit(self):
         print("quit")
         self.is_quit = True
 
