@@ -34,6 +34,10 @@ def m3_nemo_deep_sea(robot, check_box_dory_mode, dory_mode_excitement_entry):
             dory_mode_activated(robot, dory_mode_excitement_entry)
             return
     robot.sound_system.speech_maker.speak('Time for an adventure')
+    nemo_on_the_run(robot, check_box_dory_mode, dory_mode_excitement_entry)
+
+
+def nemo_on_the_run(robot, check_box_dory_mode, dory_mode_excitement_entry):
     robot.drive_system.go_straight_for_inches_using_encoder(25, 100)
     robot.drive_system.go(-50, 50)
     start_time = time.time()
