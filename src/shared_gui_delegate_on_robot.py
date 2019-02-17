@@ -372,9 +372,9 @@ class DelagateThatReceives(object):
 
     # Conner Ozatalar(m3) sprint 3
     def m3_marlin_deep_sea(self, check_box_dory_mode, dory_mode_excitement_entry):
-        print('shared delegate m3_marlin', check_box_dory_mode, dory_mode_excitement_entry)
-        m3_extra.m3_marlin_deep_sea(self.robot, check_box_dory_mode, dory_mode_excitement_entry)
+        print('shared delegate m3_marlin', check_box_dory_mode, int(dory_mode_excitement_entry))
+        m3_extra.m3_marlin_deep_sea(self.robot, check_box_dory_mode, int(dory_mode_excitement_entry))
 
     def m3_nemo_deep_sea(self, check_box_dory_mode, dory_mode_excitement_entry):
-        print('shared delegate m3_nemo', check_box_dory_mode, dory_mode_excitement_entry)
-        m3_extra.m3_nemo_deep_sea(self.robot, check_box_dory_mode, dory_mode_excitement_entry)
+        print('shared delegate m3_nemo', check_box_dory_mode, int(dory_mode_excitement_entry))
+        m3_extra.m3_nemo_deep_sea(self.robot, check_box_dory_mode, int(dory_mode_excitement_entry))

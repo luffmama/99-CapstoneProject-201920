@@ -4,19 +4,18 @@
     Authors:  Conner Ozatalar.
     Winter term, 2018-2019.
 """
-import rosebot as rb
 import time
 
-# feature 1: going into deep sea
-def m3_marlin_deep_sea(robot, check_box_dory_mode):
+
+def m3_marlin_deep_sea(robot, check_box_dory_mode, dory_mode_excitement_entry):  # feature 1: going into deep sea
     print('Marlin deep sea activated')
     robot.drive_system.go(50, 50)
     while True:
         if robot.sensor_system.color_sensor.get_reflected_light_intensity() <= 10:
             robot.drive_system.stop()
             break
-        if dory_mode_toggle(robot, check_box_dory_mode):
-            dory_mode_activated()
+        elif dory_mode_toggle(robot, check_box_dory_mode):
+            dory_mode_activated(dory_mode_excitement_entry)
             return
     robot.sound_system.speech_maker.speak('stay in the shallow water')
     robot.drive_system.go(-20, -20)
@@ -24,13 +23,16 @@ def m3_marlin_deep_sea(robot, check_box_dory_mode):
     robot.drive_system.stop()
 
 
-def m3_nemo_deep_sea(robot, check_box_dory_mode):
+def m3_nemo_deep_sea(robot, check_box_dory_mode, dory_mode_excitement_entry):
     print('Nemo deep sea activated')
     robot.drive_system.go(50, 50)
     while True:
         if robot.sensor_system.color_sensor.get_reflected_light_intensity() <= 10:
             robot.drive_system.stop()
             break
+        elif dory_mode_toggle(robot, check_box_dory_mode):
+            dory_mode_activated(dory_mode_excitement_entry)
+            return
     robot.sound_system.speech_maker.speak('Time for an adventure')
     robot.drive_system.go_straight_for_inches_using_encoder(25, 100)
     robot.drive_system.go(-50, 50)
@@ -42,6 +44,10 @@ def m3_nemo_deep_sea(robot, check_box_dory_mode):
         elif time.time() - start_time >= 3:
             stop_from_time(robot)
             break
+        elif dory_mode_toggle(robot, check_box_dory_mode):
+            dory_mode_activated(dory_mode_excitement_entry)
+            return
+
 
 def stop_from_sees_something(robot):
     print('stop_from_sees_something')
@@ -53,10 +59,12 @@ def stop_from_sees_something(robot):
             robot.drive_system.stop()
             break
 
+
 def stop_from_time(robot):
     print('stop from time')
     robot.drive_system.stop()
     robot.drive_system.go_straight_for_inches_using_encoder(25, 70)
+
 
 def dory_mode_toggle(robot, check_box_dory_mode):
     if check_box_dory_mode is True:
@@ -64,5 +72,11 @@ def dory_mode_toggle(robot, check_box_dory_mode):
             return True
     return False
 
-def dory_mode_activated():
+
+def dory_mode_activated(dory_mode_excitement_entry):
+    c = 262.626
+    d = 293.665
+    b = 246.943
+    e = 329.628
+    t = 60/dory_mode_excitement_entry
     pass
