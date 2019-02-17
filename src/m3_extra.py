@@ -79,7 +79,7 @@ def stop_from_time(robot):
 def dory_mode_toggle(robot, check_box_dory_mode):
     # print('dory mode toggle', check_box_dory_mode)
     if check_box_dory_mode is True:
-        print(robot.sensor_system.camera.get_biggest_blob().get_area())
+        # print(robot.sensor_system.camera.get_biggest_blob().get_area())
         if robot.sensor_system.camera.get_biggest_blob().get_area() > 50:
             return True
     return False
@@ -88,19 +88,25 @@ def dory_mode_toggle(robot, check_box_dory_mode):
 def dory_mode_activated(robot, dory_mode_excitement_entry):
     robot.drive_system.stop()
     print('Dory mode has been activated')
+    song = notes(dory_mode_excitement_entry)
+    start_time = time.time()
+    stop_value = 0
+    while True:
+        robot.sound_system.tone_maker.play_tone_sequence(song).wait()
+        time.sleep(.5)
+        if stop_value == 1:
+            break
+        elif robot.sensor_system.touch_sensor.is_pressed():
+            stop_value = 1
+        elif time.time() - start_time >= 10:
+            break
+
+
+def notes(dory_mode_excitement_entry):
     c = 262.626
     d = 293.665
     b = 246.943
     e = 329.628
     t = 60000/(dory_mode_excitement_entry + 100)
-    song = [(c, t, 5), (e, t, 5), (c, t, 5), (e, t, 5), (c, t, 5), (d, t/2, 5), (d, t/2, 5), (b, t, 5), (c, t, 5)]
-    start_time = time.time()
-    while True:
-        robot.sound_system.tone_maker.play_tone_sequence(song).wait()
-        time.sleep(.5)
-        if time.time() - start_time >= 8:
-            robot.drive_system.stop()
-            break
-        elif robot.sensor_system.touch_sensor.is_pressed():
-            robot.drive_system.stop()
-            break
+    song = [(c, t, 5), (e, t, 5), (c, t, 5), (e, t, 5), (c, t, 5), (d, t / 2, 5), (d, t / 2, 5), (b, t, 5), (c, t, 5)]
+    return song
