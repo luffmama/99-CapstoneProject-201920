@@ -28,7 +28,9 @@ class DelagateThatReceives(object):
         m4_extra.bang_bang_circ_line_follow_ccw(self.robot,int(speed),int(pivot_speed))
 
     def read_intensity(self):
-        m4_extra.print_intensity(self.robot)
+        while True:
+            m4_extra.print_intensity(self.robot)
+            time.sleep(.25)
 
     #robot m4_extra ^^^
 

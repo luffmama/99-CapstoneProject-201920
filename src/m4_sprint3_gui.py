@@ -65,14 +65,14 @@ def get_sprint_3_frame(window, mqtt_sender):
     cw_button=ttk.Button(frame,text="Start. (cw)    ")
     speed_test_entry_label=ttk.Label(frame,text="Speed.     ")
     speed_test_entry=ttk.Entry(frame, width=8)
-    pivot_speed_testentry_label=ttk.Label(frame,text="Pivot Speed.     ")
+    pivot_speed_test_entry_label=ttk.Label(frame,text="Pivot Speed.     ")
     pivot_speed_test_entry=ttk.Entry(frame,width=8)
     read_intensity_label=ttk.Label(frame,text="Check Intensity.     ")
     read_intensity_button=ttk.Button(frame,text="Start Check.     ")
 
 
-    cw_button["command"] = lambda: handle_cw_line_follow(mqtt_sender,speed_test_entry)
-    ccw_button["command"] = lambda: handle_ccw_line_follow(mqtt_sender,speed_test_entry)
+    cw_button["command"] = lambda: handle_cw_line_follow(mqtt_sender,speed_test_entry,pivot_speed_test_entry)
+    ccw_button["command"] = lambda: handle_ccw_line_follow(mqtt_sender,speed_test_entry,pivot_speed_test_entry)
     read_intensity_button["command"]= lambda: handle_read_intensity(mqtt_sender)
 
     cw_label.grid()
@@ -81,18 +81,18 @@ def get_sprint_3_frame(window, mqtt_sender):
     ccw_button.grid(row=1, column=2)
     speed_test_entry_label.grid(row=0,column=1)
     speed_test_entry.grid(row=1,column=1)
-    pivot_speed_testentry_label.grid(row=2,column=1)
+    pivot_speed_test_entry_label.grid(row=2,column=1)
     pivot_speed_test_entry.grid(row=3,column=1)
     read_intensity_label.grid(row=4,column=1)
     read_intensity_button.grid(row=5,column=1)
 
     return frame
 
-def handle_cw_line_follow(mqtt_sender,speed_entry):
-    mqtt_sender.send_message("cw_line_follow",[speed_entry.get()])
+def handle_cw_line_follow(mqtt_sender,speed_entry,pivot_speed_entry):
+    mqtt_sender.send_message("cw_line_follow",[speed_entry.get(),pivot_speed_entry.get()])
 
-def handle_ccw_line_follow(mqtt_sender,speed_entry):
-    mqtt_sender.send_message("ccw_line_follow", [speed_entry.get()])
+def handle_ccw_line_follow(mqtt_sender,speed_entry,pivot_speed_entry):
+    mqtt_sender.send_message("ccw_line_follow", [speed_entry.get(),pivot_speed_entry.get()])
 
 def handle_read_intensity(mqqt_sender):
     mqqt_sender.send_message("read_intensity",[])
