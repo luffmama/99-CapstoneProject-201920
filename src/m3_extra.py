@@ -94,6 +94,6 @@ def dory_mode_activated(robot, dory_mode_excitement_entry):
     song = [(c, t, 5), (e, t, 5), (c, t, 5), (e, t, 5), (c, t, 5), (d, t/2, 5), (d, t/2, 5), (b, t, 5), (c, t, 5)]
     while True:
         robot.sound_system.tone_maker.play_tone_sequence(song).wait()
-        if robot.touch_sensor:
+        if robot.arm_and_claw.touch_sensor.is_pressed():
             break
         time.sleep(.5)
