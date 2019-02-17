@@ -306,13 +306,16 @@ class DelagateThatReceives(object):
 # Margaret Luffman functions for spint 3
 
     def m1_meeting_criminal(self, size, distance, dangsize, box_entry, dangdist):
+        # Meets criminal and either decides whether or not it is dangerous or runs away if it is a coward
         if self.m1_ID_the_criminal(size, distance) is True and self.m1_is_coward(box_entry) is True:
             self.m1_run_away()
+        elif self.m1_ID_the_criminal(size, distance) is False:
+            self.speak("No criminals in sight")
         else:
             self.m1_is_dangerous(dangsize, dangdist)
 
     def m1_track_the_criminal(self, time_of_tracking):
-        print("got to sgd")
+        # Uses bang-bang line following to track a criminal's trail
         original = self.robot.sensor_system.color_sensor.get_reflected_light_intensity()
         t = time.time()
         while True:
@@ -327,13 +330,14 @@ class DelagateThatReceives(object):
                 break
 
     def m1_ID_the_criminal(self, size, distance):
+        # figures out if something is a criminal or not
         blob = self.robot.sensor_system.camera.get_biggest_blob()
         if blob.get_area() >= int(size) or self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= int(
                 distance):
             self.speak("criminal detected")
             return True
         else:
-            self.speak("No criminals in sight")
+            return False
 
     def m1_is_dangerous(self, dangsize, dangdist):
         blob = self.robot.sensor_system.camera.get_biggest_blob()

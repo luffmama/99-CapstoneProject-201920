@@ -109,6 +109,8 @@ def m1_meeting_criminal(self, size, distance, dangsize, box_entry, dangdist):
     # Meets criminal and either decides whether or not it is dangerous or runs away if it is a coward
     if self.m1_ID_the_criminal(size, distance) is True and self.m1_is_coward(box_entry) is True:
         self.m1_run_away()
+    elif self.m1_ID_the_criminal(size,distance) is False:
+        self.speak("No criminals in sight")
     else:
         self.m1_is_dangerous(dangsize, dangdist)
 
@@ -137,7 +139,7 @@ def m1_ID_the_criminal(self, size, distance):
         self.speak("criminal detected")
         return True
     else:
-        self.speak("No criminals in sight")
+        return False
 
 
 def m1_is_dangerous(self, dangsize, dangdist):
