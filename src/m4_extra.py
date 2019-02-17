@@ -36,10 +36,17 @@ import shared_gui_delegate_on_robot
 #             break #break first loop
 #
 #PID Control Proportional, Integral, Differential Control
-def PID_cw_control(robot,speed):
+def PID_cw_control(robot,slider_constant):
+    base_speed, kpr, kpl, kir, kil, kdr, kdl, previous_error = 100, .1, .1, 0, 0, .1, .1, 0
+    robot.drive_system.go(base_speed*slider_constant,base_speed*slider_constant)
     pass
 
-def PID_ccw_control(robot,speed):
+def PID_ccw_control(robot,slider_constant):
+    base_speed, kpr, kpl, kir, kil, kdr, kdl, previous_error = 100, .1, .1, 0, 0, .1, .1, 0
+    robot.drive_system.go(base_speed*slider_constant,base_speed*slider_constant)
+    pass
+
+def error_accumulator(error,previous_error,summed_error):
     pass
 
 #bang bang method of line following circle in the clockwise direction
@@ -80,7 +87,12 @@ def bang_bang_circ_line_follow_ccw(robot,speed,pivot_speed):
 
 #reads off values for intensity
 def print_intensity(robot):
-    print(robot.sensor_system.color_sensor.get_reflected_light_intensity())
+    while True:
+        print(robot.sensor_system.color_sensor.get_reflected_light_intensity())
+        if robot.sensor_system.touch_sensor.is_pressed():
+            robot.drive_system.stop()
+            break
+    print("Ended.")
 
 # def bang_bang_straight_line_follow_sor(self,speed):
 #     self.robot.drive_system.go(speed,speed)
