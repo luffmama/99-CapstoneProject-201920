@@ -39,7 +39,7 @@ class RoseBot(object):
         self.display_system = DisplaySystem()
 
         # For Conner Ozatalat sprint 3
-        self.dory_mode = False
+        self.dory_mode_toggle = False
 
 
 ###############################################################################
