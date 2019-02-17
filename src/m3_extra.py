@@ -22,6 +22,7 @@ def m3_marlin_deep_sea(robot, check_box_dory_mode, dory_mode_excitement_entry):
             return
         elif robot.now_quit:
             robot.drive_system.stop()
+            print('stopped loop')
             return
     # robot.sound_system.speech_maker.speak('stay in the shallow water')
     robot.drive_system.go(-30, -30)
