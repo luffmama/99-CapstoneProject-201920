@@ -35,11 +35,12 @@ import shared_gui_delegate_on_robot
 #             self.robot.drive_system.stop()
 #             break #break first loop
 #
-#counts number of times an object is seen by the camera
-def count_number_of_time_object_is_seen(robot,count):
-    #if something is seen
-        #count=count+1
-    return count
+#PID Control Proportional, Integral, Differential Control
+def PID_cw_control(robot,speed):
+    pass
+
+def PID_ccw_control(robot,speed):
+    pass
 
 #bang bang method of line following circle in the clockwise direction
 def bang_bang_circ_line_follow_cw(robot,speed,pivot_speed):
