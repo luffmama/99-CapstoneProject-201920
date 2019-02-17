@@ -204,7 +204,7 @@ def dory_mode(finding_nemo_frame):
     dory_mode_excitement_label = ttk.Label(finding_nemo_frame, text="Enter Dory's excitement")
     dory_mode_excitement_entry = ttk.Entry(finding_nemo_frame, width=8)
 
-    dory_mode_stop_button = ttk.Button(finding_nemo_frame, text="Stop Dory mode")
+    dory_mode_stop_button = ttk.Button(finding_nemo_frame, text="Stop Robot")
 
     return dory_mode_label, dory_mode_checkbutton, dory_mode_excitement_label, \
             dory_mode_excitement_entry, dory_mode_stop_button
