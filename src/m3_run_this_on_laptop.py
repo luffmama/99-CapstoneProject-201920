@@ -158,39 +158,45 @@ def sprint_3_frame(main_frame, mqtt_sender):
 
 def going_into_deep_sea(finding_nemo_frame, mqtt_sender):
     deep_sea_label = ttk.Label(finding_nemo_frame, text='Entering Deep sea')
-    deep_sea_label.grid(row=2, column=0)
+    deep_sea_label.grid(row=3, column=0)
     check_box_marlin = ttk.Checkbutton(finding_nemo_frame, text="Marlin")
-    check_box_marlin.grid(row=2, column=1)
+    check_box_marlin.grid(row=3, column=1)
     check_box_nemo = ttk.Checkbutton(finding_nemo_frame, text="Nemo")
-    check_box_nemo.grid(row=2, column=2)
+    check_box_nemo.grid(row=3, column=2)
 
-    dory_mode_label, dory_mode_checkbutton = dory_mode(finding_nemo_frame)
+    dory_mode_label, dory_mode_checkbutton, \
+        dory_mode_excitement_label, dory_mode_excitement_entry = dory_mode(finding_nemo_frame)
     dory_mode_label.grid(row=1, column=0)
     dory_mode_checkbutton.grid(row=1, column=1)
+    dory_mode_excitement_label.grid(row=2, column=0)
+    dory_mode_excitement_entry.grid(row=2, column=1)
 
-    handle_deep_sea_button = ttk.Button(finding_nemo_frame, text="deep sea")
-    handle_deep_sea_button.grid(row=2, column=3)
+    handle_deep_sea_button = ttk.Button(finding_nemo_frame, text="deep sea adventure")
+    handle_deep_sea_button.grid(row=3, column=3)
     handle_deep_sea_button['command'] = lambda:\
         handle_deep_sea(check_box_marlin.instate(['selected']), check_box_nemo.instate(['selected']),
-                        dory_mode_checkbutton.instate(['selected']), mqtt_sender)
+                        dory_mode_checkbutton.instate(['selected']), dory_mode_excitement_entry, mqtt_sender)
 
 
-def handle_deep_sea(check_box_marlin, check_box_nemo, check_box_dory_mode, mqtt_sender):
+def handle_deep_sea(check_box_marlin, check_box_nemo, check_box_dory_mode, dory_mode_excitement_entry, mqtt_sender):
     if check_box_nemo == check_box_marlin:
         print('select either Marlin OR Nemo')
     elif check_box_marlin is True:
         print('marlin is true')
-        mqtt_sender.send_message('m3_marlin_deep_sea', [check_box_dory_mode])
+        mqtt_sender.send_message('m3_marlin_deep_sea', [check_box_dory_mode, dory_mode_excitement_entry])
     elif check_box_nemo is True:
         print('nemo is true')
-        mqtt_sender.send_message('m3_nemo_deep_sea', [check_box_dory_mode])
+        mqtt_sender.send_message('m3_nemo_deep_sea', [check_box_dory_mode, dory_mode_excitement_entry])
 
 
 def dory_mode(finding_nemo_frame):
     dory_mode_label = ttk.Label(finding_nemo_frame, text='Activate Dory mode')
     dory_mode_checkbutton = ttk.Checkbutton(finding_nemo_frame)
 
-    return dory_mode_label, dory_mode_checkbutton
+    dory_mode_excitement_label = ttk.Label(finding_nemo_frame, text="Enter Dory's excitement")
+    dory_mode_excitement_entry = ttk.Entry(finding_nemo_frame, width=8)
+
+    return dory_mode_label, dory_mode_checkbutton, dory_mode_excitement_label, dory_mode_excitement_entry
 
 
 
