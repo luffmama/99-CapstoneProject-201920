@@ -55,7 +55,7 @@ def stop_from_sees_something(robot):
     robot.drive_system.go(70, 70)
     while True:
         print(robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
-        if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 5:
+        if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 4:
             robot.drive_system.stop()
             break
 
