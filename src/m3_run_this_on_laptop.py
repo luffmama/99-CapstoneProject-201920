@@ -193,7 +193,7 @@ def handle_deep_sea(check_box_marlin, check_box_nemo, check_box_dory_mode, dory_
 
 
 def handle_quit(mqtt_sender):
-    print('quit')
+    print('handle quit')
     mqtt_sender.send_message('is_quit')
 
 

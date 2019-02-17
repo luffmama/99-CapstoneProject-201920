@@ -19,7 +19,7 @@ def m3_marlin_deep_sea(robot, check_box_dory_mode, dory_mode_excitement_entry):
         elif dory_mode_toggle(robot, check_box_dory_mode):
             dory_mode_activated(robot, dory_mode_excitement_entry)
             return
-    robot.sound_system.speech_maker.speak('stay in the shallow water')
+    # robot.sound_system.speech_maker.speak('stay in the shallow water')
     robot.drive_system.go(-30, -30)
     time.sleep(1.8)
     robot.drive_system.stop()
@@ -30,7 +30,7 @@ def m3_nemo_deep_sea(robot, check_box_dory_mode, dory_mode_excitement_entry):
     print('Nemo deep sea activated')
     robot.drive_system.go(50, 50)
     while True:
-        if robot.sensor_system.color_sensor.get_reflected_light_intensity() <= 10:
+        if robot.sensor_system.color_sensor.get_reflected_light_intensity() <= 5:
             robot.drive_system.stop()
             break
         elif dory_mode_toggle(robot, check_box_dory_mode):
@@ -94,6 +94,10 @@ def dory_mode_activated(robot, dory_mode_excitement_entry):
     e = 329.628
     t = 60000/(dory_mode_excitement_entry + 100)
     song = [(c, t, 5), (e, t, 5), (c, t, 5), (e, t, 5), (c, t, 5), (d, t/2, 5), (d, t/2, 5), (b, t, 5), (c, t, 5)]
+    start_time = time.time()
     while True:
         robot.sound_system.tone_maker.play_tone_sequence(song).wait()
         time.sleep(.5)
+        if time.time() - start_time >= 8:
+            robot.drive_system.stop()
+            break
