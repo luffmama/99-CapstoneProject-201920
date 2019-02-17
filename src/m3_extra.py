@@ -84,6 +84,7 @@ def dory_mode_toggle(robot, check_box_dory_mode):
 
 
 def dory_mode_activated(robot, dory_mode_excitement_entry):
+    robot.drive_system.stop()
     print('Dory mode has been activated')
     c = 262.626
     d = 293.665
@@ -93,6 +94,6 @@ def dory_mode_activated(robot, dory_mode_excitement_entry):
     song = [(c, t, 5), (e, t, 5), (c, t, 5), (e, t, 5), (c, t, 5), (d, t/2, 5), (d, t/2, 5), (b, t, 5), (c, t, 5)]
     while True:
         robot.sound_system.tone_maker.play_tone_sequence(song).wait()
-        if robot.ArmandClaw.touch_sensor.is_pressed():
+        if robot:
             break
         time.sleep(.5)
