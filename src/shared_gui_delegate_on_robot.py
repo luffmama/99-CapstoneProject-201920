@@ -32,7 +32,7 @@ class DelagateThatReceives(object):
             m4_extra.print_intensity(self.robot)
             time.sleep(.25)
 
-    #robot m4_extra ^^^
+    #robot m4_extra ^^^.
 
 
 
