@@ -13,7 +13,7 @@ def m3_marlin_deep_sea(robot, check_box_dory_mode, dory_mode_excitement_entry):
     print('Marlin deep sea activated')
     robot.drive_system.go(50, 50)
     while True:
-        if robot.sensor_system.color_sensor.get_reflected_light_intensity() <= 10:
+        if robot.sensor_system.color_sensor.get_reflected_light_intensity() <= 5:
             robot.drive_system.stop()
             break
         elif dory_mode_toggle(robot, check_box_dory_mode):
