@@ -43,7 +43,7 @@ def PID_cw_control(robot,slider_constant):
 
 def PID_ccw_control(robot,slider_constant):
     print("Got to Command")
-    base_speed, kpr, kpl, kir, kil, kdr, kdl, previous_error, summed_error = 100, .1, .1, 0, 0, .1, .1, 0, 0
+    base_speed, kpr, kpl, kir, kil, kdr, kdl, previous_error, summed_error = 100, 5, 5, 0, 0, .5, .5, 0, 0
     while True:
         error, change_in_error, summed_error, previous_error = error_accumulator(robot,previous_error,summed_error)
         robot.drive_system.go(base_speed * slider_constant - (kpl * error + kil * summed_error + kdl * change_in_error),
