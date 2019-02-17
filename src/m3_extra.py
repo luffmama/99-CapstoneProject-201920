@@ -6,8 +6,10 @@
 """
 import time
 
+# feature 1: going into deep sea
 
-def m3_marlin_deep_sea(robot, check_box_dory_mode, dory_mode_excitement_entry):  # feature 1: going into deep sea
+
+def m3_marlin_deep_sea(robot, check_box_dory_mode, dory_mode_excitement_entry):
     print('Marlin deep sea activated')
     robot.drive_system.go(50, 50)
     while True:
@@ -24,6 +26,7 @@ def m3_marlin_deep_sea(robot, check_box_dory_mode, dory_mode_excitement_entry): 
 
 
 def m3_nemo_deep_sea(robot, check_box_dory_mode, dory_mode_excitement_entry):
+    # nemo in the black circle
     print('Nemo deep sea activated')
     robot.drive_system.go(50, 50)
     while True:
@@ -38,6 +41,7 @@ def m3_nemo_deep_sea(robot, check_box_dory_mode, dory_mode_excitement_entry):
 
 
 def nemo_on_the_run(robot, check_box_dory_mode, dory_mode_excitement_entry):
+    # nemo running out of the black circle
     robot.drive_system.go_straight_for_inches_using_encoder(25, 100)
     robot.drive_system.go(-50, 50)
     start_time = time.time()
@@ -54,6 +58,7 @@ def nemo_on_the_run(robot, check_box_dory_mode, dory_mode_excitement_entry):
 
 
 def stop_from_sees_something(robot):
+    # nemo sees something after exiting the black circle
     print('stop_from_sees_something')
     robot.drive_system.stop()
     robot.drive_system.go(70, 70)
@@ -65,6 +70,7 @@ def stop_from_sees_something(robot):
 
 
 def stop_from_time(robot):
+    # nemo returns to the black circle after leaving it and spinning
     print('stop from time')
     robot.drive_system.stop()
     robot.drive_system.go_straight_for_inches_using_encoder(25, 70)
