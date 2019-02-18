@@ -36,32 +36,66 @@ import math
 #             self.robot.drive_system.stop()
 #             break #break first loop
 #
-#PID Control Proportional, Integral, Differential Control
-def PID_cw_control(robot,slider_constant):
-    base_speed, kpr, kpl, kir, kil, kdr, kdl, previous_error, summed_error = 100, .1, .1, 0, 0, .1, .1, 0, 0
-    robot.drive_system.go(base_speed*slider_constant,base_speed*slider_constant)
 
-
-def PID_ccw_control(robot,slider_constant):
-    print("Got to Command")
-    base_speed, kpr, kpl, kir, kil, previous_error, summed_error = 100, 1.25, -1.25, 0, 0,  0, 0
-    kdr, kdl = 2*math.sqrt(kpr), -2*math.sqrt(kpr)
+#PID Control Proportional, Integral, Differential Control line following
+def PID_cw_control(robot,slider_constant,i_value,kpr_value,kpl_value):
+    base_speed, kpr, kpl, kir, kil, previous_error, summed_error = 100, kpr_value, -kpl_value, 0, 0, 0, 0
+    kdr, kdl = 2 * math.sqrt(abs(kpr)), -2 * math.sqrt(abs(kpl))
     while True:
-        error, change_in_error, summed_error, previous_error = error_accumulator(robot,previous_error,summed_error)
-        robot.drive_system.go(max(min(base_speed * slider_constant + (kpl * error + kil * summed_error + kdl * change_in_error),100),10),
-                              max(min(base_speed * slider_constant + (
-                                          kpr * error + kir * summed_error + kdr * change_in_error), 100), 10))
-        print(max(min(base_speed * slider_constant + (kpl * error + kil * summed_error + kdl * change_in_error),100),10),
-                              max(min(base_speed * slider_constant - (
-                                          kpr * error + kir * summed_error + kdr * change_in_error), 100), 10))
+        error, change_in_error, summed_error, previous_error = \
+            error_accumulator(robot,i_value, previous_error, summed_error)
+        robot.drive_system.go(
+            max(min(base_speed * slider_constant + (
+                    kpl * error + kil * summed_error + kdl * change_in_error), 100), 10),
+            max(min(base_speed * slider_constant + (
+                    kpr * error + kir * summed_error + kdr * change_in_error), 100), 10))
         if robot.sensor_system.touch_sensor.is_pressed():
             robot.drive_system.stop()
             break
 
-def error_accumulator(robot,previous_error,summed_error):
-    perfect=4
-    error=abs(perfect-robot.sensor_system.color_sensor.get_reflected_light_intensity())
-    change_in_error=abs(error-previous_error)
+
+def PID_ccw_control(robot,slider_constant,i_value,kpr_value,kpl_value):
+    print("Got to Command")
+    # base_speed, kpr, kpl, kir, kil, previous_error, summed_error = 100, 1, -1, 0, 0,  0, 0
+    # kdr, kdl = 2*math.sqrt(kpr), -2*math.sqrt(kpr)
+    # while True:
+    #     error, change_in_error, summed_error, previous_error = error_accumulator(robot,previous_error,summed_error)
+    #     robot.drive_system.go(max(min(base_speed * slider_constant + (kpl * error + kil * summed_error + kdl * change_in_error),100),10),
+    #                           max(min(base_speed * slider_constant + (
+    #                                       kpr * error + kir * summed_error + kdr * change_in_error), 100), 10))
+    #     if robot.sensor_system.touch_sensor.is_pressed():
+    #         robot.drive_system.stop()
+    #         break
+
+    base_speed, kpr, kpl, kir, kil, previous_error, summed_error = 100, -kpr_value, kpl_value, 0, 0, 0, 0
+    kdr, kdl = -2 * math.sqrt(abs(kpr)), 2 * math.sqrt(abs(kpl))
+    while True:
+        error, change_in_error, summed_error, previous_error = \
+            error_accumulator(robot,i_value, previous_error, summed_error)
+        robot.drive_system.go(
+            max(min(base_speed * slider_constant + (
+                    kpl * error + kil * summed_error + kdl * change_in_error), 100),10),
+            max(min(base_speed * slider_constant + (
+                    kpr * error + kir * summed_error + kdr * change_in_error), 100), 10))
+        print(max(min(base_speed * slider_constant + (
+                kpl * error + kil * summed_error + kdl * change_in_error), 100), 10),
+              max(min(base_speed * slider_constant + (
+                      kpr * error + kir * summed_error + kdr * change_in_error), 100), 10),robot.sensor_system.color_sensor.get_reflected_light_intensity())
+        if robot.sensor_system.touch_sensor.is_pressed():
+            robot.drive_system.stop()
+            break
+
+def error_accumulator(robot,i_value,previous_error,summed_error):
+    # perfect = 4
+    # error = abs(perfect - robot.sensor_system.color_sensor.get_reflected_light_intensity())
+    # change_in_error = abs(error - previous_error)
+    # summed_error = summed_error + error
+    # previous_error = error
+    # return error, change_in_error, summed_error, previous_error
+
+    perfect=i_value
+    error=(perfect-robot.sensor_system.color_sensor.get_reflected_light_intensity())
+    change_in_error=(error-previous_error)
     summed_error=summed_error+error
     previous_error=error
     return error, change_in_error, summed_error, previous_error

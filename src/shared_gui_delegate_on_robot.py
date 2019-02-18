@@ -21,13 +21,13 @@ class DelagateThatReceives(object):
 
     #robert kreft m4_extra
 
-    def cw_line_follow(self,slider_constant):
+    def cw_line_follow(self,slider_constant,i_value,kpr_value,kpl_value):
         print("Got to Delegate")
-        m4_extra.PID_ccw_control(self.robot,float(slider_constant))
+        m4_extra.PID_cw_control(self.robot,float(slider_constant),int(i_value),float(kpr_value),float(kpl_value))
 
-    def ccw_line_follow(self,slider_constant):
+    def ccw_line_follow(self,slider_constant,i_value,kpr_value,kpl_value):
         print("Got to Delegate")
-        m4_extra.PID_ccw_control(self.robot,float(slider_constant))
+        m4_extra.PID_ccw_control(self.robot,float(slider_constant),int(i_value),float(kpr_value),float(kpl_value))
 
     def read_intensity(self):
         while True:
