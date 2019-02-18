@@ -112,5 +112,7 @@ def notes(dory_mode_excitement_entry):
     return song
 
 
-def m3_find_nemo(robot, find_nemo_entry, find_nemo_turn_time, check_box_dory_mode, dory_mode_excitement_entry):
-    pass
+def m3_find_nemo(robot, find_nemo_speed_entry, find_nemo_turn_time, check_box_dory_mode, dory_mode_excitement_entry):
+    robot.drive_system.go(find_nemo_speed_entry, find_nemo_speed_entry)
+    while True:
+        pass
