@@ -21,18 +21,23 @@ class DelagateThatReceives(object):
 
     #robert kreft m4_extra
 
-    def cw_line_follow(self,slider_constant,i_value,kpr_value,kpl_value):
-        print("Got to Delegate")
-        m4_extra.PID_cw_control(self.robot,float(slider_constant),int(i_value),float(kpr_value),float(kpl_value))
+    # def cw_line_follow(self,slider_constant,i_value,kpr_value,kpl_value):
+    #     print("Got to Delegate")
+    #     m4_extra.PID_cw_control(self.robot,float(slider_constant),int(i_value),float(kpr_value),float(kpl_value))
 
-    def ccw_line_follow(self,slider_constant,i_value,kpr_value,kpl_value):
-        print("Got to Delegate")
-        m4_extra.PID_ccw_control(self.robot,float(slider_constant),int(i_value),float(kpr_value),float(kpl_value))
+    #calls for PID line following, originally counterclockwise circle line following
+    def ccw_line_follow(self,slider_constant,i_value,kpr_value,kpl_value,kir_value,kil_value,kdr_value,kdl_value):
+        m4_extra.PID_ccw_control(self.robot,float(slider_constant),int(i_value),float(kpr_value),float(kpl_value),float(kir_value),float(kil_value),float(kdr_value),float(kdl_value))
 
+    #checks intensity
     def read_intensity(self):
         while True:
             m4_extra.print_intensity(self.robot)
             time.sleep(.25)
+
+    #
+    def end_code(self,color_thing):
+        print("Hello")
 
     #robot m4_extra ^^^.
 
