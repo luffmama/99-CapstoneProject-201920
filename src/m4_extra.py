@@ -4,6 +4,7 @@ import rosebot as rb
 import mqtt_remote_method_calls as com
 import time
 import shared_gui_delegate_on_robot
+import math
 
 # #bang bang method of line following
 # def bang_bang_straight_line_follow(self,speed):
@@ -43,23 +44,24 @@ def PID_cw_control(robot,slider_constant):
 
 def PID_ccw_control(robot,slider_constant):
     print("Got to Command")
-    base_speed, kpr, kpl, kir, kil, kdr, kdl, previous_error, summed_error = 100, .5, .5, 0, 0, .5, .5, 0, 0
-    robot.drive_system.go(base_speed * slider_constant,base_speed * slider_constant)
-    print(base_speed * slider_constant)
+    base_speed, kpr, kpl, kir, kil, previous_error, summed_error = 100, 1.25, -1.25, 0, 0,  0, 0
+    kdr, kdl = 2*math.sqrt(kpr), -2*math.sqrt(kpr)
     while True:
-        print(robot.sensor_system.color_sensor.get_reflected_light_intensity())
         error, change_in_error, summed_error, previous_error = error_accumulator(robot,previous_error,summed_error)
-        robot.drive_system.go(base_speed * slider_constant - (kpl * error + kil * summed_error + kdl * change_in_error),
-                              base_speed * slider_constant + kpr * error + kir * summed_error + kdr * change_in_error)
-        time.sleep(.01)
+        robot.drive_system.go(max(min(base_speed * slider_constant + (kpl * error + kil * summed_error + kdl * change_in_error),100),10),
+                              max(min(base_speed * slider_constant + (
+                                          kpr * error + kir * summed_error + kdr * change_in_error), 100), 10))
+        print(max(min(base_speed * slider_constant + (kpl * error + kil * summed_error + kdl * change_in_error),100),10),
+                              max(min(base_speed * slider_constant - (
+                                          kpr * error + kir * summed_error + kdr * change_in_error), 100), 10))
         if robot.sensor_system.touch_sensor.is_pressed():
             robot.drive_system.stop()
             break
 
 def error_accumulator(robot,previous_error,summed_error):
     perfect=4
-    error=perfect-robot.sensor_system.color_sensor.get_reflected_light_intensity()
-    change_in_error=error-previous_error
+    error=abs(perfect-robot.sensor_system.color_sensor.get_reflected_light_intensity())
+    change_in_error=abs(error-previous_error)
     summed_error=summed_error+error
     previous_error=error
     return error, change_in_error, summed_error, previous_error

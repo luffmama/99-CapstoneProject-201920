@@ -23,11 +23,11 @@ class DelagateThatReceives(object):
 
     def cw_line_follow(self,slider_constant):
         print("Got to Delegate")
-        m4_extra.PID_ccw_control(self.robot,int(slider_constant))
+        m4_extra.PID_ccw_control(self.robot,float(slider_constant))
 
     def ccw_line_follow(self,slider_constant):
         print("Got to Delegate")
-        m4_extra.PID_ccw_control(self.robot,int(slider_constant))
+        m4_extra.PID_ccw_control(self.robot,float(slider_constant))
 
     def read_intensity(self):
         while True:
