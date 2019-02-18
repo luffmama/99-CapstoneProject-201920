@@ -165,12 +165,11 @@ def going_into_deep_sea(finding_nemo_frame, mqtt_sender):
     check_box_nemo.grid(row=3, column=2)
 
     dory_mode_label, dory_mode_checkbutton, \
-        dory_mode_excitement_label, dory_mode_excitement_entry, dory_mode_stop_button = dory_mode(finding_nemo_frame)
+        dory_mode_excitement_label, dory_mode_excitement_entry = dory_mode(finding_nemo_frame)
     dory_mode_label.grid(row=1, column=0)
     dory_mode_checkbutton.grid(row=1, column=1)
     dory_mode_excitement_label.grid(row=2, column=0)
     dory_mode_excitement_entry.grid(row=2, column=1)
-    dory_mode_stop_button.grid(row=2, column=3)
 
     handle_deep_sea_button = ttk.Button(finding_nemo_frame, text="deep sea adventure")
     handle_deep_sea_button.grid(row=3, column=3)
@@ -178,7 +177,6 @@ def going_into_deep_sea(finding_nemo_frame, mqtt_sender):
         handle_deep_sea(check_box_marlin.instate(['selected']), check_box_nemo.instate(['selected']),
                         dory_mode_checkbutton.instate(['selected']), dory_mode_excitement_entry, mqtt_sender)
 
-    dory_mode_stop_button["command"] = lambda: handle_quit(mqtt_sender)
 
 
 def handle_deep_sea(check_box_marlin, check_box_nemo, check_box_dory_mode, dory_mode_excitement_entry, mqtt_sender):
@@ -204,10 +202,7 @@ def dory_mode(finding_nemo_frame):
     dory_mode_excitement_label = ttk.Label(finding_nemo_frame, text="Enter Dory's excitement")
     dory_mode_excitement_entry = ttk.Entry(finding_nemo_frame, width=8)
 
-    dory_mode_stop_button = ttk.Button(finding_nemo_frame, text="Stop Robot")
-
-    return dory_mode_label, dory_mode_checkbutton, dory_mode_excitement_label, \
-            dory_mode_excitement_entry, dory_mode_stop_button
+    return dory_mode_label, dory_mode_checkbutton, dory_mode_excitement_label, dory_mode_excitement_entry
 
 
 
