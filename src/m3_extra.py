@@ -19,7 +19,7 @@ def m3_marlin_deep_sea(robot, check_box_dory_mode, dory_mode_excitement_entry):
         elif dory_mode_toggle(robot, check_box_dory_mode):
             dory_mode_activated(robot, dory_mode_excitement_entry)
             return
-    # robot.sound_system.speech_maker.speak('stay in the shallow water')
+    robot.sound_system.speech_maker.speak('stay in the shallow water')
     robot.drive_system.go(-30, -30)
     time.sleep(1.8)
     robot.drive_system.stop()
@@ -76,6 +76,39 @@ def stop_from_time(robot):
     robot.drive_system.go_straight_for_inches_using_encoder(25, 70)
 
 
+def m3_find_nemo(robot, find_nemo_speed_entry, find_nemo_turn_time, check_box_dory_mode, dory_mode_excitement_entry):
+    robot.drive_system.go(find_nemo_speed_entry, find_nemo_speed_entry)
+    while True:
+        if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 3:
+            obstacle_found(robot, find_nemo_speed_entry, find_nemo_turn_time)
+            robot.drive_system.go(find_nemo_speed_entry, find_nemo_speed_entry)
+        elif robot.sensor_system.touch_sensor.is_pressed():
+            found_nemo(robot)
+            break
+        elif dory_mode_toggle(robot, check_box_dory_mode):
+            dory_mode_activated(robot, dory_mode_excitement_entry)
+            return
+
+
+def obstacle_found(robot, find_nemo_speed_entry, find_nemo_turn_time):
+    robot.drive_system.stop()
+    robot.arm_and_claw.raise_arm()
+    robot.drive_system.go(find_nemo_speed_entry, -find_nemo_speed_entry)
+    time.sleep(find_nemo_turn_time/25)
+    robot.drive_system.stop()
+    robot.arm_and_claw.lower_arm()
+    time.sleep(.1)
+    robot.drive_system.go(-find_nemo_speed_entry, find_nemo_speed_entry)
+    time.sleep(find_nemo_turn_time / 25)
+    robot.drive_system.stop()
+    time.sleep(.1)
+
+
+def found_nemo(robot):
+    robot.drive_system.stop()
+    robot.sound_system.speech_maker.speak('I found nemo')
+
+
 def dory_mode_toggle(robot, check_box_dory_mode):
     # print('dory mode toggle', check_box_dory_mode)
     if check_box_dory_mode is True:
@@ -110,9 +143,3 @@ def notes(dory_mode_excitement_entry):
     t = 60000/(dory_mode_excitement_entry + 100)
     song = [(c, t, 5), (e, t, 5), (c, t, 5), (e, t, 5), (c, t, 5), (d, t / 2, 5), (d, t / 2, 5), (b, t, 5), (c, t, 5)]
     return song
-
-
-def m3_find_nemo(robot, find_nemo_speed_entry, find_nemo_turn_time, check_box_dory_mode, dory_mode_excitement_entry):
-    robot.drive_system.go(find_nemo_speed_entry, find_nemo_speed_entry)
-    while True:
-        pass
