@@ -178,7 +178,6 @@ def going_into_deep_sea(finding_nemo_frame, mqtt_sender):
                         dory_mode_checkbutton.instate(['selected']), dory_mode_excitement_entry, mqtt_sender)
 
 
-
 def handle_deep_sea(check_box_marlin, check_box_nemo, check_box_dory_mode, dory_mode_excitement_entry, mqtt_sender):
     if check_box_nemo == check_box_marlin:
         print('select either Marlin OR Nemo')
