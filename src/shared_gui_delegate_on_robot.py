@@ -383,7 +383,3 @@ class DelagateThatReceives(object):
         print('shared delegate m3_nemo', check_box_dory_mode, int(dory_mode_excitement_entry))
         m3_extra.m3_nemo_deep_sea(self.robot, check_box_dory_mode, int(dory_mode_excitement_entry))
 
-    def m3_now_quit(self):
-        print("shared_delegate_quit")
-        self.is_quit = True
-        self.robot.now_quit = True
