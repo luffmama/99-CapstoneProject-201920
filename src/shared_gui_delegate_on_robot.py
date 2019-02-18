@@ -383,3 +383,7 @@ class DelagateThatReceives(object):
         print('shared delegate m3_nemo', check_box_dory_mode, int(dory_mode_excitement_entry))
         m3_extra.m3_nemo_deep_sea(self.robot, check_box_dory_mode, int(dory_mode_excitement_entry))
 
+    def me_find_nemo(self, find_nemo_entry, find_nemo_turn_time, check_box_dory_mode, dory_mode_excitement_entry):
+        print('shared delegate m3_find_nemo', find_nemo_entry, find_nemo_turn_time)
+        m3_extra.m3_find_nemo(self.robot, int(find_nemo_entry), int(find_nemo_turn_time), check_box_dory_mode, int(dory_mode_excitement_entry))
+

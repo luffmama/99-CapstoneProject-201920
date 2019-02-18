@@ -171,10 +171,22 @@ def going_into_deep_sea(finding_nemo_frame, mqtt_sender):
     dory_mode_excitement_label.grid(row=2, column=0)
     dory_mode_excitement_entry.grid(row=2, column=1)
 
+    find_nemo_label, find_nemo_speed_label, find_nemo_speed_entry, find_nemo_turn_time_label, find_nemo_turn_time_entry = find_nemo(finding_nemo_frame)
+    find_nemo_label.grid(row=4, column=0)
+    find_nemo_speed_label.grid(row=5, column=0)
+    find_nemo_speed_entry.grid(row=5, column=1)
+    find_nemo_turn_time_label.grid(row=5, column=2)
+    find_nemo_turn_time_entry.grid(row=5, column=3)
+
     handle_deep_sea_button = ttk.Button(finding_nemo_frame, text="deep sea adventure")
     handle_deep_sea_button.grid(row=3, column=3)
     handle_deep_sea_button['command'] = lambda:\
         handle_deep_sea(check_box_marlin.instate(['selected']), check_box_nemo.instate(['selected']),
+                        dory_mode_checkbutton.instate(['selected']), dory_mode_excitement_entry, mqtt_sender)
+
+    handle_find_nemo_button = ttk.Button(finding_nemo_frame, text='Activate find Nemo')
+    handle_find_nemo_button.grid(row=5, column=4)
+    handle_find_nemo_button['command'] = lambda: handle_find_nemo(find_nemo_speed_entry, find_nemo_turn_time_entry,
                         dory_mode_checkbutton.instate(['selected']), dory_mode_excitement_entry, mqtt_sender)
 
 
@@ -189,11 +201,6 @@ def handle_deep_sea(check_box_marlin, check_box_nemo, check_box_dory_mode, dory_
         mqtt_sender.send_message('m3_nemo_deep_sea', [check_box_dory_mode, dory_mode_excitement_entry.get()])
 
 
-def handle_quit(mqtt_sender):
-    print('handle quit')
-    mqtt_sender.send_message('m3_now_quit')
-
-
 def dory_mode(finding_nemo_frame):
     dory_mode_label = ttk.Label(finding_nemo_frame, text='Activate Dory mode')
     dory_mode_checkbutton = ttk.Checkbutton(finding_nemo_frame)
@@ -204,8 +211,24 @@ def dory_mode(finding_nemo_frame):
     return dory_mode_label, dory_mode_checkbutton, dory_mode_excitement_label, dory_mode_excitement_entry
 
 
+def find_nemo(finding_nemo_frame):
+    find_nemo_label = ttk.Label(finding_nemo_frame, text='Find Nemo!')
+    find_nemo_speed_label = ttk.Label(finding_nemo_frame, text='enter travel speed')
+    find_nemo_speed_entry = ttk.Entry(finding_nemo_frame, width=8)
+    find_nemo_turn_time_label = ttk.Label(finding_nemo_frame, text='enter the spin time')
+    find_nemo_turn_time_entry = ttk.Entry(finding_nemo_frame, width=8)
+
+    return find_nemo_label, find_nemo_speed_label, find_nemo_speed_entry, \
+           find_nemo_turn_time_label, find_nemo_turn_time_entry
+
+
+def handle_find_nemo(find_nemo_speed_entry, find_nemo_turn_time_entry, check_box_dory_mode, dory_mode_excitement_entry, mqtt_sender):
+    print('handle find Nemo', find_nemo_speed_entry.get(), find_nemo_turn_time_entry.get(),
+          check_box_dory_mode, dory_mode_excitement_entry.get())
+    mqtt_sender.send_message('m3_find_nemo', [find_nemo_speed_entry.get(), find_nemo_turn_time_entry.get(), check_box_dory_mode, dory_mode_excitement_entry.get()])
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
 main()
+

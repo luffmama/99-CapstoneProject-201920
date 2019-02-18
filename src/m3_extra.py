@@ -110,3 +110,7 @@ def notes(dory_mode_excitement_entry):
     t = 60000/(dory_mode_excitement_entry + 100)
     song = [(c, t, 5), (e, t, 5), (c, t, 5), (e, t, 5), (c, t, 5), (d, t / 2, 5), (d, t / 2, 5), (b, t, 5), (c, t, 5)]
     return song
+
+
+def m3_find_nemo(robot, find_nemo_entry, find_nemo_turn_time, check_box_dory_mode, dory_mode_excitement_entry):
+    pass
