@@ -91,10 +91,10 @@ def PID_ccw_control(robot,slider_constant,i_value,kpr_value,kpl_value,kir_value,
 
 #has the robot send a message back to the laptop
 def got_to_the_end(robot):
-    # mqtt_sender = com.MqttClient()
-    # mqtt_sender.connect_to_ev3()
-    # mqtt_sender.send_message("end_code: "[robot.sensor_system.color_sensor.get_color()])
-    pass
+    mqtt_client = com.MqttClient()
+    mqtt_client.connect("baggins", "bilbo")
+    time.sleep(1)
+    mqtt_client.send_message("say_it", [robot.sensor_system.color_sensor.get_color()])
 
 #does error calculations for PID line following
 def error_accumulator(robot,i_value,previous_error,summed_error):

@@ -1,6 +1,7 @@
 import mqtt_remote_method_calls as com
 import tkinter
 from tkinter import ttk
+import shared_gui_delegate_on_robot
 import shared_gui
 
 def main():
@@ -45,7 +46,16 @@ def main():
     # -------------------------------------------------------------------------
     # The event loop:
     # -------------------------------------------------------------------------
+    my_delegate = secondary_delegate()
+    mqtt_client = com.MqttClient(my_delegate)
+    mqtt_client.connect("bilbo", "baggins")
+
     root.mainloop()
+
+class secondary_delegate(object):
+
+    def say_it(self, message):
+        print("The project is completed, the robot stopped on the color:", message, "which if 5, is the color red. ")
 
 def get_shared_frames(main_frame, mqtt_sender):
     sprint_3_frame=get_sprint_3_frame(main_frame,mqtt_sender)
