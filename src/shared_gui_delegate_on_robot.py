@@ -21,23 +21,16 @@ class DelagateThatReceives(object):
 
     #robert kreft m4_extra
 
-    # def cw_line_follow(self,slider_constant,i_value,kpr_value,kpl_value):
-    #     print("Got to Delegate")
-    #     m4_extra.PID_cw_control(self.robot,float(slider_constant),int(i_value),float(kpr_value),float(kpl_value))
+    def cw_line_follow(self,speed,pivot_speed):
+        m4_extra.bang_bang_circ_line_follow_cw(self.robot,int(speed),int(pivot_speed))
 
-    #calls for PID line following, originally counterclockwise circle line following
-    def ccw_line_follow(self,slider_constant,i_value,kpr_value,kpl_value,kir_value,kil_value,kdr_value,kdl_value):
-        m4_extra.PID_ccw_control(self.robot,float(slider_constant),int(i_value),float(kpr_value),float(kpl_value),float(kir_value),float(kil_value),float(kdr_value),float(kdl_value))
+    def ccw_line_follow(self,speed,pivot_speed):
+        m4_extra.bang_bang_circ_line_follow_ccw(self.robot,int(speed),int(pivot_speed))
 
-    #checks intensity
     def read_intensity(self):
         while True:
             m4_extra.print_intensity(self.robot)
             time.sleep(.25)
-
-    #
-    def end_code(self,color_thing):
-        print("Hello")
 
     #robot m4_extra ^^^.
 
@@ -388,7 +381,33 @@ class DelagateThatReceives(object):
         print('shared delegate m3_nemo', check_box_dory_mode, int(dory_mode_excitement_entry))
         m3_extra.m3_nemo_deep_sea(self.robot, check_box_dory_mode, int(dory_mode_excitement_entry))
 
-    def me_find_nemo(self, find_nemo_speed_entry, find_nemo_turn_time, check_box_dory_mode, dory_mode_excitement_entry):
-        print('shared delegate m3_find_nemo', find_nemo_speed_entry, find_nemo_turn_time)
-        m3_extra.m3_find_nemo(self.robot, int(find_nemo_speed_entry), int(find_nemo_turn_time), check_box_dory_mode, int(dory_mode_excitement_entry))
+    def m3_now_quit(self):
+        print("shared_delegate_quit")
+        self.is_quit = True
+        self.robot.now_quit = True
 
+    def m2_play_waltz_of_the_flowers(self):
+        T = self.robot.sound_system.tone_maker
+
+        g3 = 196
+        c4 = 261.63
+        e4 = 329.63
+        f4 = 349.23
+        d4 = 293.66
+        g4 = 392
+
+        T.play_tone(g3, 100)
+        T.play_tone(c4, 100)
+        T.play_tone(e4, 100)
+        T.play_tone(f4, 250)
+        T.play_tone(e4, 50)
+        T.play_tone(e4, 600)
+
+        T.play_tone(g3, 100)
+        T.play_tone(c4, 100)
+        T.play_tone(e4, 100)
+        T.play_tone(f4, 100)
+        T.play_tone(e4, 150)
+        T.play_tone(d4, 50)
+        T.play_tone(g4, 200)
+        T.play_tone(c4, 100)
