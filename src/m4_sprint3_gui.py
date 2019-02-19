@@ -52,8 +52,11 @@ def main():
 
     root.mainloop()
 
+
+#sets up a secondary delegate for the message sent to the laptop
 class secondary_delegate(object):
 
+    #recieves the color of the stop point frmo the robot
     def say_it(self, message):
         print("The project is completed, the robot stopped on the color:", message, "which if 5, is the color red. ")
 
@@ -65,11 +68,12 @@ def get_shared_frames(main_frame, mqtt_sender):
 # def grid_frames(sprint_3_frame):
 #     sprint_3_frame.grid()
 
+#sprint 3 gui
 def get_sprint_3_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
 
-    ccw_label = ttk.Label(frame,text="Line following counter-clockwise.     ")
+    ccw_label = ttk.Label(frame,text="Line following.     ")
     ccw_button=ttk.Button(frame,text="Start.")
     cw_label = ttk.Label(frame, text="Line following clockwise.     ")
     cw_button=ttk.Button(frame,text="Start. (cw)    ")

@@ -77,10 +77,6 @@ def PID_ccw_control(robot,slider_constant,i_value,kpr_value,kpl_value,kir_value,
                     kpl * error + kil * summed_error + kdl * change_in_error), 100),10),
             max(min(base_speed * slider_constant + (
                     kpr * error + kir * summed_error + kdr * change_in_error), 100), 10))
-        print(max(min(base_speed * slider_constant + (
-                kpl * error + kil * summed_error + kdl * change_in_error), 100), 10),
-              max(min(base_speed * slider_constant + (
-                      kpr * error + kir * summed_error + kdr * change_in_error), 100), 10),robot.sensor_system.color_sensor.get_reflected_light_intensity())
         if robot.sensor_system.touch_sensor.is_pressed():
             robot.drive_system.stop()
             break
@@ -89,7 +85,7 @@ def PID_ccw_control(robot,slider_constant,i_value,kpr_value,kpl_value,kir_value,
             got_to_the_end(robot)
             break
 
-#has the robot send a message back to the laptop
+#has the robot send a message back to the laptop with the color stoppped on
 def got_to_the_end(robot):
     mqtt_client = com.MqttClient()
     mqtt_client.connect("baggins", "bilbo")
