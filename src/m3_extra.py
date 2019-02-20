@@ -79,6 +79,7 @@ def stop_from_time(robot):
 def m3_find_nemo(robot, find_nemo_speed_entry, find_nemo_turn_time, check_box_dory_mode, dory_mode_excitement_entry):
     robot.drive_system.go(find_nemo_speed_entry, find_nemo_speed_entry)
     while True:
+        # print(robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
         if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 3:
             obstacle_found(robot, find_nemo_speed_entry, find_nemo_turn_time)
             robot.drive_system.go(find_nemo_speed_entry, find_nemo_speed_entry)
@@ -94,12 +95,12 @@ def obstacle_found(robot, find_nemo_speed_entry, find_nemo_turn_time):
     robot.drive_system.stop()
     robot.arm_and_claw.raise_arm()
     robot.drive_system.go(find_nemo_speed_entry, -find_nemo_speed_entry)
-    time.sleep(find_nemo_turn_time/25)
+    time.sleep(find_nemo_turn_time/10)
     robot.drive_system.stop()
     robot.arm_and_claw.lower_arm()
     time.sleep(.1)
     robot.drive_system.go(-find_nemo_speed_entry, find_nemo_speed_entry)
-    time.sleep(find_nemo_turn_time / 25)
+    time.sleep(find_nemo_turn_time/10)
     robot.drive_system.stop()
     time.sleep(.1)
 

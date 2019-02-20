@@ -215,7 +215,7 @@ def find_nemo(finding_nemo_frame):
     find_nemo_label = ttk.Label(finding_nemo_frame, text='Find Nemo!')
     find_nemo_speed_label = ttk.Label(finding_nemo_frame, text='enter travel speed')
     find_nemo_speed_entry = ttk.Entry(finding_nemo_frame, width=8)
-    find_nemo_turn_time_label = ttk.Label(finding_nemo_frame, text='enter the spin time')
+    find_nemo_turn_time_label = ttk.Label(finding_nemo_frame, text='enter the spin time(seconds/10)')
     find_nemo_turn_time_entry = ttk.Entry(finding_nemo_frame, width=8)
 
     return find_nemo_label, find_nemo_speed_label, find_nemo_speed_entry, \
