@@ -46,7 +46,7 @@ def nemo_on_the_run(robot, check_box_dory_mode, dory_mode_excitement_entry):
     robot.drive_system.go(-50, 50)
     start_time = time.time()
     while True:
-        if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 12:
+        if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 9:
             stop_from_sees_something(robot)
             break
         elif time.time() - start_time >= 3:
@@ -63,8 +63,8 @@ def stop_from_sees_something(robot):
     robot.drive_system.stop()
     robot.drive_system.go(70, 70)
     while True:
-        print(robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
-        if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 4:
+        # print(robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
+        if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 3:
             robot.drive_system.stop()
             break
 
@@ -129,10 +129,12 @@ def dory_mode_activated(robot, dory_mode_excitement_entry):
         robot.sound_system.tone_maker.play_tone_sequence(song).wait()
         time.sleep(.5)
         if stop_value == 1:
+            print('stopped from push sensor')
             break
         elif robot.sensor_system.touch_sensor.is_pressed():
             stop_value = 1
         elif time.time() - start_time >= 10:
+            print('stopped from time')
             break
 
 
