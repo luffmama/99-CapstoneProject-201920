@@ -124,14 +124,11 @@ def dory_mode_activated(robot, dory_mode_excitement_entry):
     print('Dory mode has been activated')
     song = notes(dory_mode_excitement_entry)
     start_time = time.time()
-    stop_value = 0
     while True:
         robot.sound_system.tone_maker.play_tone_sequence(song).wait()
-        if stop_value == 1:
+        if robot.sensor_system.touch_sensor.is_pressed():
             print('stopped from push sensor')
             break
-        elif robot.sensor_system.touch_sensor.is_pressed():
-            stop_value = 1
         elif time.time() - start_time >= 10:
             print('stopped from time')
             break
