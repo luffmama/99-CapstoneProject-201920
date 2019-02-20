@@ -1,6 +1,7 @@
 # By Margaret Luffman
 # This is all the information for sprint 3. Th gui is first, then the handle functions, then the functions themselves.
-
+# Due to some import errors I was getting there is also an exact copy of this code in m1_run_this_on_laptop (gui and
+# handle functions) and shared_gui_delegate (everything else). Run the gui from m1_run_this_on_laptop.
 #The gui for robocop
 
 import mqtt_remote_method_calls as com
