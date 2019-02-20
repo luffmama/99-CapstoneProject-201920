@@ -1,8 +1,9 @@
 """
 Here is Emily Guajardo's Sprint 3 code:
 """
-import tkinter as ttk
 import mqtt_remote_method_calls as com
+import tkinter
+from tkinter import ttk
 import time
 
 def main():
@@ -20,7 +21,7 @@ def main():
     # -------------------------------------------------------------------------
     # The root TK object for the GUI:
     # -------------------------------------------------------------------------
-    root = ttk.Tk()
+    root = tkinter.Tk()
     root.title("CSSE 120 Capstone Project")
 
     # -------------------------------------------------------------------------
