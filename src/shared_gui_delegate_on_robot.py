@@ -410,3 +410,26 @@ class DelagateThatReceives(object):
         T.play_tone(d4, 50)
         T.play_tone(g4, 200)
         T.play_tone(c4, 100)
+
+    def m2_spin(self):
+        self.robot.drive_system.go(50, -50)
+        time.sleep(50) # change this variable so it goes in a circle
+        self.robot.drive_system.stop()
+
+    def m2_spin_and_move(self, left_wheel_speed, right_wheel_speed):
+        while True:
+            self.robot.drive_system.go(left_wheel_speed, right_wheel_speed)
+            time.sleep(50)
+            self.robot.drive_system.stop()
+            self.m3_spin()
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance() <= 10:
+                break
+
+    def m2_color_dance(self, left_wheel_speed, right_wheel_speed, color):
+        while True:
+            self.robot.drive_system.go(left_wheel_speed, right_wheel_speed)
+            if self.robot.sensor_system.color_sensor.get_color() == color:
+                self.robot.drive_system.stop()
+                self.m3_spin()
+                break
+

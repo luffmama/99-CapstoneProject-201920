@@ -3,6 +3,7 @@ Here is Emily Guajardo's Sprint 3 code:
 """
 import tkinter as ttk
 import mqtt_remote_method_calls as com
+import time
 
 def main():
     """
@@ -33,7 +34,8 @@ def main():
     # -------------------------------------------------------------------------
     # grid_frames(teleop_frame, arm_frame, control_frame, movement_frame, noise_frame)
 
-    get_dance_frame(main_frame, mqtt_sender).grid(row=0, column=0)
+    get_user_controlled_dance_frame(main_frame, mqtt_sender).grid(row=0, column=0)
+    get_automatic_dance_frame(main_frame, mqtt_sender).grid(row=1, column=0)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -42,7 +44,7 @@ def main():
 
 
 # This method constructs a frame that gives the user controls to make the Robot Dance.
-def get_dance_frame(window, mqtt_sender):
+def get_user_controlled_dance_frame(window, mqtt_sender):
     # Construct the frame to return:
     frame = ttk.Frame(window)
     frame.grid()
@@ -88,6 +90,52 @@ def get_dance_frame(window, mqtt_sender):
     return frame
 
 
+def get_automatic_dance_frame(window, mqtt_sender):
+    # Construct the frame to return:
+    frame = ttk.Frame(window)
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Automatic Dance Controls")
+    left_speed_label = ttk.Label(frame, text="Left wheel speed:")
+    right_speed_label = ttk.Label(frame, text="Right wheel speed:")
+    color_label = ttk.Label(frame, text="Color:")
+
+    left_speed_entry = ttk.Entry(frame, width=8)
+    right_speed_entry = ttk.Entry(frame, width=8)
+    color_entry = ttk.Entry(frame, width=8)
+
+    spin_and_move_button = ttk.Button(frame, text="Spin and Move Forward!")
+    color_dance_button = ttk.Button(frame, text="Dance Based on Color!")
+    line_dance_button = ttk.Button(frame, text="Line Dance!")
+    music_button = ttk.Button(frame, text="Play Music!")
+
+    # Grid the widgets:
+    frame_label.grid(row=0, column=0)
+    left_speed_label.grid(row=1, column=0)
+    right_speed_label.grid(row=2, column=0)
+    color_label.grid(row=3, column=0)
+    left_speed_entry.grid(row=1, column=1)
+    right_speed_entry.grid(row=2, column=1)
+    color_entry.grid(row=3, column=1)
+
+    spin_and_move_button.grid(row=4, column=0)
+    color_dance_button.grid(row=4, column=1)
+    line_dance_button.grid(row=5, column=0)
+    music_button.grid(row=5, column=1)
+
+    # Set the button callbacks:
+    spin_and_move_button["command"] = lambda: handle_spin_and_move(
+        left_speed_entry, right_speed_entry, mqtt_sender)
+    color_dance_button["command"] = lambda: handle_color_dance(
+        left_speed_entry, right_speed_entry, color_entry, mqtt_sender)
+    # line_dance_button["command"] = lambda: handle_left(
+    #     left_speed_entry, right_speed_entry, mqtt_sender)
+    music_button["command"] = lambda: handle_music(mqtt_sender)
+
+    return frame
+
+
 # This gives the forward button functionality
 def handle_forward(left_entry_box, right_entry_box, mqtt_sender):
     print("forward",left_entry_box.get(),right_entry_box.get())
@@ -122,7 +170,32 @@ def handle_stop(mqtt_sender):
     print("stop")
     mqtt_sender.send_message("stop")
 
+
+def handle_spin_and_move(left_speed_entry, right_speed_entry, mqtt_sender):
+    mqtt_sender.send_message("m2_spin_and_move", [left_speed_entry.get(), right_speed_entry.get()])
+
+
+def handle_color_dance(left_speed_entry, right_speed_entry, color_entry, mqtt_sender):
+    mqtt_sender.send_message("m2_color_dance", [left_speed_entry.get(),
+                                                right_speed_entry.get(),
+                                                color_entry.get()])
+
+
+def handle_line_dance(mqtt_sender):
+    pass
+
+
+def handle_music(mqtt_sender):
+    mqtt_sender.send_message("m2_play_waltz_of_the_flowers")
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
 main()
+
+
+
+
+
+def line_dance(self):
+    pass
+
