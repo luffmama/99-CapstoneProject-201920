@@ -127,7 +127,6 @@ def dory_mode_activated(robot, dory_mode_excitement_entry):
     stop_value = 0
     while True:
         robot.sound_system.tone_maker.play_tone_sequence(song).wait()
-        time.sleep(.5)
         if stop_value == 1:
             print('stopped from push sensor')
             break
@@ -136,6 +135,7 @@ def dory_mode_activated(robot, dory_mode_excitement_entry):
         elif time.time() - start_time >= 10:
             print('stopped from time')
             break
+        time.sleep(.75)
 
 
 def notes(dory_mode_excitement_entry):
