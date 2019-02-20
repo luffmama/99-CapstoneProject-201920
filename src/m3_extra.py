@@ -49,7 +49,7 @@ def nemo_on_the_run(robot, check_box_dory_mode, dory_mode_excitement_entry):
         if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 9:
             stop_from_sees_something(robot)
             break
-        elif time.time() - start_time >= 3:
+        elif time.time() - start_time >= 2.8:
             stop_from_time(robot)
             break
         elif dory_mode_toggle(robot, check_box_dory_mode):
@@ -95,12 +95,12 @@ def obstacle_found(robot, find_nemo_speed_entry, find_nemo_turn_time):
     robot.drive_system.stop()
     robot.arm_and_claw.raise_arm()
     robot.drive_system.go(find_nemo_speed_entry, -find_nemo_speed_entry)
-    time.sleep(find_nemo_turn_time/10)
+    time.sleep(find_nemo_turn_time/25)
     robot.drive_system.stop()
     robot.arm_and_claw.lower_arm()
     time.sleep(.1)
     robot.drive_system.go(-find_nemo_speed_entry, find_nemo_speed_entry)
-    time.sleep(find_nemo_turn_time/10)
+    time.sleep(find_nemo_turn_time/25)
     robot.drive_system.stop()
     time.sleep(.1)
 
