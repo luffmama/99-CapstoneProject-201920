@@ -384,6 +384,7 @@ class DelagateThatReceives(object):
         print('shared delegate m3_find_nemo')
         m3_extra.m3_find_nemo(self.robot, int(find_nemo_speed_entry), int(find_nemo_turn_time), check_box_dory_mode, int(dory_mode_excitement_entry))
 
+    # allows the robot to play waltz of the flowers
     def m2_play_waltz_of_the_flowers(self):
         T = self.robot.sound_system.tone_maker
 
@@ -410,11 +411,13 @@ class DelagateThatReceives(object):
         T.play_tone(g4, 800)
         T.play_tone(c4, 400)
 
+    # has the robot spin clockwise for 20 seconds
     def m2_spin(self):
         self.robot.drive_system.go(25, -25)
         time.sleep(20) # change this variable so it goes in a circle
         self.robot.drive_system.stop()
 
+    # tells the robot to spin and move
     def m2_spin_and_move(self, left_wheel_speed, right_wheel_speed):
         while True:
             self.robot.drive_system.go(left_wheel_speed, right_wheel_speed)
@@ -424,6 +427,7 @@ class DelagateThatReceives(object):
             if self.robot.sensor_system.ir_proximity_sensor.get_distance() <= 10:
                 break
 
+    # tells the robot to dance based on the color (which is given by the user)
     def m2_color_dance(self, left_wheel_speed, right_wheel_speed, color):
         self.go_straight_until_color_is(color, left_wheel_speed)
         self.m2_spin()
@@ -438,6 +442,8 @@ class DelagateThatReceives(object):
                 break
         """
 
+    # tells the robot to sense an object and raise its arm
+    # it then spins and then lowers its arm
     def m2_pick_up_partner(self, left_wheel_speed, right_wheel_speed):
         self.robot.drive_system.go(left_wheel_speed, right_wheel_speed)
         while True:
@@ -448,21 +454,3 @@ class DelagateThatReceives(object):
                 self.robot.arm_and_claw.lower_arm()
                 break
 
-"""
-    def m2_line_dance(self, left_wheel_speed, right_wheel_speed):
-        print('***')
-        original = self.robot.sensor_system.color_sensor.get_reflected_light_intensity()
-        original_time = time.time()
-        print("orginial is: ", original)
-        while True:
-            current = self.robot.sensor_system.color_sensor.get_reflected_light_intensity()
-            print("current is: ", current)
-            if abs(original - current) <= 5:
-                self.robot.drive_system.go(left_wheel_speed, right_wheel_speed)
-            elif abs(original - current) > 5:
-                self.robot.drive_system.stop()
-                self.robot.drive_system.go(-25, 25)
-            if int(time.time() - original_time) > 60:
-                self.robot.drive_system.stop()
-                break
-"""

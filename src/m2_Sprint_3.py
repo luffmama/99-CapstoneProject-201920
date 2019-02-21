@@ -91,6 +91,7 @@ def get_user_controlled_dance_frame(window, mqtt_sender):
     return frame
 
 
+# created the frame for the automatic dances
 def get_automatic_dance_frame(window, mqtt_sender):
     # Construct the frame to return:
     frame = tkinter.Frame(window, borderwidth=5, relief="ridge", background='pink')
@@ -172,16 +173,19 @@ def handle_stop(mqtt_sender):
     mqtt_sender.send_message("stop")
 
 
+# This gave the spin and move button functionality
 def handle_spin_and_move(left_speed_entry, right_speed_entry, mqtt_sender):
     mqtt_sender.send_message("m2_spin_and_move", [left_speed_entry.get(), right_speed_entry.get()])
 
 
+# This gave the color dance button functionality
 def handle_color_dance(left_speed_entry, right_speed_entry, color_entry, mqtt_sender):
     mqtt_sender.send_message("m2_color_dance", [left_speed_entry.get(),
                                                 right_speed_entry.get(),
                                                 color_entry.get()])
 
 
+# This gave the pick up partner button functionality
 def handle_pick_up_partner(left_speed_entry, right_speed_entry, mqtt_sender):
     print('*')
     mqtt_sender.send_message("m2_pick_up_partner", [left_speed_entry.get(),
@@ -189,6 +193,7 @@ def handle_pick_up_partner(left_speed_entry, right_speed_entry, mqtt_sender):
     print('**')
 
 
+# This gave the music button functionality
 def handle_music(mqtt_sender):
     mqtt_sender.send_message("m2_play_waltz_of_the_flowers")
 # -----------------------------------------------------------------------------
