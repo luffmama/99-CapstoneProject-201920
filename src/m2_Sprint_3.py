@@ -47,7 +47,7 @@ def main():
 # This method constructs a frame that gives the user controls to make the Robot Dance.
 def get_user_controlled_dance_frame(window, mqtt_sender):
     # Construct the frame to return:
-    frame = ttk.Frame(window)
+    frame = tkinter.Frame(window, borderwidth=5, relief="ridge", background='pink')
     frame.grid()
 
     # Construct the widgets on the frame:
@@ -93,7 +93,7 @@ def get_user_controlled_dance_frame(window, mqtt_sender):
 
 def get_automatic_dance_frame(window, mqtt_sender):
     # Construct the frame to return:
-    frame = ttk.Frame(window)
+    frame = tkinter.Frame(window, borderwidth=5, relief="ridge", background='pink')
     frame.grid()
 
     # Construct the widgets on the frame:
@@ -108,7 +108,7 @@ def get_automatic_dance_frame(window, mqtt_sender):
 
     spin_and_move_button = ttk.Button(frame, text="Spin and Move Forward!")
     color_dance_button = ttk.Button(frame, text="Dance Based on Color!")
-    line_dance_button = ttk.Button(frame, text="Line Dance!")
+    pick_up_partner_button = ttk.Button(frame, text="Pick Up Partner!")
     music_button = ttk.Button(frame, text="Play Music!")
 
     # Grid the widgets:
@@ -122,7 +122,7 @@ def get_automatic_dance_frame(window, mqtt_sender):
 
     spin_and_move_button.grid(row=4, column=0)
     color_dance_button.grid(row=4, column=1)
-    line_dance_button.grid(row=5, column=0)
+    pick_up_partner_button.grid(row=5, column=0)
     music_button.grid(row=5, column=1)
 
     # Set the button callbacks:
@@ -130,8 +130,8 @@ def get_automatic_dance_frame(window, mqtt_sender):
         left_speed_entry, right_speed_entry, mqtt_sender)
     color_dance_button["command"] = lambda: handle_color_dance(
         left_speed_entry, right_speed_entry, color_entry, mqtt_sender)
-    # line_dance_button["command"] = lambda: handle_left(
-    #     left_speed_entry, right_speed_entry, mqtt_sender)
+    pick_up_partner_button["command"] = lambda: handle_pick_up_partner(
+        left_speed_entry, right_speed_entry, mqtt_sender)
     music_button["command"] = lambda: handle_music(mqtt_sender)
 
     return frame
@@ -182,8 +182,11 @@ def handle_color_dance(left_speed_entry, right_speed_entry, color_entry, mqtt_se
                                                 color_entry.get()])
 
 
-def handle_line_dance(mqtt_sender):
-    pass
+def handle_pick_up_partner(left_speed_entry, right_speed_entry, mqtt_sender):
+    print('*')
+    mqtt_sender.send_message("m2_pick_up_partner", [left_speed_entry.get(),
+                                                    right_speed_entry.get()])
+    print('**')
 
 
 def handle_music(mqtt_sender):
@@ -194,9 +197,4 @@ def handle_music(mqtt_sender):
 main()
 
 
-
-
-
-def line_dance(self):
-    pass
 

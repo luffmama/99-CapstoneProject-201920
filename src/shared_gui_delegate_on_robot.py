@@ -35,7 +35,6 @@ class DelagateThatReceives(object):
     #robot m4_extra ^^^.
 
 
-
     def forward(self, left_wheel_speed, right_wheel_speed):
         print("got to shared gui")
         self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
@@ -395,41 +394,75 @@ class DelagateThatReceives(object):
         d4 = 293.66
         g4 = 392
 
-        T.play_tone(g3, 100)
-        T.play_tone(c4, 100)
-        T.play_tone(e4, 100)
-        T.play_tone(f4, 250)
-        T.play_tone(e4, 50)
-        T.play_tone(e4, 600)
+        T.play_tone(g3, 400)
+        T.play_tone(c4, 400)
+        T.play_tone(e4, 400)
+        T.play_tone(f4, 1000)
+        T.play_tone(e4, 200)
+        T.play_tone(e4, 2400)
 
-        T.play_tone(g3, 100)
-        T.play_tone(c4, 100)
-        T.play_tone(e4, 100)
-        T.play_tone(f4, 100)
-        T.play_tone(e4, 150)
-        T.play_tone(d4, 50)
-        T.play_tone(g4, 200)
-        T.play_tone(c4, 100)
+        T.play_tone(g3, 400)
+        T.play_tone(c4, 400)
+        T.play_tone(e4, 400)
+        T.play_tone(f4, 400)
+        T.play_tone(e4, 600)
+        T.play_tone(d4, 200)
+        T.play_tone(g4, 800)
+        T.play_tone(c4, 400)
 
     def m2_spin(self):
-        self.robot.drive_system.go(50, -50)
-        time.sleep(50) # change this variable so it goes in a circle
+        self.robot.drive_system.go(25, -25)
+        time.sleep(20) # change this variable so it goes in a circle
         self.robot.drive_system.stop()
 
     def m2_spin_and_move(self, left_wheel_speed, right_wheel_speed):
         while True:
             self.robot.drive_system.go(left_wheel_speed, right_wheel_speed)
-            time.sleep(50)
+            time.sleep(2)
             self.robot.drive_system.stop()
-            self.m3_spin()
+            self.m2_spin()
             if self.robot.sensor_system.ir_proximity_sensor.get_distance() <= 10:
                 break
 
     def m2_color_dance(self, left_wheel_speed, right_wheel_speed, color):
+        self.go_straight_until_color_is(color, left_wheel_speed)
+        self.m2_spin()
+        """
+        self.robot.drive_system.go(left_wheel_speed, right_wheel_speed)
         while True:
-            self.robot.drive_system.go(left_wheel_speed, right_wheel_speed)
-            if self.robot.sensor_system.color_sensor.get_color() == color:
+            x = self.robot.sensor_system.color_sensor.get_color()
+            print(x)
+            if x == color:
                 self.robot.drive_system.stop()
-                self.m3_spin()
+                self.m2_spin()
+                break
+        """
+
+    def m2_pick_up_partner(self, left_wheel_speed, right_wheel_speed):
+        self.robot.drive_system.go(left_wheel_speed, right_wheel_speed)
+        while True:
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 4:
+                self.robot.drive_system.stop()
+                self.robot.arm_and_claw.raise_arm()
+                self.m2_spin()
+                self.robot.arm_and_claw.lower_arm()
                 break
 
+"""
+    def m2_line_dance(self, left_wheel_speed, right_wheel_speed):
+        print('***')
+        original = self.robot.sensor_system.color_sensor.get_reflected_light_intensity()
+        original_time = time.time()
+        print("orginial is: ", original)
+        while True:
+            current = self.robot.sensor_system.color_sensor.get_reflected_light_intensity()
+            print("current is: ", current)
+            if abs(original - current) <= 5:
+                self.robot.drive_system.go(left_wheel_speed, right_wheel_speed)
+            elif abs(original - current) > 5:
+                self.robot.drive_system.stop()
+                self.robot.drive_system.go(-25, 25)
+            if int(time.time() - original_time) > 60:
+                self.robot.drive_system.stop()
+                break
+"""

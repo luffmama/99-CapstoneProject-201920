@@ -12,6 +12,7 @@ import shared_gui_delegate_on_robot
 
 def main():
     # run_test_arm()
+    running_gui()
     """
     This code, which must run on the EV3 ROBOT:
       1. Makes the EV3 robot to various things.
@@ -25,12 +26,14 @@ def run_test_arm():
 
 def running_gui():
     robot = rosebot.RoseBot()
-    delagate_that_receives = shared_gui_delegate_on_robot.DelegateThatReceives(robot)
+    delagate_that_receives = shared_gui_delegate_on_robot.DelagateThatReceives(robot)
     mqtt_receiver = com.MqttClient(delagate_that_receives)
     mqtt_receiver.connect_to_pc()
 
     while True:
         time.sleep(0.01)
+        if delagate_that_receives.is_quit == True:
+            break
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
